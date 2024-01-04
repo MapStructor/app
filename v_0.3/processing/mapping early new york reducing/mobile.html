@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- SOURCES-->
+
+    <title>Mapping Early New York - New Amsterdam History</title>
+
+    <meta
+      name="description"
+      content="New Amsterdam - Early New York Interactive Map with History Timeline"
+    />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="robots" content="all" />
+
+    <!--  Essential META Tags -->
+    <meta
+      property="og:title"
+      content="Mapping Early New York - New Amsterdam History"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://nahc-mapping.org/mappingNY/icons/FortAmsterdam.jpg"
+    />
+    <meta property="og:url" content="https://nahc-mapping.org/mappingNY/" />
+    <meta name="twitter:card" content="new_amsterdam_icon" />
+
+    <!--  Non-Essential, But Recommended -->
+    <meta
+      property="og:description"
+      content="New Amsterdam - Early New York Interactive Map with History Timeline"
+    />
+    <meta property="og:site_name" content="New Amsterdam History" />
+    <meta name="twitter:image:alt" content="New Amsterdam Icon" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="theme-color" content="#00A2E5" />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="Mapping Early New York | New Amsterdam History"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <link rel="manifest" href="manifest.json" />
+
+    <link rel="apple-touch-icon" type="image/png" href="./icons/icon.png" />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="57x57"
+      href="./icons/icon_57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="60x60"
+      href="./icons/icon_60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="72x72"
+      href="./icons/icon_72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="76x76"
+      href="./icons/icon_76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="114x114"
+      href="./icons/icon_114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="120x120"
+      href="./icons/icon_120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="144x144"
+      href="./icons/icon_144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="152x152"
+      href="./icons/icon_152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="167x167"
+      href="./icons/icon_167x167.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="180x180"
+      href="./icons/icon_180x180.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="192x192"
+      href="./icons/icon_192x192.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="512x512"
+      href="./icons/icon_512x512.png"
+    />
+
+    <link
+      rel="shortcut icon"
+      href="./icons/icon_32x32.ico"
+      type="image/x-icon"
+    />
+    <link rel="icon" href="./icons/icon_32x32.ico" type="image/x-icon" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,600italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="timeline/vendor/jquery-ui-1.10.3.custom/css/ui-darkness/jquery-ui-1.10.3.custom.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="timeline/vendor/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="timeline/vendor/jquery.ui.touch-punch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
+
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.css"
+      type="text/css"
+    />
+    <link href="timeline/index.css" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- MODAL INFO JS SOURCE -->
+    <script src="timeline/js/modalinfo.js"></script>
+
+    <script src="js/utils.js"></script>
+    <script src="js/mobile.js"></script>
+
+    <script type="text/javascript" src="./js/google-analytics.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-159545294-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-159545294-1");
+    </script>
+
+    <link rel="stylesheet" href="./css/mobile.css" />
+  </head>
+
+  <body>
+    <div id="shadoWall"></div>
+
+    <input class="checker" type="checkbox" id="o" hidden />
+    <div class="modal">
+      <div class="modal-body">
+        <div class="modal-header">
+          <h1>ABOUT</h1>
+          <label for="o" id="close" title="Close">&times;</label>
+        </div>
+        <div class="modal-content">
+          New York City was founded by the Dutch in 1624 as
+          <i>New Amsterdam</i>, the capital of New Netherland. The New Amsterdam
+          History Center is devoted to documenting and mapping New Amsterdam,
+          its diverse people, landscapes, institutions and global legacy today.
+          <p>
+            We’ve presented several versions of the <i>Castello Plan</i> and the
+            <i>Dutch Grants Map</i> here. You can see the settlement of houses,
+            farms, taverns and workshops, surrounded by walls. Over the three
+            centuries that followed, the area became the Financial District. The
+            east wall was torn down and named Wall Street. The canals were paved
+            over and turned into streets and in between developed skysrapers,
+            and the island was expanded with infill. Above ground, almost
+            nothing remains of New Amsterdam except the original street pattern.
+            Underground, archeologists have found evidence of the plots of
+            houses and gardens, Amsterdam yellow brick, and pollen samples of
+            plants.
+          </p>
+          You can swipe the map to compare the Castello Plan in 1660 to the
+          present, and explore each lot, where it shows what was there and who
+          lived there. Our next steps are to expand through the full history of
+          New Amsterdam with a timeline from 1624 to 1664, when it was taken
+          over by the English.
+          <p>
+            We need your help to make this work happen. Donate now to develop
+            the map and expand the research.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="header">
+      <a href="http://newamsterdamhistorycenter.org" class="logo">
+        <img
+          id="logo-img-wide"
+          src="http://newamsterdamhistorycenter.org/wp-content/uploads/2018/02/cropped-cropped-sprite-1.png"
+          align="middle"
+        />
+        <img id="logo-img" src="icons/icon_57x57.png" align="middle" />
+      </a>
+
+      <div id="header_text" class="headerText">
+        <span id="headerTextSuffix">|</span> Mapping Early New York
+      </div>
+
+      <div class="header-right">
+        <a
+          class="encyclopedia"
+          href="https://newamsterdamhistorycenter.org/full-3d-model/"
+          target="_blank"
+          >3D Map
+          <img
+            class="img2"
+            height="18"
+            src="https://encyclopedia.nahc-mapping.org/sites/default/files/inline-images/external_link_icon.png"
+            width="18"
+        /></a>
+        <a
+          class="encyclopedia"
+          href="https://encyclopedia.nahc-mapping.org/"
+          target="_blank"
+          >Encyclopedia
+          <img
+            class="img2"
+            height="18"
+            src="https://encyclopedia.nahc-mapping.org/sites/default/files/inline-images/external_link_icon.png"
+            width="18"
+        /></a>
+        <label for="o" id="open-popup" style="display: none">Open PopUp</label>
+        <label id="about" class="trigger-popup" title="Open">ABOUT</label>
+        <i class="fa fa-2x fa-info-circle trigger-popup" id="info"></i>
+      </div>
+    </div>
+
+    <div id="rightInfoBar" class="rightInfoBarBorder">
+      <i id="mobi-hide-infobar" class="fa fa-times-circle fa-3x"></i>
+
+      <div class="infoLayerElem" id="infoLayerGrantLots"></div>
+      <div class="infoLayerElem" id="infoLayerDutchGrants"></div>
+      <div class="infoLayerElem" id="infoLayerGravesend"></div>
+      <div class="infoLayerElem" id="infoLayerNativeGroups"></div>
+      <div class="infoLayerElem" id="infoLayerKarl"></div>
+      <div class="infoLayerElem" id="infoLayerFarms"></div>
+      <div class="infoLayerElem" id="infoLayerCastello"></div>
+      <div class="infoLayerElem" id="infoLayerSettlements"></div>
+      <div class="infoLayerElem" id="infoLayerInfoPoint"></div>
+      <div class="infoLayerElem" id="demoLayerInfo"></div>
+      <div class="infoLayerElem" id="infoLayerCurrLots"></div>
+    </div>
+
+    <div id="studioMenu">
+      <i id="mobi-hide-sidebar" class="fa fa-arrow-circle-down fa-3x"></i>
+
+      <p class="title">LAYERS</p>
+
+      <br />
+      <center>
+        <b
+          ><i
+            class="fas fa-minus-square compress-expand-icon"
+            id="manahatta-section-caret"
+            onclick="sectionCompressExpand('#manahatta-section-layers','#manahatta-section-caret')"
+          ></i>
+          &nbsp; Manhattan</b
+        >
+      </center>
+
+      <div id="manahatta-section-layers">
+        <!-- Manahatta Items -->
+        <div class="layer-list-row">
+          <input
+            type="checkbox"
+            class="manahatta_items"
+            id="manahatta_items"
+            name="manahatta_items"
+          />
+          <i
+            class="fas fa-plus-square compress-expand-icon"
+            id="manahatta-layer-caret"
+            onclick="itemsCompressExpand('.manahatta_layer_item','#manahatta-layer-caret')"
+          ></i>
+          <label for="manahatta_items">
+            1609 | Manahatta
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtobounds('Manhattan')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="manahatta-info"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lenape Trails -->
+        <div class="layer-list-row manahatta_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            class="manahatta"
+            id="lenape_trails"
+            name="lenape_trails"
+          />
+          <label for="lenape_trails">
+            <i class="fas fa-slash slash-icon" style="color: #ff0000"></i>
+            Lenape Trails</label
+          >
+        </div>
+
+        <!-- Manahatta Shoreline -->
+        <div class="layer-list-row manahatta_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            class="manahatta"
+            id="manahatta_shoreline"
+            name="manahatta_shoreline"
+          />
+          <label for="manahatta_shoreline">
+            <i class="fas fa-slash slash-icon" style="color: #ffd700"></i>
+            Manahatta Shoreline</label
+          >
+        </div>
+
+        <!-- Streams (c 1600) -->
+        <div class="layer-list-row manahatta_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            class="manahatta"
+            id="manahatta_streams"
+            name="manahatta_streams"
+          />
+          <label for="manahatta_streams">
+            <i class="fas fa-slash slash-icon" style="color: #0000ff"></i>
+            Streams (c 1600)</label
+          >
+        </div>
+
+        <!-- Farms Layers Items -->
+        <div class="layer-list-row">
+          <input
+            type="checkbox"
+            id="farms_layer_items"
+            name="farms_layer_items"
+          />
+          <i
+            class="fas fa-plus-square compress-expand-icon"
+            id="farms-layer-caret"
+            onclick="itemsCompressExpand('.farms_layer_item','#farms-layer-caret')"
+          ></i>
+          <label for="farms_layer_items">
+            1638-83 | Original Grants &amp; Farms
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtocenter('Original Grants')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="farms-info-layer"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Farms Layers #FFC0CB -->
+        <div class="layer-list-row farms_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            id="farms_layer"
+            class="farms_layer"
+            name="farms_layer"
+          />
+          <label for="farms_layer">
+            <i class="fa fa-square" style="color: #e3ed58"></i>
+            Information</label
+          >
+        </div>
+
+        <!-- Farms Layers Lines #FFD700 -->
+        <div class="layer-list-row farms_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            id="farms_layer_lines"
+            class="farms_layer"
+            name="farms_layer_lines"
+          />
+          <label for="farms_layer_lines">
+            <i class="far fa-square" style="color: #ff0000"></i> Lines</label
+          >
+        </div>
+
+        <!-- Dutch Grants  -->
+        <div class="layer-list-row">
+          <input
+            type="checkbox"
+            id="grants_layer_items"
+            name="grants_layer_items"
+          />
+          <i
+            class="fas fa-plus-square compress-expand-icon"
+            id="dutch-grants-layer-caret"
+            onclick="itemsCompressExpand('.dutch_grants_layer_item','#dutch-grants-layer-caret')"
+          ></i>
+          <label for="grants_layer_items">
+            1640-64 | Dutch Grants
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtocenter('NA')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="grants-info-layer"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dutch Grants Layers -->
+        <div class="layer-list-row dutch_grants_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            id="grants_layer"
+            class="grants_layer"
+            name="grants_layer"
+          />
+          <label for="grants_layer">
+            <i class="fa fa-square" style="color: #e3ed58"></i>
+            Information</label
+          >
+        </div>
+
+        <!-- Dutch Grants Layers Lines -->
+        <div class="layer-list-row dutch_grants_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            id="grants_layer_lines"
+            class="grants_layer"
+            name="grants_layer_lines"
+          />
+          <label for="grants_layer_lines">
+            <i class="far fa-square" style="color: #ff0000"></i> Lines</label
+          >
+        </div>
+
+        <!-- Circle -->
+        <div class="layer-list-row">
+          <input
+            type="checkbox"
+            id="circle_point"
+            name="circle_point"
+            checked="checked"
+          />
+          <!-- disabled="disabled" -->
+          <label for="circle_point">
+            <i class="fa fa-play-circle" style="color: #097911"></i>1643-75 |
+            Lot Events: C7
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtocenter('NA')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="demo-taxlot-info-layer"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grants Layers -->
+        <div class="layer-list-row">
+          <input type="checkbox" id="grant_lots" name="grant_lots" />
+          <label for="grant_lots">
+            <i class="fa fa-square" style="color: #008888"></i> 1643-67 | Demo
+            Grant Divisions: C7
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtocenter('NA')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="demo-grant-info-layer"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Castello Points -->
+        <div class="layer-list-row">
+          <input type="checkbox" id="castello_points" name="castello_points" />
+          <label for="castello_points">
+            <i class="fa fa-circle" style="color: #ff0000"></i> 1660 | Castello
+            Taxlots
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtocenter('NA')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="castello-info-layer"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current Lots Items -->
+        <div class="layer-list-row">
+          <input
+            type="checkbox"
+            id="current_lots_items"
+            name="current_lots_items"
+          />
+          <i
+            class="fas fa-plus-square compress-expand-icon"
+            id="current-lots-layer-caret"
+            onclick="itemsCompressExpand('.current_lots_layer_item','#current-lots-layer-caret')"
+          ></i>
+          <label for="current_lots_items">
+            Current Lots
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtocenter('NA')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="current-lots-info-layer"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current Lots -->
+        <div class="layer-list-row current_lots_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            class="current_lots"
+            id="current_lots"
+            name="current_lots"
+          />
+          <label for="current_lots">
+            <i class="fa fa-square" style="color: #7b68ee"></i>
+            Information</label
+          >
+        </div>
+
+        <!-- Current Lots Lines -->
+        <div class="layer-list-row current_lots_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            class="current_lots"
+            id="current_lots_lines"
+            name="current_lots_lines"
+          />
+          <label for="current_lots_lines">
+            <i class="far fa-square" style="color: #000080"></i> Lines</label
+          >
+        </div>
+
+        <!-- Current Buildings Items -->
+        <div class="layer-list-row">
+          <input
+            type="checkbox"
+            id="current_buildings_items"
+            name="current_buildings_items"
+          />
+          <label for="current_buildings_items">
+            <i class="fas fa-caret-down"></i> Current Buildings
+            <div class="dummy-label-layer-space"></div
+          ></label>
+        </div>
+
+        <!-- Current Buildings -->
+        <div class="layer-list-row">
+          <input
+            type="checkbox"
+            class="current_buildings"
+            id="current_buildings"
+            name="current_buildings"
+          />
+          <label for="current_buildings">
+            <i class="fa fa-square" style="color: #ff7f50"></i> Current
+            Buildings</label
+          >
+        </div>
+
+        <!-- Current Buildings Lines -->
+        <div class="layer-list-row">
+          <input
+            type="checkbox"
+            class="current_buildings"
+            id="current_buildings_lines"
+            name="current_buildings_lines"
+          />
+          <label for="current_buildings_lines">
+            <i class="far fa-square" style="color: #0000ff"></i> Current
+            Buildings
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtocenter('NA')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="current-buildings-lines-info-layer"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br />
+      <center>
+        <b
+          ><i
+            class="fas fa-plus-square compress-expand-icon"
+            id="long-island-section-caret"
+            onclick="sectionCompressExpand('#long-island-section-layers','#long-island-section-caret')"
+          ></i>
+          &nbsp; Long Island</b
+        >
+      </center>
+
+      <div id="long-island-section-layers">
+        <!-- Settlements Items -->
+        <div class="layer-list-row">
+          <input
+            type="checkbox"
+            id="settlements_items"
+            name="settlements_items"
+          />
+          <i
+            class="fas fa-minus-square compress-expand-icon"
+            id="settlements-layer-caret"
+            onclick="itemsCompressExpand('.settlements_layer_item','#settlements-layer-caret')"
+          ></i>
+          <label for="settlements_items">
+            1600-64 | Settlements
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtobounds('Brooklyn')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="settlements-info-layer"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settlements Points -->
+        <div class="layer-list-row settlements_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            class="settlements"
+            id="settlements_points"
+            name="settlements_points"
+          />
+          <label for="settlements_points">
+            <i class="fa fa-circle" style="color: #0b0ee5"></i> Locations</label
+          >
+        </div>
+
+        <!-- Settlements Labels -->
+        <div class="layer-list-row settlements_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            class="settlements"
+            id="settlements_labels"
+            name="settlements_labels"
+          />
+          <label for="settlements_labels">
+            <i class="fa fa-comment-dots" style="color: #0b0ee5"></i>
+            Labels</label
+          >
+        </div>
+
+        <!-- Indian Paths -->
+        <div class="layer-list-row">
+          <input type="checkbox" id="indian_paths" name="indian_paths" />
+          <label for="indian_paths">
+            <i class="fas fa-slash slash-icon" style="color: #ff0000"></i>
+            1600-64 | Paths
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtobounds('Brooklyn')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="indian-paths-info-layer"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Long Island Native Groups Layers -->
+        <div class="layer-list-row">
+          <input
+            type="checkbox"
+            id="native_groups_layer_items"
+            name="native_groups_layer_items"
+          />
+          <i
+            class="fas fa-minus-square compress-expand-icon"
+            id="native-groups-layer-caret"
+            onclick="itemsCompressExpand('.native_groups_layer_item','#native-groups-layer-caret')"
+          ></i>
+          <label for="native_groups_layer_items">
+            1600s | Long Island Tribes
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtobounds('LongIsland')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="native-groups-info-layer"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Long Island Native Groups Labels -->
+        <div class="layer-list-row native_groups_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            class="native_groups_layer"
+            id="native_groups_labels"
+            name="native_groups_labels"
+          />
+          <label for="native_groups_labels">
+            <i class="fa fa-comment-dots" style="color: #0b0ee5"></i>
+            Labels</label
+          >
+        </div>
+
+        <!-- Long Island Native Groups Area -->
+        <div class="layer-list-row native_groups_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            id="native_groups_area"
+            class="native_groups_layer"
+            name="native_groups_area"
+          />
+          <label for="native_groups_area">
+            <i class="fa fa-square" style="color: #ff1493"></i> Area</label
+          >
+        </div>
+
+        <!-- Long Island Native Groups Lines -->
+        <div class="layer-list-row native_groups_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            id="native_groups_lines"
+            class="native_groups_layer"
+            name="native_groups_lines"
+          />
+          <label for="native_groups_lines">
+            <i class="far fa-square" style="color: #ff0000"></i> Borders</label
+          >
+        </div>
+
+        <!-- Gravesend Layers -->
+        <div class="layer-list-row">
+          <input
+            type="checkbox"
+            id="gravesend_layer_items"
+            name="gravesend_layer_items"
+          />
+          <i
+            class="fas fa-minus-square compress-expand-icon"
+            id="gravesend-layer-caret"
+            onclick="itemsCompressExpand('.gravesend_layer_item','#gravesend-layer-caret')"
+          ></i>
+          <label for="gravesend_layer_items">
+            1609-Present | Brooklyn Grants
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtobounds('Brooklyn')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="boundaries-info-layer"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gravesend Area -->
+        <div class="layer-list-row gravesend_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            id="gravesend_layer"
+            class="gravesend_layer"
+            name="gravesend_layer"
+          />
+          <label for="gravesend_layer">
+            <i class="fa fa-square" style="color: #e3ed58"></i>
+            Information</label
+          >
+        </div>
+
+        <!-- Gravesend Lines -->
+        <div class="layer-list-row gravesend_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            id="gravesend_layer_lines"
+            class="gravesend_layer"
+            name="gravesend_layer_lines"
+          />
+          <label for="gravesend_layer_lines">
+            <i class="far fa-square" style="color: #ff0000"></i> Lines</label
+          >
+        </div>
+
+        <!-- Karl Long Island Lyers -->
+        <div class="layer-list-row">
+          <input
+            type="checkbox"
+            id="karl_layer_items"
+            name="karl_layer_items"
+          />
+          <i
+            class="fas fa-minus-square compress-expand-icon"
+            id="karl-layer-caret"
+            onclick="itemsCompressExpand('.karl_layer_item','#karl-layer-caret')"
+          ></i>
+          <label for="karl_layer_items">
+            1636-Present | Long Island Towns
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtobounds('LongIsland')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="ny_towns"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Karl Long Island Area -->
+        <div class="layer-list-row karl_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            id="karl_layer"
+            class="karl_layer"
+            name="karl_layer"
+          />
+          <label for="karl_layer">
+            <i class="fa fa-square" style="color: #e3ed58"></i>
+            Information</label
+          >
+        </div>
+
+        <!-- Karl Long Island Lines -->
+        <div class="layer-list-row karl_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            id="karl_layer_lines"
+            class="karl_layer"
+            name="karl_layer_lines"
+          />
+          <label for="karl_layer_lines">
+            <i class="far fa-square" style="color: #ff0000"></i> Lines</label
+          >
+        </div>
+
+        <!-- Long Island Items -->
+        <div class="layer-list-row">
+          <input
+            type="checkbox"
+            id="longisland_items"
+            name="longisland_items"
+          />
+          <i
+            class="fas fa-minus-square compress-expand-icon"
+            id="long-island-caret"
+            onclick="itemsCompressExpand('.long_island_item','#long-island-caret')"
+          ></i>
+          <label for="longisland_items"
+            >Long Island Area Coastline
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtobounds('LongIsland')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="longisland-info-layer"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Long Island Area -->
+        <div class="layer-list-row long_island_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            class="long_island"
+            id="longisland_area"
+            name="longisland_area"
+          />
+          <label for="longisland_area">
+            <i class="fa fa-square" style="color: #00ff7f"></i> Area</label
+          >
+        </div>
+
+        <!-- Long Island Coastline -->
+        <div class="layer-list-row long_island_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            class="long_island"
+            id="longisland_coastline"
+            name="longisland_coastline"
+          />
+          <label for="longisland_coastline">
+            <i class="fas fa-slash slash-icon" style="color: #006400"></i>
+            Coastline</label
+          >
+        </div>
+      </div>
+
+      <br />
+      <center>
+        <b
+          ><i
+            class="fas fa-plus-square compress-expand-icon"
+            id="info-section-caret"
+            onclick="sectionCompressExpand('#info-section-layers','#info-section-caret')"
+          ></i>
+          &nbsp; Info</b
+        >
+      </center>
+
+      <div id="info-section-layers">
+        <!-- Info Items -->
+        <div class="layer-list-row">
+          <input type="checkbox" id="info_items" name="info_items" />
+          <i
+            class="fas fa-minus-square compress-expand-icon"
+            id="info-layer-caret"
+            onclick="itemsCompressExpand('.info_layer_item','#info-layer-caret')"
+          ></i>
+          <label for="info_items">
+            Info Items
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i
+                class="fa fa-crosshairs zoom-to-layer"
+                onclick="zoomtobounds('LongIsland')"
+                title="Zoom to Layer"
+              ></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="about-info"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Points -->
+        <div class="layer-list-row info_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            class="info-item"
+            id="info_points"
+            name="info_points"
+          />
+          <label for="info_points">
+            <i class="fa fa-circle" style="color: #008888"></i> Locations</label
+          >
+        </div>
+
+        <!-- Info Labels -->
+        <div class="layer-list-row info_layer_item">
+          &nbsp; &nbsp; &nbsp;
+          <input
+            type="checkbox"
+            class="info-item"
+            id="info_labels"
+            name="info_labels"
+          />
+          <label for="info_labels">
+            <i class="fa fa-comment-dots" style="color: #008888"></i>
+            Labels</label
+          >
+        </div>
+      </div>
+
+      <br />
+
+      <div>
+        <hr />
+        <p class="title">MAPS</p>
+        <!--CURRENT SATELLITE -->
+        <div class="layer-list-row">
+          <input
+            class="clm2yrx1y025401p93v26bhyl"
+            type="radio"
+            name="ltoggle"
+            value="clm2yrx1y025401p93v26bhyl"
+            checked="checked"
+          />
+          <input
+            class="clm2yrx1y025401p93v26bhyl"
+            type="radio"
+            name="rtoggle"
+            value="clm2yrx1y025401p93v26bhyl"
+          />
+          &nbsp;
+          <label for="clm2yrx1y025401p93v26bhyl"
+            >Current Satellite
+            <div class="dummy-label-layer-space"></div
+          ></label>
+          <div class="layer-buttons-block">
+            <div class="layer-buttons-list">
+              <i style="width: 16px"></i>
+              <i
+                class="fa fa-info-circle layer-info trigger-popup"
+                id="satellite-image"
+                title="Layer Info"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <center>
+          <b
+            ><i
+              class="fas fa-minus-square compress-expand-icon"
+              id="castello-maps-section-caret"
+              onclick="sectionCompressExpand('#castello-maps-section','#castello-maps-section-caret')"
+            ></i>
+            &nbsp; 1660 | Castello Plan</b
+          >
+        </center>
+
+        <div id="castello-maps-section">
+          <!--CASTELLO COLORED (DEFAULT)-->
+          <div class="layer-list-row">
+            <input
+              class="clm2yu5fg022801phfh479c8x"
+              type="radio"
+              name="ltoggle"
+              value="clm2yu5fg022801phfh479c8x"
+            />
+            <input
+              class="clm2yu5fg022801phfh479c8x"
+              type="radio"
+              name="rtoggle"
+              value="clm2yu5fg022801phfh479c8x"
+              checked="checked"
+            />
+            &nbsp;
+            <label for="clm2yu5fg022801phfh479c8x"
+              >Castello Redrawn (Default)
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('NA')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="castello-redrawn-plan"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!--ORIGINAL CASTELLO-->
+          <div class="layer-list-row">
+            <input
+              class="clm9xh68b031301qx6k446vtt"
+              type="radio"
+              name="ltoggle"
+              value="clm9xh68b031301qx6k446vtt"
+            />
+            <input
+              class="clm9xh68b031301qx6k446vtt"
+              type="radio"
+              name="rtoggle"
+              value="clm9xh68b031301qx6k446vtt"
+            />
+            &nbsp;
+            <label for="clm9xh68b031301qx6k446vtt"
+              >1660 Original Castello Plan
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('NA')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="original-castello-plan"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!--STOKES KEY-->
+          <div class="layer-list-row">
+            <input
+              class="clm2yu70i025501p9fzblgnct"
+              type="radio"
+              name="ltoggle"
+              value="clm2yu70i025501p9fzblgnct"
+            />
+            <input
+              class="clm2yu70i025501p9fzblgnct"
+              type="radio"
+              name="rtoggle"
+              value="clm2yu70i025501p9fzblgnct"
+            />
+            &nbsp;
+            <label for="clm2yu70i025501p9fzblgnct"
+              >Stokes Key to Castello Plan
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('NA')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="stokes-key-castello"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!--COLORED KEY-->
+          <div class="layer-list-row">
+            <input
+              class="clm2yu8oz026k01qxacnq84jb"
+              type="radio"
+              name="ltoggle"
+              value="clm2yu8oz026k01qxacnq84jb"
+            />
+            <input
+              class="clm2yu8oz026k01qxacnq84jb"
+              type="radio"
+              name="rtoggle"
+              value="clm2yu8oz026k01qxacnq84jb"
+            />
+            &nbsp;
+            <label for="clm2yu8oz026k01qxacnq84jb"
+              >Legend of New Amsterdam
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('NA')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="new-amsterdam-legend"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <center>
+          <b
+            ><i
+              class="fas fa-plus-square compress-expand-icon"
+              id="manahatta-maps-section-caret"
+              onclick="sectionCompressExpand('#manahatta-maps-section','#manahatta-maps-section-caret')"
+            ></i>
+            &nbsp; Manhattan and Surrounding</b
+          >
+        </center>
+
+        <div id="manahatta-maps-section">
+          <!-- Manahatta MAP -->
+          <div class="layer-list-row">
+            <input
+              class="clm2yu8w6025m01qb8p2khqxd"
+              type="radio"
+              name="ltoggle"
+              value="clm2yu8w6025m01qb8p2khqxd"
+            />
+            <input
+              class="clm2yu8w6025m01qb8p2khqxd"
+              type="radio"
+              name="rtoggle"
+              value="clm2yu8w6025m01qb8p2khqxd"
+            />
+            &nbsp;
+            <label for="clm2yu8w6025m01qb8p2khqxd"
+              >1609 | Manahatta
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtobounds('Manhattan')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="manahatta-map"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Manatus Map -->
+          <div class="layer-list-row">
+            <input
+              class="clm2yucmy022j01mahf7qggow"
+              type="radio"
+              name="ltoggle"
+              value="clm2yucmy022j01mahf7qggow"
+            />
+            <input
+              class="clm2yucmy022j01mahf7qggow"
+              type="radio"
+              name="rtoggle"
+              value="clm2yucmy022j01mahf7qggow"
+            />
+            &nbsp;
+            <label for="clm2yucmy022j01mahf7qggow"
+              >1639 | Manatus Map
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('Manatus Map')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="manatus-map"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Original Grants and Farms, Stokes 1914-16 -->
+          <div class="layer-list-row">
+            <input
+              class="clm2yuef7026401qr35ikben6"
+              type="radio"
+              name="ltoggle"
+              value="clm2yuef7026401qr35ikben6"
+            />
+            <input
+              class="clm2yuef7026401qr35ikben6"
+              type="radio"
+              name="rtoggle"
+              value="clm2yuef7026401qr35ikben6"
+            />
+            &nbsp;
+            <label for="clm2yuef7026401qr35ikben6"
+              >1638-83 Original Grants & Farms
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('Original Grants')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="original-grants-map"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!--DUTCH GRANTS-->
+          <div class="layer-list-row">
+            <input
+              class="clm2yuhe9023501nshfr78fna"
+              type="radio"
+              name="ltoggle"
+              value="clm2yuhe9023501nshfr78fna"
+            />
+            <input
+              class="clm2yuhe9023501nshfr78fna"
+              type="radio"
+              name="rtoggle"
+              value="clm2yuhe9023501nshfr78fna"
+            />
+            &nbsp;
+            <label for="clm2yuhe9023501nshfr78fna"
+              >1640-64 | Dutch Grants
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <!--//ck7xni5u51kur1iqdokpijm0u-->
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('NA')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="dutch-grants-stokes"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- A Plan of the City of New York, 1730 -->
+          <div class="layer-list-row">
+            <input
+              class="clm2yugcw025n01qbapsc2nkc"
+              type="radio"
+              name="ltoggle"
+              value="clm2yugcw025n01qbapsc2nkc"
+            />
+            <input
+              class="clm2yugcw025n01qbapsc2nkc"
+              type="radio"
+              name="rtoggle"
+              value="clm2yugcw025n01qbapsc2nkc"
+            />
+            &nbsp;
+            <label for="clm2yugcw025n01qbapsc2nkc"
+              >1730 | Plan of City of New York
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('NYC plan')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="nyc-map-plan"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!--RATZER MAP-->
+          <div class="layer-list-row">
+            <input
+              class="clm2yuguw01zy01p7dulscxyb"
+              type="radio"
+              name="ltoggle"
+              value="clm2yuguw01zy01p7dulscxyb"
+            />
+            <input
+              class="clm2yuguw01zy01p7dulscxyb"
+              type="radio"
+              name="rtoggle"
+              value="clm2yuguw01zy01p7dulscxyb"
+            />
+            &nbsp;
+            <label for="clm2yuguw01zy01p7dulscxyb"
+              >1766 | Ratzer Map
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('Ratzer Map')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="ratzer-map"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <center>
+          <b
+            ><i
+              class="fas fa-plus-square compress-expand-icon"
+              id="long-island-maps-section-caret"
+              onclick="sectionCompressExpand('#long-island-maps-section','#long-island-maps-section-caret')"
+            ></i>
+            &nbsp; Long Island</b
+          >
+        </center>
+
+        <div id="long-island-maps-section">
+          <!-- Indian Paths and Places -->
+          <div class="layer-list-row">
+            <input
+              class="clm2yuk8t023601nsgs112fvn"
+              type="radio"
+              name="ltoggle"
+              value="clm2yuk8t023601nsgs112fvn"
+            />
+            <input
+              class="clm2yuk8t023601nsgs112fvn"
+              type="radio"
+              name="rtoggle"
+              value="clm2yuk8t023601nsgs112fvn"
+            />
+            &nbsp;
+            <label for="clm2yuk8t023601nsgs112fvn"
+              >1600-64 | Indian Paths & Places
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtobounds('Brooklyn')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="indian-paths-places"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Indian Groups of Long Island -->
+          <div class="layer-list-row">
+            <input
+              class="clm2yukk3026301qibumt9t0a"
+              type="radio"
+              name="ltoggle"
+              value="clm2yukk3026301qibumt9t0a"
+            />
+            <input
+              class="clm2yukk3026301qibumt9t0a"
+              type="radio"
+              name="rtoggle"
+              value="clm2yukk3026301qibumt9t0a"
+            />
+            &nbsp;
+            <label for="clm2yukk3026301qibumt9t0a"
+              >1600-1700s | Indian Tribes L.I.
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtobounds('LongIsland')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="indians-long-island"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Long Island 1734 -->
+          <div class="layer-list-row">
+            <input
+              class="clm2yukk901zz01p7953m4i53"
+              type="radio"
+              name="ltoggle"
+              value="clm2yukk901zz01p7953m4i53"
+            />
+            <input
+              class="clm2yukk901zz01p7953m4i53"
+              type="radio"
+              name="rtoggle"
+              value="clm2yukk901zz01p7953m4i53"
+            />
+            &nbsp;
+            <label for="clm2yukk901zz01p7953m4i53"
+              >1734 | Long Island
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('Long Island')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="long-island-1734"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- NY Bay and Harbor MAP -->
+          <div class="layer-list-row">
+            <input
+              class="clm2yumma022k01ma52i8c5b5"
+              type="radio"
+              name="ltoggle"
+              value="clm2yumma022k01ma52i8c5b5"
+            />
+            <input
+              class="clm2yumma022k01ma52i8c5b5"
+              type="radio"
+              name="rtoggle"
+              value="clm2yumma022k01ma52i8c5b5"
+            />
+            &nbsp;
+            <label for="clm2yumma022k01ma52i8c5b5"
+              >1844 | NY Bay and Harbor
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('NY Bay')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="ny-bay-and-harbor"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gravesend Map -->
+          <div class="layer-list-row">
+            <input
+              class="clm2yunpm026501qrejxb4k0r"
+              type="radio"
+              name="ltoggle"
+              value="clm2yunpm026501qrejxb4k0r"
+            />
+            <input
+              class="clm2yunpm026501qrejxb4k0r"
+              type="radio"
+              name="rtoggle"
+              value="clm2yunpm026501qrejxb4k0r"
+            />
+            &nbsp;
+            <label for="clm2yunpm026501qrejxb4k0r"
+              >1873 | Gravesend Map
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('Gravesend Map')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="gravesend-map"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!--Beer's Map -->
+          <div class="layer-list-row">
+            <input
+              class="clm2yupsh026401qi2lpwhhx9"
+              type="radio"
+              name="ltoggle"
+              value="clm2yupsh026401qi2lpwhhx9"
+            />
+            <input
+              class="clm2yupsh026401qi2lpwhhx9"
+              type="radio"
+              name="rtoggle"
+              value="clm2yupsh026401qi2lpwhhx9"
+            />
+            &nbsp;
+            <label for="clm2yupsh026401qi2lpwhhx9"
+              >1873 | Long Island
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('Long Island 1873')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="beers-long-island-map"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <center>
+          <b
+            ><i
+              class="fas fa-plus-square compress-expand-icon"
+              id="new-netherland-maps-section-caret"
+              onclick="sectionCompressExpand('#new-netherland-maps-section','#new-netherland-maps-section-caret')"
+            ></i>
+            &nbsp; New Netherland</b
+          >
+        </center>
+
+        <div id="new-netherland-maps-section">
+          <!-- Novi Belgii MAP -->
+          <div class="layer-list-row">
+            <input
+              class="clm2yuqr1022l01ma0s5z4m59"
+              type="radio"
+              name="ltoggle"
+              value="clm2yuqr1022l01ma0s5z4m59"
+            />
+            <input
+              class="clm2yuqr1022l01ma0s5z4m59"
+              type="radio"
+              name="rtoggle"
+              value="clm2yuqr1022l01ma0s5z4m59"
+            />
+            &nbsp;
+            <label for="clm2yuqr1022l01ma0s5z4m59"
+              >1651 | Belgii Novi
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('Belgii Novi')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="novi-belgii-map"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <center>
+          <b
+            ><i
+              class="fas fa-plus-square compress-expand-icon"
+              id="new-england-maps-section-caret"
+              onclick="sectionCompressExpand('#new-england-maps-section','#new-england-maps-section-caret')"
+            ></i>
+            &nbsp; New England</b
+          >
+        </center>
+
+        <div id="new-england-maps-section">
+          <!--New England 1670 -->
+          <div class="layer-list-row">
+            <input
+              class="clm2yus81025601p99sd68y0v"
+              type="radio"
+              name="ltoggle"
+              value="clm2yus81025601p99sd68y0v"
+            />
+            <input
+              class="clm2yus81025601p99sd68y0v"
+              type="radio"
+              name="rtoggle"
+              value="clm2yus81025601p99sd68y0v"
+            />
+            &nbsp;
+            <label for="clm2yus81025601p99sd68y0v"
+              >1670 | New England
+              <div class="dummy-label-layer-space"></div
+            ></label>
+            <div class="layer-buttons-block">
+              <div class="layer-buttons-list">
+                <i
+                  class="fa fa-crosshairs zoom-to-layer"
+                  onclick="zoomtocenter('New England')"
+                  title="Zoom to Layer"
+                ></i>
+                <i
+                  class="fa fa-info-circle layer-info trigger-popup"
+                  id="new-england-1670"
+                  title="Layer Info"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <center>
+          <button onclick="zoomtobounds('World')" id="zoom-world">
+            &nbsp; &nbsp; <i class="fa fa-globe"></i> &nbsp;
+            <b>Zoom to World</b> &nbsp; &nbsp; &nbsp;
+          </button>
+        </center>
+      </div>
+    </div>
+
+    <!-- MAP DIV-->
+    <div id="before" class="map"></div>
+    <div id="after" class="map"></div>
+
+    <div id="mobi-view-sidebar"><i class="fa fa-bars fa-2x"></i></div>
+
+    <!-- TIMELINE PANEL DIV -->
+    <div id="datepanel">
+      <b><span id="date"></span></b>
+    </div>
+    <div id="footer">
+      <!-- TIMELINE slider DIV -->
+      <div id="slider">
+        <!-- TIMELINE mobile info -->
+        <div id="mobi-year">...</div>
+
+        <!-- TIMELINE ruler DIV -->
+        <div class="timeline">
+          <div class="year">
+            <span id="ruler-date1"> ... </span
+            ><span class="timeline-ruler"></span>
+          </div>
+          <div class="year">
+            <span id="ruler-date2"> ... </span
+            ><span class="timeline-ruler"></span>
+          </div>
+          <div class="year">
+            <span id="ruler-date3"> ... </span
+            ><span class="timeline-ruler"></span>
+          </div>
+          <div class="year">
+            <span id="ruler-date4"> ... </span
+            ><span class="timeline-ruler"></span>
+          </div>
+          <div class="year">
+            <span id="ruler-date5"> ... </span
+            ><span class="timeline-ruler"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="loading">
+      <i class="fa fa-sync fa-10x fa-spin" id="loading-icon"></i>
+    </div>
+
+    <!-- MAP.JS SOURCE -->
+    <script src="timeline/js/mapinit.js"></script>
+    <script src="timeline/js/beforelayers.js"></script>
+    <script src="timeline/js/afterlayers.js"></script>
+    <script src="timeline/js/sliderpopups.js"></script>
+  </body>
+</html>

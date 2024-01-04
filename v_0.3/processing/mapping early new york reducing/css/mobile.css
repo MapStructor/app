@@ -1,0 +1,690 @@
+/* MAP STYLE */
+.map {
+  position: absolute;
+  display: block;
+  top: 80px;
+  bottom: 67px;
+  width: 100%;
+  border-top: 2px solid #b0691d;
+}
+
+body {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.mapboxgl-ctrl-bottom-left {
+  display: none !important;
+}
+
+.mapboxgl-ctrl-bottom-right {
+  bottom: 17px;
+  right: 275px;
+  display: none !important;
+}
+
+.mapboxgl-ctrl-group {
+  height: 30px;
+}
+
+/* make from vertical to horizontal */
+.mapboxgl-ctrl-group > button {
+  display: inline-block;
+}
+
+.mapboxgl-ctrl-group > button + button {
+  border-top: 0;
+  border-left: 1px solid #ddd;
+}
+
+/* HEADER STYLE */
+
+#header {
+  position: absolute;
+  top: 0;
+
+  bottom: 80px;
+
+  width: 100%;
+  background: #f5f6f7 url(body.png);
+  min-width: 100px;
+  text-shadow: #717c9b 0px 1px 3px;
+  font-size: 1.4em;
+}
+
+#link {
+  color: #000000c2;
+  /* Other colors: #e0e0e0 #e6e6dc */
+}
+
+/* HEADER ELEMENTS STYLES */
+
+.header a.encyclopedia,
+.header label#about {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 25px;
+  border-radius: 4px;
+  border: solid black;
+  font-weight: bold;
+  margin-top: 3px;
+  margin: 3px;
+  font-family: "Arial";
+}
+
+.header i#info {
+  display: none;
+}
+i.fa-info-circle {
+  color: #777;
+}
+
+.header a:hover,
+.header label:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.header-right {
+  float: right;
+  margin-top: 13px;
+  margin-left: 50px;
+  margin-right: 9px;
+}
+
+.headerText {
+  display: inline-block;
+  margin-top: 19px;
+  text-shadow: #717c9b 0px 1px 3px;
+  font-size: 1.7em;
+  /*Center*/
+  margin-left: 10em;
+  /*Left*/
+  margin-left: 10px;
+  font-family: "Consolas";
+  margin-bottom: 21px;
+}
+
+.header a.encyclopedia {
+  background-color: #e8e1da;
+  /* color: white; */
+}
+
+/*Override styling for logo link*/
+.header > a:first-child {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.header > a:first-child:hover {
+  background-color: inherit;
+}
+
+/* EXTERNAL LINK ICON STYLE */
+
+.img2 {
+  vertical-align: text-top;
+  padding-left: 2px;
+}
+
+button.active {
+  background-color: steelblue;
+  color: white;
+}
+
+/* FOOTER ELEMENTS STYLES */
+
+#footer {
+  position: absolute;
+
+  bottom: 0px;
+
+  width: 100%;
+  /* height: 35px; */
+  height: 67px;
+  background: #f5f6f7;
+  min-width: 100px;
+
+  border-top: 2px solid #b0691d;
+
+  font-size: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* BASEMAP MENU STYLE  */
+
+#baseMapMenu {
+  position: absolute;
+  background: #b3b3b3;
+  padding: 10px 18px 10px 10px;
+  font-family: "Open Sans", sans-serif;
+  border-radius: 5px;
+  bottom: 175px;
+  right: 20px;
+}
+
+div.layer-list-row {
+  width: 100%;
+}
+
+div.layer-list-row:hover {
+  background-color: #ddd;
+}
+
+#loading {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: none;
+  opacity: 0.8;
+  background-color: #fff;
+  z-index: 1000 !important;
+  text-align: center;
+}
+
+#loading-icon {
+  position: relative;
+  top: 38%;
+  bottom: 62%;
+  color: #20b2aa;
+}
+
+/* tooltip */
+.tooltip {
+  position: absolute;
+  z-index: 999;
+  left: -9999px;
+  background-color: #dedede;
+  padding: 3px;
+  border: 1px solid #fff;
+  width: 100px;
+  text-align: center;
+}
+.tooltip p {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  background-color: #23579b;
+  padding: 2px 7px;
+}
+
+/* hide current buildings fill layers */
+#current_buildings_items,
+#current_buildings {
+  display: none;
+}
+label[for="current_buildings_items"],
+label[for="current_buildings"] {
+  display: none;
+}
+
+/* Style for Studio Menu */
+/* #demoLayerInfo */
+
+#rightInfoBar {
+  position: absolute;
+  display: block;
+  bottom: 0;
+  max-height: 49%;
+
+  /* Standard */
+  width: calc(100% - 5px);
+  /* Opera */
+  width: -o-calc(100% - 5px);
+  /* Firefox */
+  width: -moz-calc(100% - 5px);
+  /* WebKit */
+  width: -webkit-calc(100% - 5px);
+
+  overflow: auto;
+  background-color: #fff !important;
+  z-index: 553;
+}
+
+.rightInfoBarBorder {
+  border: solid #ffffff 3px;
+}
+
+#studioMenu {
+  position: absolute;
+  display: block;
+  bottom: 0;
+  height: 50%;
+  max-height: 50%;
+  overflow: auto;
+  box-shadow: 0 0 10px 2px rgba(31, 51, 73, 0.1) !important;
+  background-color: #fff !important;
+  padding: 10px 2px 10px 10px;
+  z-index: 555;
+}
+
+/* width */
+#studioMenu::-webkit-scrollbar,
+#rightInfoBar::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+#studioMenu::-webkit-scrollbar-track,
+#rightInfoBar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+#studioMenu::-webkit-scrollbar-thumb,
+#rightInfoBar::-webkit-scrollbar-thumb {
+  background: steelblue; /* #888; */
+}
+
+/* Handle on hover */
+#studioMenu::-webkit-scrollbar-thumb:hover,
+#rightInfoBar::-webkit-scrollbar-thumb:hover {
+  background: blue; /* #555; */
+}
+
+#studioMenu .title {
+  color: #23374d;
+  font-weight: bold;
+  font-size: 17px;
+  padding-bottom: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ce5c00;
+  margin-bottom: 8px;
+}
+
+#studioMenu {
+  /* Standard */
+  width: calc(100% - 11px);
+  /* Opera */
+  width: -o-calc(100% - 11px);
+  /* Firefox */
+  width: -moz-calc(100% - 11px);
+  /* WebKit */
+  width: -webkit-calc(100% - 11px);
+}
+
+#shadoWall {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  display: none;
+  z-index: 530;
+  opacity: 0.3;
+  background-color: silver;
+}
+
+#demoLayerInfo,
+#infoLayerCastello,
+#infoLayerGrantLots,
+#infoLayerDutchGrants,
+#infoLayerGravesend,
+#infoLayerNativeGroups,
+#infoLayerKarl,
+#infoLayerFarms,
+#infoLayerCurrLots,
+#infoLayerSettlements,
+#infoLayerInfoPoint {
+  padding: 5px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  /* Standard */
+  width: calc(100% - 17px);
+  /* Opera */
+  width: -o-calc(100% - 17px);
+  /* Firefox */
+  width: -moz-calc(100% - 17px);
+  /* WebKit */
+  width: -webkit-calc(100% - 17px);
+  /* dont break out a link */
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  /* word-break: break-all; */
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+button#zoom-world,
+button.zoom-labels {
+  padding: 5px 0 5px 0;
+  cursor: pointer;
+}
+button#zoom-world > i,
+button.zoom-labels > i {
+  color: #555;
+}
+button#hide-zoom-label {
+  display: none;
+}
+
+#demoLayerInfo,
+.demoLayerInfoPopUp {
+  background-color: rgb(50, 205, 50, 0.3); /* #32CD32 LimeGreen */
+  border: solid #32cd32 2px;
+}
+#infoLayerCastello,
+.infoLayerCastelloPopUp {
+  background-color: rgb(255, 192, 203, 0.3); /* #FFC0CB Pink */
+  border: solid pink 2px;
+}
+#infoLayerSettlements,
+.infoLayerSettlementsPopUp {
+  background-color: rgb(11, 14, 229, 0.2); /* #0b0ee5 */
+  border: solid #0b0ee5 2px;
+}
+#infoLayerGrantLots,
+.infoLayerGrantLotsPopUp {
+  background-color: rgb(102, 205, 170, 0.3); /* #66CDAA MediumAquamarine */
+  border: solid #66cdaa 2px;
+}
+#infoLayerDutchGrants,
+.infoLayerDutchGrantsPopUp {
+  background-color: rgb(255, 255, 0, 0.5); /* #FFFF00 Yellow */
+  border: solid #ffff00 2px;
+}
+
+#infoLayerInfoPoint,
+.infoLayerInfoPointPopUp {
+  background-color: rgb(102, 205, 170, 0.3); /* #66CDAA MediumAquamarine */
+  border: solid #66cdaa 2px;
+}
+
+/* REPLACE THIS */
+#infoLayerGravesend,
+.infoLayerGravesendPopUp {
+  background-color: rgb(255, 255, 0, 0.5); /* #FFFF00 Yellow */
+  border: solid #ffff00 2px;
+}
+/* REPLACE THIS */
+
+#infoLayerNativeGroups,
+.infoLayerNativeGroupsPopUp {
+  background-color: rgb(255, 192, 203, 0.3); /* #FFC0CB Pink */
+  border: solid pink 2px;
+}
+
+#infoLayerKarl,
+.infoLayerKarlPopUp {
+  background-color: rgb(255, 255, 0, 0.5); /* #FFFF00 Yellow */
+  border: solid #ffff00 2px;
+}
+
+#infoLayerFarms,
+.infoLayerFarmsPopUp {
+  background-color: rgb(255, 255, 0, 0.5); /* #FFFF00 Yellow */
+  border: solid #ffff00 2px;
+}
+#infoLayerCurrLots,
+.infoLayerCurrLotsPopUp {
+  background-color: rgb(123, 104, 238, 0.3); /* #7B68EE MediumSlateBlue */
+  border: solid #7b68ee 2px;
+}
+
+i.compress-expand-icon {
+  cursor: pointer;
+  color: #555;
+}
+i.zoom-to-layer {
+  color: #1d43de;
+}
+i.layer-info,
+i.zoom-to-layer {
+  cursor: pointer;
+}
+i.layer-info:hover,
+i.zoom-to-layer:hover,
+i.compress-expand-icon:hover {
+  opacity: 0.7;
+}
+
+div.dummy-label-layer-space {
+  width: 100px;
+  display: inline-block;
+}
+div.layer-buttons-list {
+  width: 100%;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+}
+div.layer-buttons-block {
+  width: 111px;
+  right: 3px;
+  margin-right: 3px;
+  position: absolute;
+  display: inline-block;
+}
+
+.demoLayerInfoPopUp,
+.infoLayerCastelloPopUp,
+.infoLayerGrantLotsPopUp,
+.infoLayerDutchGrantsPopUp,
+.infoLayerDutchGrantsPopUp,
+.infoLayerFarmsPopUp,
+.infoLayerCurrLotsPopUp,
+.infoLayerSettlementsPopUp,
+.infoLayerInfoPointPopUp {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+i#mobi-hide-sidebar,
+i#mobi-hide-infobar {
+  position: fixed;
+  right: 8px;
+  margin-right: 8px;
+  z-index: 555;
+}
+
+i#mobi-hide-sidebar {
+  margin-top: -5px;
+  color: blue;
+}
+
+i#mobi-hide-infobar {
+  margin-top: 5px;
+  color: red;
+}
+
+i#mobi-hide-sidebar:hover {
+  color: darkblue;
+}
+
+i#mobi-hide-infobar:hover {
+  color: maroon;
+}
+
+div#mobi-view-sidebar {
+  color: #000;
+  position: absolute;
+  float: right;
+  bottom: 158px;
+  right: 20px;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid #000;
+}
+
+div#mobi-view-sidebar:hover {
+  background-color: #ccc;
+}
+
+div#mobi-view-sidebar > i {
+  margin-top: 9px;
+}
+
+/* adaptive | responsive  design */
+div#mobi-year {
+  display: none;
+  width: 100%;
+  text-align: center;
+}
+
+img#logo-img-wide {
+  padding: 6px 0px 0px 21px;
+  float: left;
+  height: 70px;
+}
+
+img#logo-img {
+  padding: 5px 0px 0px 8px;
+  float: left;
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  span#ruler-date1,
+  span#ruler-date2,
+  span#ruler-date3,
+  span#ruler-date4,
+  span#ruler-date5 {
+    display: none;
+  }
+
+  div#mobi-year {
+    margin-top: 5px;
+    margin-bottom: -5px;
+    display: block;
+  }
+}
+
+@media (max-width: 930px) {
+  .mapboxgl-ctrl-bottom-right {
+    bottom: 7px;
+    right: 170px;
+  }
+
+  div#mobi-view-sidebar {
+    bottom: 128px;
+  }
+}
+
+/*438*/
+
+@media (max-width: 419px) {
+  img.img2 {
+    display: none;
+  }
+}
+
+@media (max-width: 370px) {
+  img#logo-img-wide {
+    display: none;
+  }
+
+  img#logo-img {
+    height: 34px;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 287px) {
+  .header a.encyclopedia {
+    display: none;
+  }
+  .header label#about {
+    display: none;
+  }
+  .header i#info {
+    display: inline-block;
+  }
+
+  img#logo-img {
+    display: none;
+  }
+  img#logo-img-wide {
+    display: inline-block;
+  }
+}
+
+/*555*/
+@media (max-width: 657px) {
+  #headerTextSuffix,
+  .headerText {
+    display: none;
+  }
+}
+
+/*555*/
+
+/*930*/
+@media (max-width: 1025px) {
+  .map {
+    top: 43px;
+  }
+
+  .headerText {
+    margin-top: 11px;
+    font-size: 13pt;
+    margin-left: 10px;
+  }
+
+  .header-right {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .header a.encyclopedia,
+  .header label#about {
+    color: black;
+    text-align: center;
+    padding: 3px;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 15px;
+    border-radius: 3px;
+    border: solid black;
+    font-weight: bold;
+    margin-top: 3px;
+    margin: 3px;
+  }
+
+  img#logo-img-wide {
+    height: 39px;
+    padding: 2px 0px 0px 3px;
+  }
+
+  .header-right {
+    margin-top: 5px;
+  }
+}
+
+i.slash-icon {
+  font-size: 11px;
+}

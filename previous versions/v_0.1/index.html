@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<!--NOTES ON THIS TEMPLATE-->
+
+<!--
+
+Where I should look up meaning of code:
+//FIND WHAT THIS IS
+
+-->
+
+<html>
+
+<head>
+
+    <!--PAGE TITLE-->
+    <title>Title Goes Here</title>
+
+    <!--META-->
+    <meta charset='utf-8' />
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+
+    <!--JAVASCRIPT SOURCE-->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.js'></script>
+
+    <!--CSS SOURCE-->
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.css' type='text/css' />
+
+    <!--LOCAL CSS SOURCE-->
+    <link href='index.css' rel='stylesheet' />
+
+
+</head>
+
+<body>
+
+
+    <!-------------------->
+    <!--ADD HEADER DIV---->
+    <!-------------------->
+
+    <div class="header">
+
+
+        <!--LOGO-->
+        <a href="deadlink.html" class="logo">
+            <img style="padding: 12px 0px 0px 30px; float: left;" src="http://mapstructor.com/wp-content/uploads/2020/10/logo_header.png" height="50" align="middle">
+        </a>
+
+<!--
+<abbr title="World Health Organization">
+-->
+        <!--TEXT-->
+        <div id="header_text" class="headerText">
+            <!--
+				New Amsterdam History Center Online Exhibition
+				-->
+            | Map Name
+        </div>
+
+
+        <!--BUTTONS-->
+        <div class="header-right">
+            <a class="active" href="#home">Active</a>
+            <a href="explore.html">Dead Link</a>
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-------------------->
+    <!--ADD MAP DIV------>
+    <!-------------------->
+
+
+    <div id='before' class='map'></div>
+
+
+    <!-------------------->
+    <!--ADD MAP----------->
+    <!-------------------->
+
+    <script>
+
+        //ACCESS TOKEN
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWFwc3RydWN0b3IiLCJhIjoiY2tmcnMyOWkwMDB5NjJ6czNxdmFucXJ5byJ9.GZIFoMuqYp0mqLppHYtP4w';
+
+        //ADD MAP
+        var beforeMap = new mapboxgl.Map({
+            container: 'before',
+            style: 'mapbox://styles/nittyjee/cjooubzup2kx52sqdf9zmmv2j',
+            center: [0, 0],
+            zoom: 0,
+            hash: true,
+        });
+
+        //ADD COORDINATES AND ZOOM TO URL
+        urlHash = window.location.hash;
+
+
+        //ADD NAVIGATION CONTROLS (ZOOM IN AND OUT)
+        var nav = new mapboxgl.NavigationControl();
+        beforeMap.addControl(nav, "top-left");
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html>
+ 
+	<head>
+
+		<!-- SOURCES-->
+
+		<title>Mapping Early New York - New Amsterdam History</title>
+		
+		<meta name="description" content="New Amsterdam - Early New York Interactive Map with History Timeline">
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="robots" content="all" />
+
+<!--  Essential META Tags -->
+<meta property="og:title" content="Mapping Early New York - New Amsterdam History">
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://nahc-mapping.org/mappingNY/icons/FortAmsterdam.jpg">
+<meta property="og:url" content="https://nahc-mapping.org/mappingNY/">
+<meta name="twitter:card" content="new_amsterdam_icon">
+
+<!--  Non-Essential, But Recommended -->
+<meta property="og:description" content="New Amsterdam - Early New York Interactive Map with History Timeline">
+<meta property="og:site_name" content="New Amsterdam History">
+<meta name="twitter:image:alt" content="New Amsterdam Icon">
+		
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="theme-color" content="#00A2E5">
+    <meta name="apple-mobile-web-app-title" content="Mapping Early New York | New Amsterdam History">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+	<link rel="manifest" href="manifest.json">
+
+    <link rel="apple-touch-icon" type="image/png" href="./icons/icon.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="57x57" href="./icons/icon_57x57.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="./icons/icon_60x60.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="72x72" href="./icons/icon_72x72.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="./icons/icon_76x76.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="114x114" href="./icons/icon_114x114.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="./icons/icon_120x120.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="./icons/icon_144x144.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="./icons/icon_152x152.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="167x167" href="./icons/icon_167x167.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="./icons/icon_180x180.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="192x192" href="./icons/icon_192x192.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="./icons/icon_512x512.png">
+		
+		
+		<link rel="shortcut icon" href="./icons/icon_32x32.ico"  type="image/x-icon" />
+        <link rel="icon" href="./icons/icon_32x32.ico"  type="image/x-icon" />
+		
+		<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,600italic' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="timeline/vendor/jquery-ui-1.10.3.custom/css/ui-darkness/jquery-ui-1.10.3.custom.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="timeline/vendor/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="timeline/vendor/jquery.ui.touch-punch.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
+		<!--
+		<script src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
+		<link href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
+		-->
+		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+        <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.js'></script>
+		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+        <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.css' type='text/css' />
+		<link href='timeline/index.css' rel='stylesheet' />
+
+        <!-- Load Awesome Icons 4.7.0 -->
+		<!--
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		-->
+		<!-- Load Awesome Icons 5.15.3 -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <!-- MODAL INFO JS SOURCE -->
+		<script src="timeline/js/modalinfo.js"></script>
+
+
+		<!-- TIMELINE FUNCTIONALITY -->
+
+		<script>
+
+    // get Dutch Grants Lots Info from REST API
+    var dutch_grant_lots_info = new Array(),
+	    settlements_info = new Array(),
+		settlements_linked_location = new Array(),
+		taxlot_event_entities_info = new Array();
+	var dutch_grant_lots_info_length = 0,
+	    settlements_info_length = 0,
+		taxlot_entities_info_length = 0;
+		
+    getDutchGrantsInfo();
+	getTaxlotEventEntitiesDescrInfo();
+	
+	var modal_header_text = [];
+	var modal_content_html = [];
+	getInfoText(modal_header_text, modal_content_html);
+
+		    var layer_view_flag = true;
+			var timeline_pointer_flag = true;
+			var windoWidth = 0;
+			
+			var sliderStartDrag = moment("06/02/1643").unix();
+		    var sliderStart = moment("01/01/1626").unix();
+		    //var sliderEnd = moment().unix();
+			var sliderEndDrag = moment("07/04/1675").unix();
+			var sliderEnd = moment("01/01/1700").unix();
+				
+			//*A (sliderStart + sliderEnd)/2 = -9799671480
+			var sliderMiddle =  (sliderStart + sliderEnd)/2;
+			var tooltiPos = -100;
+			
+			var ruler_step = (sliderEnd - sliderStart)/10,
+				date_ruler1 = sliderStart + ruler_step,
+				date_ruler2 = sliderStart + ruler_step*3,
+				date_ruler4 = sliderStart + ruler_step*7,
+				date_ruler5 = sliderStart + ruler_step*9;
+			
+			
+function simple_tooltip(target_items, name){
+$(target_items).each(function(i){
+$("body").append("<div class='"+name+"' id='"+name+i+"'><p>"+$(this).attr('title')+"</p></div>");
+var my_tooltip = $("#"+name+i);
+
+$(this).removeAttr("title").mouseover(function(){
+my_tooltip.css({opacity:1.0, display:"none"}).fadeIn(200);
+}).mousemove(function(kmouse){
+my_tooltip.css({left:kmouse.pageX+15, top:kmouse.pageY+15});
+}).mouseout(function(){
+my_tooltip.fadeOut(200);
+});
+});
+}
+
+			
+			
+			$(document).ready(function () {
+				if (jQuery.browser.msie) alert('Sorry, this application uses state of the art HTML5 techniques which are not (well) supported by Internet Explorer.\nUse Google Chrome or Mozilla Firefox to experience the full power of HTML5 and this application');
+                
+				simple_tooltip("i.layer-info, i.zoom-to-layer","tooltip");
+				
+				windoWidth = $(window).width();
+				//console.log(windoWidth);
+				//555
+				if(windoWidth <= 637) {
+				    if(layer_view_flag) {
+				        $("#studioMenu").css({'margin-left' : "-111%"});//.slideUp();
+						$("#view-hide-layer-panel").css({'margin-left' : "-337px"});
+						$("#mobi-hide-sidebar").css({'margin-left' : "-111%"});
+						layer_view_flag = false;
+						$("#dir-txt").html("&#9205;");
+					}
+			    }
+                
+				$(window).resize(function(){
+				    windoWidth = $(window).width();
+				});
+				
+				// console.log(window.name);
+				
+				$(".manahatta_layer_item").hide();
+				$(".farms_layer_item").hide();
+				//$(".dutch_grants_layer_item").hide();
+				$(".current_lots_layer_item").hide();
+                //$("#long-island-section-layers").slideUp();
+				$("#manahatta-maps-section").slideUp();
+				$("#long-island-maps-section").slideUp();
+				$("#long-island-maps-section1").slideUp();
+				$("#new-netherland-maps-section").slideUp();
+				$("#new-england-maps-section").slideUp();
+					
+				$("#ruler-date1").text(moment.unix(date_ruler1).format('YYYY')); // .format('DD MMM YYYY')
+				$("#ruler-date2").text(moment.unix(date_ruler2).format('YYYY')); // .format('DD MMM YYYY')
+				//$("#ruler-date3").text(moment.unix(sliderMiddle).format('DD MMM YYYY'));
+				$("#ruler-date3").html("&nbsp; &#8678; &nbsp; TIME &nbsp; &nbsp; &nbsp; &nbsp; SLIDE &nbsp; &#8680;");
+				$("#mobi-year").html("&nbsp; &#8678; &nbsp; TIME &nbsp; &nbsp; &nbsp; &nbsp; SLIDE &nbsp; &#8680;");
+				$("#ruler-date4").text(moment.unix(date_ruler4).format('YYYY')); // .format('DD MMM YYYY')
+				$("#ruler-date5").text(moment.unix(date_ruler5).format('YYYY')); // .format('DD MMM YYYY')
+				
+				console.log("start:", sliderStart);
+				console.log("end:", sliderEnd);
+				console.log("window:", window.name);
+
+				$("#slider").slider({
+					min: sliderStart,
+					max: sliderEnd,
+					step: 86400, //24 hrs in unix time, set slider step to 1 day=86400 seconds
+					value: sliderMiddle, //window.name || sliderMiddle,
+					slide: function (event, ui) {
+						tooltiPos = ((ui.value < sliderMiddle ) ? 30 : -100);
+						/*
+					        $(ui.handle).find('.ui-slider-tooltip').css({ left: tooltiPos}).text(moment.unix(ui.value).format('MM/DD/YYYY'));
+						$("#date").val(moment.unix(ui.value).format('MM/DD/YYYY'));
+						*/
+						
+						//urlHash = window.location.hash + '/' + ui.value;
+						// console.log(urlHash);
+						// hash.onMapMove();
+						if(timeline_pointer_flag) {
+						    $("#ruler-date3").text(moment.unix(sliderMiddle).format('YYYY')); // .format('DD MMM YYYY')
+					        //$("#mobi-year").text(moment.unix(sliderMiddle).format('YYYY'));  // .format('DD MMM YYYY')
+							$("#mobi-year").css("display", "none");
+							$("#ruler-date1").css("display", "block");
+							$("#ruler-date2").css("display", "block");
+							$("#ruler-date3").css("display", "block");
+							$("#ruler-date4").css("display", "block");
+							$("#ruler-date5").css("display", "block");
+						    timeline_pointer_flag = false;
+						}
+						
+						if(demo_layer_view_flag) { 
+						    if(ui.value <= sliderStartDrag){
+                                $(this).slider('value', sliderStartDrag);
+								changeDate(sliderStartDrag);
+								$("#date").text(moment.unix(sliderStartDrag).format('DD MMM YYYY'));
+                                return false
+                            }
+                            if(ui.value >= sliderEndDrag){
+                                $(this).slider('value', sliderEndDrag);
+								changeDate(sliderEndDrag);
+								$("#date").text(moment.unix(sliderEndDrag).format('DD MMM YYYY'));
+                                return false
+                            }
+							if ((ui.value <= sliderEndDrag) && (ui.value >= sliderStartDrag)) {
+							    changeDate(ui.value);
+								$("#date").text(moment.unix(ui.value).format('DD MMM YYYY'));
+							}
+						} else {
+						    changeDate(ui.value);
+							$("#date").text(moment.unix(ui.value).format('DD MMM YYYY'));
+						}
+						
+					},
+					create: function( event, ui ) {
+				                var tooltip = $('<div class="ui-slider-tooltip" />').css({
+					              position: 'absolute',
+					              top: 32,
+					              left: tooltiPos,
+					              color: "red",
+					              width: "100px",
+					              size: "1"
+				                }).text(moment.unix(sliderMiddle).format('MM/DD/YYYY'));
+
+				                      //*A $(event.target).find('.ui-slider-handle').append(tooltip);
+			                        },
+			                        change: function(event, ui) {}
+				});
+
+				//*A $("#date").val($("#slider").slider("values", 0));
+                                //*A $("#date").val(moment.unix($("#slider").slider("values", 0)).format('MM/DD/YYYY'));
+				$("#date").text(moment.unix($("#slider").slider("values", 0)).format('DD MMM YYYY'));
+				
+				$('.footnote').click(function () {
+				    $('#footnotediv').toggle('slide');
+				});
+				
+				
+				
+				
+				$(".long_island").change(function () {
+                    if ($(".long_island:checked").length == $(".long_island").length) {
+                        $('#longisland_items').prop('checked','checked');
+                    }else{
+                        $('#longisland_items').prop('checked',false);  
+                    }
+                });
+				
+				$('#longisland_coastline').click(function() {
+                    if( $( this ).prop('checked') ) {
+					        beforeMap.setLayoutProperty( "long-island-left", "visibility", "visible" ); 
+					        afterMap.setLayoutProperty( "long-island-right", "visibility", "visible" ); 
+					} else {
+					        beforeMap.setLayoutProperty( "long-island-left", "visibility", "none" ); 
+					        afterMap.setLayoutProperty( "long-island-right", "visibility", "none" );
+					}
+                });
+				
+				$('#longisland_area').click(function() {
+                    if( $( this ).prop('checked') ) {
+					        beforeMap.setLayoutProperty( "long-island-area-left", "visibility", "visible" );
+					        afterMap.setLayoutProperty( "long-island-area-right", "visibility", "visible" ); 
+					} else {
+					        beforeMap.setLayoutProperty( "long-island-area-left", "visibility", "none" ); 
+					        afterMap.setLayoutProperty( "long-island-area-right", "visibility", "none" );
+					}
+                });
+				
+				$('#longisland_items').change(function(){
+                    $('.long_island').prop('checked',this.checked);
+					if( $( this ).prop('checked') ) {
+					    beforeMap.setLayoutProperty( "long-island-left", "visibility", "visible" ); 
+					    afterMap.setLayoutProperty( "long-island-right", "visibility", "visible" ); 
+					    beforeMap.setLayoutProperty( "long-island-area-left", "visibility", "visible" );
+					    afterMap.setLayoutProperty( "long-island-area-right", "visibility", "visible" );
+					} else {
+					    beforeMap.setLayoutProperty( "long-island-left", "visibility", "none" ); 
+					    afterMap.setLayoutProperty( "long-island-right", "visibility", "none" ); 
+					    beforeMap.setLayoutProperty( "long-island-area-left", "visibility", "none" );
+					    afterMap.setLayoutProperty( "long-island-area-right", "visibility", "none" );
+					}
+                });
+				
+				
+				$('#indian_paths').click(function() {
+                    if( $( this ).prop('checked') ) {
+					        beforeMap.setLayoutProperty( "indian-paths-left", "visibility", "visible" ); 
+					        afterMap.setLayoutProperty( "indian-paths-right", "visibility", "visible" ); 
+					} else {
+					        beforeMap.setLayoutProperty( "indian-paths-left", "visibility", "none" ); 
+					        afterMap.setLayoutProperty( "indian-paths-right", "visibility", "none" );
+					}
+                });
+				
+				
+				$('#lenape_trails').click(function() {
+                    if( $( this ).prop('checked') ) {
+					        beforeMap.setLayoutProperty( "lenape-trails-left", "visibility", "visible" ); 
+					        afterMap.setLayoutProperty( "lenape-trails-right", "visibility", "visible" ); 
+					} else {
+					        beforeMap.setLayoutProperty( "lenape-trails-left", "visibility", "none" ); 
+					        afterMap.setLayoutProperty( "lenape-trails-right", "visibility", "none" );
+					}
+                });
+				
+				$('#manahatta_shoreline').click(function() {
+                    if( $( this ).prop('checked') ) {
+					        beforeMap.setLayoutProperty( "manahatta-shoreline-left", "visibility", "visible" ); 
+					        afterMap.setLayoutProperty( "manahatta-shoreline-right", "visibility", "visible" ); 
+					} else {
+					        beforeMap.setLayoutProperty( "manahatta-shoreline-left", "visibility", "none" ); 
+					        afterMap.setLayoutProperty( "manahatta-shoreline-right", "visibility", "none" );
+					}
+                });
+				
+				$('#manahatta_streams').click(function() {
+                    if( $( this ).prop('checked') ) {
+					        beforeMap.setLayoutProperty( "streams-left", "visibility", "visible" ); 
+					        afterMap.setLayoutProperty( "streams-right", "visibility", "visible" ); 
+					} else {
+					        beforeMap.setLayoutProperty( "streams-left", "visibility", "none" ); 
+					        afterMap.setLayoutProperty( "streams-right", "visibility", "none" );
+					}
+                });
+				
+				$(".manahatta").change(function () {
+                    if ($(".manahatta:checked").length == $(".manahatta").length) {
+                        $('#manahatta_items').prop('checked','checked');
+                    }else{
+                        $('#manahatta_items').prop('checked',false);  
+                    }
+                });
+				
+				$('#manahatta_items').change(function(){
+                    $('.manahatta').prop('checked',this.checked);
+					if( $( this ).prop('checked') ) {
+					    beforeMap.setLayoutProperty( "lenape-trails-left", "visibility", "visible" );
+						afterMap.setLayoutProperty( "lenape-trails-right", "visibility", "visible" ); 
+						beforeMap.setLayoutProperty( "manahatta-shoreline-left", "visibility", "visible" );
+						afterMap.setLayoutProperty( "manahatta-shoreline-right", "visibility", "visible" ); 
+						beforeMap.setLayoutProperty( "streams-left", "visibility", "visible" );
+						afterMap.setLayoutProperty( "streams-right", "visibility", "visible" ); 
+					} else {
+					    beforeMap.setLayoutProperty( "lenape-trails-left", "visibility", "none" ); 
+					    afterMap.setLayoutProperty( "lenape-trails-right", "visibility", "none" );
+						beforeMap.setLayoutProperty( "manahatta-shoreline-left", "visibility", "none" ); 
+					    afterMap.setLayoutProperty( "manahatta-shoreline-right", "visibility", "none" );
+						beforeMap.setLayoutProperty( "streams-left", "visibility", "none" ); 
+					    afterMap.setLayoutProperty( "streams-right", "visibility", "none" );
+					}
+                });
+				
+				
+				
+				$('#circle_point').click(function() {
+				    if( $( this ).prop('checked') ) {
+					    //if(beforeMap.getLayoutProperty("c7_dates-ajsksu-left", "visibility") === "none" )
+					        beforeMap.setLayoutProperty( "c7_dates-ajsksu-left", "visibility", "visible" ); 
+						//if(afterMap.getLayoutProperty("c7_dates-ajsksu-right", "visibility") === "none" )
+					        afterMap.setLayoutProperty( "c7_dates-ajsksu-right", "visibility", "visible" ); 
+					} else {
+					    //if(beforeMap.getLayoutProperty("c7_dates-ajsksu-left", "visibility") === "visible" )
+					        beforeMap.setLayoutProperty( "c7_dates-ajsksu-left", "visibility", "none" ); 
+						//if(afterMap.getLayoutProperty("c7_dates-ajsksu-right", "visibility") === "visible" )
+					        afterMap.setLayoutProperty( "c7_dates-ajsksu-right", "visibility", "none" );
+							
+						if(demo_layer_view_flag) { 
+						    // if(afterMapPopUp.isOpen()) afterMapPopUp.remove();
+							// if(beforeMapPopUp.isOpen()) beforeMapPopUp.remove();
+							if(afterHighDemoPopUp.isOpen()) afterHighDemoPopUp.remove();
+						    if(beforeHighDemoPopUp.isOpen()) beforeHighDemoPopUp.remove();
+						    $("#demoLayerInfo").slideUp();
+							demo_layer_view_flag = false;
+						}
+					}
+				});
+				
+				
+				$('#grants_layer_items').change(function(){
+                    $('.grants_layer').prop('checked',this.checked);
+					if( $( this ).prop('checked') ) {
+					    // sizeOfArray(dutch_grant_lots_info)     for assoc arrays
+					    if(dutch_grant_lots_info_length == 0) {
+					        getDutchGrantsInfo();
+					    }
+					    beforeMap.setLayoutProperty( "grants1-5sp9tb-left", "visibility", "visible" );
+						afterMap.setLayoutProperty( "grants1-5sp9tb-right", "visibility", "visible" ); 
+						beforeMap.setLayoutProperty( "grants1-5sp9tb-left-highlighted", "visibility", "visible" );
+						afterMap.setLayoutProperty( "grants1-5sp9tb-right-highlighted", "visibility", "visible" );
+						
+						beforeMap.setLayoutProperty( "grant-lots-lines-left", "visibility", "visible" );
+						afterMap.setLayoutProperty( "grant-lots-lines-right", "visibility", "visible" ); 
+					} else {
+					    beforeMap.setLayoutProperty( "grants1-5sp9tb-left", "visibility", "none" ); 
+					    afterMap.setLayoutProperty( "grants1-5sp9tb-right", "visibility", "none" );
+						beforeMap.setLayoutProperty( "grants1-5sp9tb-left-highlighted", "visibility", "visible" );
+						afterMap.setLayoutProperty( "grants1-5sp9tb-right-highlighted", "visibility", "none" );
+						
+						beforeMap.setLayoutProperty( "grant-lots-lines-left", "visibility", "none" ); 
+					    afterMap.setLayoutProperty( "grant-lots-lines-right", "visibility", "none" );
+						
+						if(dgrants_layer_view_flag) { 
+							$("#infoLayerDutchGrants").slideUp(); 
+							dgrants_layer_view_flag = false;
+							//*A#
+							afterMap.setFeatureState(
+                                { source: 'grants1-5sp9tb-right-highlighted', sourceLayer: 'grants1-5sp9tb', id: dgrants_layer_view_id},
+                                { hover: false }
+                            );
+							beforeMap.setFeatureState(
+                                { source: 'grants1-5sp9tb-left-highlighted', sourceLayer: 'grants1-5sp9tb', id: dgrants_layer_view_id},
+                                { hover: false }
+                            );
+							if(afterHighMapGrantLotPopUp.isOpen()) afterHighMapGrantLotPopUp.remove();
+							if(beforeHighMapGrantLotPopUp.isOpen()) beforeHighMapGrantLotPopUp.remove();
+						}
+					}
+                });
+
+                $(".grants_layer").change(function () {
+                    if ($(".grants_layer:checked").length == $(".grants_layer").length) {
+                        $('#grants_layer_items').prop('checked','checked');
+                    }else{
+                        $('#grants_layer_items').prop('checked',false);  
+                    }
+                });
+				
+				
+				$('#grants_layer').click(function() {
+				    if( $( this ).prop('checked') ) {
+					    // sizeOfArray(dutch_grant_lots_info)     for assoc arrays
+					    if(dutch_grant_lots_info_length == 0) {
+					        getDutchGrantsInfo();
+					    }
+					    //if(beforeMap.getLayoutProperty("grants1-5sp9tb-left", "visibility") === "none" )
+					        beforeMap.setLayoutProperty( "grants1-5sp9tb-left", "visibility", "visible" ); 
+						//if(afterMap.getLayoutProperty("grants1-5sp9tb-right", "visibility") === "none" )
+					        afterMap.setLayoutProperty( "grants1-5sp9tb-right", "visibility", "visible" ); 
+							beforeMap.setLayoutProperty( "grants1-5sp9tb-left-highlighted", "visibility", "visible" );
+							afterMap.setLayoutProperty( "grants1-5sp9tb-right-highlighted", "visibility", "visible" );
+					} else {
+					    //if(beforeMap.getLayoutProperty("grants1-5sp9tb-left", "visibility") === "visible" )
+					        beforeMap.setLayoutProperty( "grants1-5sp9tb-left", "visibility", "none" ); 
+						//if(afterMap.getLayoutProperty("grants1-5sp9tb-right", "visibility") === "visible" )
+					        afterMap.setLayoutProperty( "grants1-5sp9tb-right", "visibility", "none" );
+							beforeMap.setLayoutProperty( "grants1-5sp9tb-left-highlighted", "visibility", "none" );
+							afterMap.setLayoutProperty( "grants1-5sp9tb-right-highlighted", "visibility", "none" );
+						if(dgrants_layer_view_flag) { 
+							$("#infoLayerDutchGrants").slideUp(); 
+							dgrants_layer_view_flag = false;
+							//*A#
+							afterMap.setFeatureState(
+                                { source: 'grants1-5sp9tb-right-highlighted', sourceLayer: 'grants1-5sp9tb', id: dgrants_layer_view_id},
+                                { hover: false }
+                            );
+							beforeMap.setFeatureState(
+                                { source: 'grants1-5sp9tb-left-highlighted', sourceLayer: 'grants1-5sp9tb', id: dgrants_layer_view_id},
+                                { hover: false }
+                            );
+							if(afterHighMapGrantLotPopUp.isOpen()) afterHighMapGrantLotPopUp.remove();
+							if(beforeHighMapGrantLotPopUp.isOpen()) beforeHighMapGrantLotPopUp.remove();
+						}
+					}
+				});
+				
+				$('#grants_layer_lines').click(function() {
+				    if( $( this ).prop('checked') ) {
+					    //if(beforeMap.getLayoutProperty("grant-lots-lines-left", "visibility") === "none" )
+					        beforeMap.setLayoutProperty( "grant-lots-lines-left", "visibility", "visible" ); 
+						//if(afterMap.getLayoutProperty("grant-lots-lines-right", "visibility") === "none" )
+					        afterMap.setLayoutProperty( "grant-lots-lines-right", "visibility", "visible" ); 
+					} else {
+					    //if(beforeMap.getLayoutProperty("grant-lots-lines-left", "visibility") === "visible" )
+					        beforeMap.setLayoutProperty( "grant-lots-lines-left", "visibility", "none" ); 
+						//if(afterMap.getLayoutProperty("grant-lots-lines-right", "visibility") === "visible" )
+					        afterMap.setLayoutProperty( "grant-lots-lines-right", "visibility", "none" );
+					}
+				});
+				
+				
+				// Long Island Native Groups Layer Start
+				$('#native_groups_layer_items').change(function(){
+                    $('.native_groups_layer').prop('checked',this.checked);
+					if( $( this ).prop('checked') ) {
+					    // sizeOfArray(dutch_grant_lots_info)     for assoc arrays
+					    if(taxlot_entities_info_length == 0) {
+					        getTaxlotEventEntitiesDescrInfo();
+					    }
+					    beforeMap.setLayoutProperty( "native-groups-area-left", "visibility", "visible" );
+						afterMap.setLayoutProperty( "native-groups-area-right", "visibility", "visible" ); 
+						beforeMap.setLayoutProperty( "native-groups-area-left-highlighted", "visibility", "visible" );
+						afterMap.setLayoutProperty( "native-groups-area-right-highlighted", "visibility", "visible" );
+						
+						beforeMap.setLayoutProperty( "native-groups-lines-left", "visibility", "visible" );
+						afterMap.setLayoutProperty( "native-groups-lines-right", "visibility", "visible" ); 
+						beforeMap.setLayoutProperty( "native-groups-labels-left", "visibility", "visible" ); 
+					    afterMap.setLayoutProperty( "native-groups-labels-right", "visibility", "visible" ); 
+					} else {
+					    beforeMap.setLayoutProperty( "native-groups-area-left", "visibility", "none" ); 
+					    afterMap.setLayoutProperty( "native-groups-area-right", "visibility", "none" );
+						beforeMap.setLayoutProperty( "native-groups-area-left-highlighted", "visibility", "visible" );
+						afterMap.setLayoutProperty( "native-groups-area-right-highlighted", "visibility", "none" );
+						
+						beforeMap.setLayoutProperty( "native-groups-lines-left", "visibility", "none" ); 
+					    afterMap.setLayoutProperty( "native-groups-lines-right", "visibility", "none" );
+						beforeMap.setLayoutProperty( "native-groups-labels-left", "visibility", "none" ); 
+					    afterMap.setLayoutProperty( "native-groups-labels-right", "visibility", "none" );
+						
+						if(native_group_layer_view_flag) { 
+							$("#infoLayerNativeGroups").slideUp(); 
+							native_group_layer_view_flag = false;
+							//*A#
+							afterMap.setFeatureState(
+                                { source: 'native-groups-area-right-highlighted', sourceLayer: 'long_island_indian_areas-3o4hr7', id: native_group_layer_view_id},
+                                { hover: false }
+                            );
+							beforeMap.setFeatureState(
+                                { source: 'native-groups-area-left-highlighted', sourceLayer: 'long_island_indian_areas-3o4hr7', id: native_group_layer_view_id},
+                                { hover: false }
+                            );
+							if(afterHighMapNativeGroupsPopUp.isOpen()) afterHighMapNativeGroupsPopUp.remove();
+							if(beforeHighMapNativeGroupsPopUp.isOpen()) beforeHighMapNativeGroupsPopUp.remove();
+						}
+					}
+                });
+    
+                $(".native_groups_layer").change(function () {
+                    if ($(".native_groups_layer:checked").length == $(".native_groups_layer").length) {
+                        $('#native_groups_layer_items').prop('checked','checked');
+                    }else{
+                        $('#native_groups_layer_items').prop('checked',false);  
+                    }
+                });
+				
+				
+				$('#native_groups_area').click(function() {
+				    if( $( this ).prop('checked') ) {
+                            // sizeOfArray(dutch_grant_lots_info)     for assoc arrays
+					        if(taxlot_entities_info_length == 0) {
+					            getTaxlotEventEntitiesDescrInfo();
+					        }
+					        beforeMap.setLayoutProperty( "native-groups-area-left", "visibility", "visible" ); 
+					        afterMap.setLayoutProperty( "native-groups-area-right", "visibility", "visible" ); 
+							beforeMap.setLayoutProperty( "native-groups-area-left-highlighted", "visibility", "visible" );
+							afterMap.setLayoutProperty( "native-groups-area-right-highlighted", "visibility", "visible" );
+					} else {
+					        beforeMap.setLayoutProperty( "native-groups-area-left", "visibility", "none" ); 
+					        afterMap.setLayoutProperty( "native-groups-area-right", "visibility", "none" );
+							beforeMap.setLayoutProperty( "native-groups-area-left-highlighted", "visibility", "none" );
+							afterMap.setLayoutProperty( "native-groups-area-right-highlighted", "visibility", "none" );
+
+						if(native_group_layer_view_flag) { 
+							$("#infoLayerNativeGroups").slideUp(); 
+							native_group_layer_view_flag = false;
+
+							afterMap.setFeatureState(
+                                { source: 'native-groups-area-right-highlighted', sourceLayer: 'long_island_indian_areas-3o4hr7', id: native_group_layer_view_id},
+                                { hover: false }
+                            );
+							beforeMap.setFeatureState(
+                                { source: 'native-groups-area-left-highlighted', sourceLayer: 'long_island_indian_areas-3o4hr7', id: native_group_layer_view_id},
+                                { hover: false }
+                            );
+							if(afterHighMapNativeGroupsPopUp.isOpen()) afterHighMapNativeGroupsPopUp.remove();
+							if(beforeHighMapNativeGroupsPopUp.isOpen()) beforeHighMapNativeGroupsPopUp.remove();
+						}
+					}
+				});
+				
+				
+				$('#native_groups_labels').click(function() {
+                    if( $( this ).prop('checked') ) {
+					        beforeMap.setLayoutProperty( "native-groups-labels-left", "visibility", "visible" ); 
+					        afterMap.setLayoutProperty( "native-groups-labels-right", "visibility", "visible" ); 
+					} else {
+					        beforeMap.setLayoutProperty( "native-groups-labels-left", "visibility", "none" ); 
+					        afterMap.setLayoutProperty( "native-groups-labels-right", "visibility", "none" );
+					}
+                });
+				
+				$('#native_groups_lines').click(function() {
+				    if( $( this ).prop('checked') ) {
+					    //if(beforeMap.getLayoutProperty("native-groups-lines-left", "visibility") === "none" )
+					        beforeMap.setLayoutProperty( "native-groups-lines-left", "visibility", "visible" ); 
+						//if(afterMap.getLayoutProperty("native-groups-lines-right", "visibility") === "none" )
+					        afterMap.setLayoutProperty( "native-groups-lines-right", "visibility", "visible" ); 
+					} else {
+					    //if(beforeMap.getLayoutProperty("native-groups-lines-left", "visibility") === "visible" )
+					        beforeMap.setLayoutProperty( "native-groups-lines-left", "visibility", "none" ); 
+						//if(afterMap.getLayoutProperty("native-groups-lines-right", "visibility") === "visible" )
+					        afterMap.setLayoutProperty( "native-groups-lines-right", "visibility", "none" );
+					}
+				});
+				// Long Island Native Groups Layer End
+				
+							
+				
+
+                
+				
+				
+				$('#grant_lots').click(function() {
+				    if( $( this ).prop('checked') ) {
+					    //if(beforeMap.getLayoutProperty("grant-lots-left", "visibility") === "none" )
+					        beforeMap.setLayoutProperty( "grant-lots-left", "visibility", "visible" ); 
+						//if(afterMap.getLayoutProperty("grant-lots-right", "visibility") === "none" )
+					        afterMap.setLayoutProperty( "grant-lots-right", "visibility", "visible" ); 
+					} else {
+					    //if(beforeMap.getLayoutProperty("grant-lots-left", "visibility") === "visible" )
+					        beforeMap.setLayoutProperty( "grant-lots-left", "visibility", "none" ); 
+						//if(afterMap.getLayoutProperty("grant-lots-right", "visibility") === "visible" )
+					        afterMap.setLayoutProperty( "grant-lots-right", "visibility", "none" );
+							
+						if(grant_lots_view_flag) { 
+							$("#infoLayerGrantLots").slideUp(); 
+							grant_lots_view_flag = false;
+							if(afterHighGrantLotsPopUp.isOpen()) afterHighGrantLotsPopUp.remove();
+							if(beforeHighGrantLotsPopUp.isOpen()) beforeHighGrantLotsPopUp.remove();
+						}
+					}
+				});
+				
+				
+				//var layer_view_flag = true;
+				
+				$('#view-hide-layer-panel').click(function() {
+				    if(layer_view_flag) {
+				        $("#studioMenu").animate({'margin-left' : "-337px"},500);//.slideUp();
+						$(this).animate({'margin-left' : "-337px"},500);
+						$('#mobi-hide-sidebar').animate({'margin-left' : "-337px"},500);
+						layer_view_flag = false;
+						$("#dir-txt").html("&#9205;");
+						$("#rightInfoBar").slideUp();
+					} else {
+					    $("#studioMenu").animate({'margin-left' : "0px"},500);//.slideDown();
+						$(this).animate({'margin-left' : "0px"},500);
+						$('#mobi-hide-sidebar').animate({'margin-left' : "0px"},500);
+						layer_view_flag = true;
+						$("#dir-txt").html("&#9204;");
+						//555
+						if(windoWidth > 637)
+						    $("#rightInfoBar").slideDown();
+					}
+				});
+				
+				$('#mobi-view-sidebar').click(function() {
+				    if(!layer_view_flag) {
+				        $("#studioMenu").animate({'margin-left' : "0px"},500);//.slideDown();
+						$("#view-hide-layer-panel").animate({'margin-left' : "0px"},500);
+						$("#mobi-hide-sidebar").animate({'margin-left' : "0px"},500);
+						layer_view_flag = true;
+						$("#dir-txt").html("&#9204;");
+					}
+				});
+				
+				$('#mobi-hide-sidebar').click(function() {
+				    if(layer_view_flag) {
+				        $("#studioMenu").animate({'margin-left' : "-111%"},500);//.slideUp();
+						$("#view-hide-layer-panel").animate({'margin-left' : "-337px"},500);
+						$(this).animate({'margin-left' : "-111%"},500);
+						layer_view_flag = false;
+						$("#dir-txt").html("&#9205;");
+					}
+				});
+
+				/* change timeline CSS property on mouseover & mouseout */
+				$("div.timeline").mouseover(function(){
+				    //$("div#slider").css("opacity", 0.8);
+					$("div.ui-widget-content").css("background-color", "#baddf9");
+                    $("a.ui-slider-handle").css("background", "red");
+                }).mouseout(function(){
+				    //$("div#slider").css("opacity", 1);
+					$("div.ui-widget-content").css("background-color", "#d1ecff");
+                    $("a.ui-slider-handle").css("background", "");
+                });
+				
+				/*
+				$("a.ui-slider-handle").mouseover(function(){
+				    $("#ruler-date3").text(moment.unix(sliderMiddle).format('DD MMM YYYY'));
+					$("#mobi-year").text(moment.unix(sliderMiddle).format('DD MMM YYYY'));
+                });
+				*/
+				
+				$('.trigger-popup').click(function(e) {
+					if (modal_header_text[e.target.id].length > 0) {
+						$("div.modal-header h1").text(modal_header_text[e.target.id]);
+						$("div.modal-content").html(modal_content_html[e.target.id]);
+						$("label#open-popup").trigger("click");
+					}
+				});
+				
+	
+				// close modal by click outside the box
+				
+				$('div.modal-body').click(function(e){
+                    e.stopPropagation();
+                });
+				
+				$('div.modal').click(function() {
+				    $("label#close").trigger("click");
+                });
+			});
+			
+			
+// for test local host REST_API/grant-lots-export.json
+// for test remote host https://lifecourse.xyz/upwork/test/ny/grant-lots-export.json
+// REST API https://nahc-mapping.org/mappingNY/dev/grant-lots-export
+// REST API https://encyclopedia.nahc-mapping.org/grant-lots-export
+// REST API new https://encyclopedia.nahc-mapping.org/grant-lots-export-properly
+
+function getDutchGrantsInfo() {
+    
+	var data_info_index = "";
+	dutch_grant_lots_info_length = 0;
+	
+	$.ajax({
+				url: 'https://encyclopedia.nahc-mapping.org/grant-lots-export-properly',
+				headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+				type: 'get',
+                dataType: 'json',
+				data: {}
+    })
+	.done(function(data) { 
+	  
+		//console.log(data);
+		if(data.length > 0) {
+		    //console.warn("\n\n\nLOAD JSON REST API\n\n\n");
+		    for(let i = 0; i < data.length; i++){
+				if( data[i].title != "" ) {
+				    data_info_index = data[i].title;
+					data_info_index = data_info_index.replace(/\s+/g, '');
+					if(/FortAmsterdam/.test(data_info_index)) {
+					    //console.log(data_info_index);
+						data_info_index = "Fort Amsterdam";
+					}
+					dutch_grant_lots_info[data_info_index] = { 
+					    name_txt: data[i].to_party_unlinked,
+					    to_party: data[i].to_party.replace("href=\u0022", "target=\u0022_blank\u0022 href=\u0022https:\/\/nahc-mapping.org"),
+					    from_party: data[i].from_party.replace("href=\u0022", "target=\u0022_blank\u0022 href=\u0022https:\/\/nahc-mapping.org"),
+						start: data[i].start, 
+						end: data[i].end, 
+						notes: data[i].note, 
+						descr: data[i].description,
+						builds: data[i].images.length > 0 ?  data[i].images.split(", ") : []
+					};  
+          
+                    dutch_grant_lots_info_length += 1;
+			    }
+			}
+		}
+		
+
+    })
+    .fail( function(xhr, textStatus, errorThrown) {
+        // LOADING ERROR!
+		console.warn("jQuery AJAX request  ERROR !!!");
+		console.log(xhr.responseText);
+        console.log(textStatus);
+    });
+}
+
+
+
+// for test local host REST_API/taxlot-entities-export.json
+// REST API https://encyclopedia.nahc-mapping.org/taxlot-entities-export
+
+function getTaxlotEventEntitiesDescrInfo() {
+    
+	var data_info_index = "";
+	taxlot_entities_info_length = 0;
+	
+	$.ajax({
+				url: 'https://encyclopedia.nahc-mapping.org/taxlot-entities-export',
+				headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+				type: 'get',
+                dataType: 'json',
+				data: {}
+    })
+	.done(function(data) { 
+	  
+		//console.log(data);
+		if(data.length > 0) {
+		    //console.warn("\n\n\nLOAD JSON REST API\n\n\n");
+		    for(let i = 0; i < data.length; i++){
+                // old api
+				//if( typeof data[i].title[0].value != "undefined" ) {
+				if( typeof data[i].nid[0].value != "undefined" ) {
+				    //console.log(data[i].title[0].value);
+					//data_info_index = data[i].title[0].value;
+					//data_info_index = data_info_index.replace(/\s+/g, '');
+					//data_info_index = data_info_index.toLowerCase();
+					data_info_index = "" + data[i].nid[0].value + "";
+
+				    taxlot_event_entities_info[data_info_index] = { 
+					    name: data[i].title.length > 0 ? data[i].title[0].value : "", 
+						name_html: data[i].title.length > 0 ? (  
+						    ( data[i].path.length > 0 ? "<a href='https://encyclopedia.nahc-mapping.org/node/" + data_info_index + "' target='_blank'>" : "" ) +
+						     data[i].title[0].value  +
+							( data[i].path.length > 0 ? "</a>"  : "" )
+						) : "",
+						descr: data[i].field_description14.length > 0 ? data[i].field_description14[0].value : "" 
+					};  
+					
+                    taxlot_entities_info_length += 1;
+                    //console.log(taxlot_event_entities_info);					
+				}
+			}
+		}
+
+    })
+    .fail( function(xhr, textStatus, errorThrown) {
+        // LOADING ERROR!
+		console.warn("jQuery AJAX request  ERROR !!!");
+		console.log(xhr.responseText);
+        console.log(textStatus);
+    });
+}
+
+
+
+    // Function to calculate the
+    // length of an array
+    sizeOfArray = function (array) {
+ 
+        // A variable to store
+        // the size of arrays
+        let size = 0;
+ 
+        // Traversing the array
+        for (let key in array) {
+ 
+            // Checking if key is present
+            // in arrays or not
+            if (array.hasOwnProperty(key)) {
+                size++;
+            }
+        }
+ 
+        // Return the size
+        return size;
+    }
+
+
+    function itemsCompressExpand(items_class,caret_id) {
+	    if($(caret_id).hasClass("fa-minus-square")) {
+		    $(caret_id).removeClass("fa-minus-square").addClass("fa-plus-square");
+			$(items_class).hide();
+		} else if($(caret_id).hasClass("fa-plus-square")) {
+		    $(caret_id).removeClass("fa-plus-square").addClass("fa-minus-square");
+			$(items_class).show();
+		}
+	}
+
+    function sectionCompressExpand(section_id,caret_id) {
+	    if($(caret_id).hasClass("fa-minus-square")) {
+		    $(caret_id).removeClass("fa-minus-square").addClass("fa-plus-square");
+			$(section_id).slideUp();
+		} else if($(caret_id).hasClass("fa-plus-square")) {
+		    $(caret_id).removeClass("fa-plus-square").addClass("fa-minus-square");
+			$(section_id).slideDown();
+		}
+	}
+
+		</script>
+
+		<script type="text/javascript">
+			// Google Analytics
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-28801666-1']);
+			_gaq.push(['_trackPageview']);
+
+			(function () {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159545294-1"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-159545294-1');
+		</script>
+
+
+
+
+	</head>
+
+	<body>
+
+
+
+		<!-- MAP STYLE-->
+		
+		<style>
+		
+
+				.map {
+						position: absolute;
+						display:block;
+						/*top: 61px;*/
+						top:80px;
+						/* bottom: 0; */
+						bottom: 67px;
+						width: 100%;
+						/* Standard */
+			            /* width: calc(100% - 230px); */
+				        /* Opera */
+                        /* width: -o-calc(100% - 230px); */
+				        /* Firefox */
+				        /* width: -moz-calc(100% - 230px); */
+				        /* WebKit */
+                        /* width: -webkit-calc(100% - 230px); */
+						/* right: 0; */
+						border-top: 2px solid #b0691d;
+
+                        
+
+					}
+			
+				body {
+					overflow: hidden;
+				}
+				
+				body { margin:0; padding:0; }
+	
+				body * {
+				   -webkit-touch-callout: none;
+					 -webkit-user-select: none;
+						-moz-user-select: none;
+						 -ms-user-select: none;
+							 user-select: none;
+				}
+				
+				
+				.mapboxgl-ctrl-bottom-left {
+                     display: none !important;
+                }
+				
+				.mapboxgl-ctrl-bottom-right {
+					bottom: 17px;
+					right: 275px;
+				}
+				
+				.mapboxgl-ctrl-group {
+				    height: 30px;
+				}
+				
+				/* make from vertical to horizontal */  
+				.mapboxgl-ctrl-group > button {
+				    display: inline-block;
+				}
+				
+				.mapboxgl-ctrl-group > button + button {
+				    border-top: 0; 
+                    border-left: 1px solid #ddd;
+                }
+
+				
+			</style>
+			
+			
+			<!-- HEADER STYLE-->
+	
+			
+			<style>
+			
+				#header { 
+					position:absolute;
+					top:0;
+					
+					bottom: 80px;
+					
+					width:100%;
+					background: #f5f6f7
+					url(body.png)
+					min-width: 100px;
+
+					text-color: #ffffff;
+					text-shadow: #717c9b 0px 1px 3px;
+					font-size: 1.40em;
+
+				}
+	  
+				#link {
+					color: #000000c2;
+					<!-- Other colors: #e0e0e0 #e6e6dc -->
+			
+				}
+				
+			</style>
+	
+			<!-- HEADER ELEMENTS STYLES-->
+			
+			<style>
+				
+				.header a.encyclopedia, .header label#about {
+				  float: left;
+				  color: black;
+				  text-align: center;
+				  padding: 10px;
+				  text-decoration: none;
+				  font-size: 15px; 
+				  line-height: 25px;
+				  border-radius: 4px;
+				  border: solid black;
+				  font-weight: bold;
+				  margin-top: 3px;
+					margin: 3px;
+					font-family: "Arial";
+				}
+	
+	            .header i#info { display: none; }
+				i.fa-info-circle { color: #777; }
+	
+				.header a:hover, .header label:hover {
+				  background-color: #ddd;
+				  color: black;
+				}
+	
+				.header a.active {
+				  background-color: dodgerblue;
+				  color: white;
+				}
+	
+				.header-right {
+				float: right;
+				margin-top: 13px;
+				margin-left: 50px;
+				margin-right: 9px;
+				}
+
+
+				.headerText {
+					display: inline-block;
+					/*margin-top: 15px;*/
+					margin-top: 19px;
+					repeat-x 50% 0;
+					text-shadow: #717c9b 0px 1px 3px;
+					/*font-size: 1.40em;*/
+					font-size: 1.7em;
+					/*Center*/
+					margin-left: 10em;
+					/*Left*/
+					/*margin-left: 2.2em;*/
+
+					margin-left: 10px;
+					font-family: 'Consolas';
+                    margin-bottom: 21px;
+
+				}
+				
+
+				.header a.encyclopedia {
+				background-color: #e8e1da;
+				/* color: white; */
+				}
+
+				/*Override styling for logo link*/
+				.header>a:first-child {
+					border: none;
+					margin: 0;
+					padding: 0;
+				}
+				.header>a:first-child:hover {
+					background-color: inherit;
+				}
+
+				</style>
+
+
+				<!-- EXTERNAL LINK ICON STYLE -->
+
+
+				<style>
+				.img2 {
+					vertical-align: text-top;
+					padding-left: 2px;
+				}
+				
+				
+				button.active {
+				  background-color: steelblue;
+				  color: white;
+				}
+				</style>
+			
+		
+		<!-- FOOTER ELEMENTS STYLES-->
+			
+		<style>
+		
+			#footer { 
+					position:absolute;
+					
+					bottom: 0px;
+					
+					width:100%;
+					/* height: 35px; */
+					height: 67px;
+					background: #f5f6f7
+					min-width: 100px;
+
+					border-top: 2px solid #b0691d;
+					
+					font-size: 15px;
+                                        padding-left: 10px;
+					padding-right: 10px;
+				}
+			
+		</style>
+		
+    
+	<!-- BASEMAP MENU STYLE -->
+
+    <style>
+        #baseMapMenu {
+            position: absolute;
+            background: #b3b3b3;
+            padding: 10px 18px 10px 10px;
+            font-family: 'Open Sans', sans-serif;
+            border-radius: 5px;
+            bottom: 175px;
+            right: 20px;
+        }
+		
+		div.layer-list-row {
+		    width: 100%;
+		}
+		
+		div.layer-list-row:hover {
+		    background-color: #DDD;
+		}
+		
+/* tooltip */
+.tooltip{
+position:absolute;
+z-index:999;
+left:-9999px;
+background-color:#dedede;
+padding:3px;
+border:1px solid #fff;
+width:100px;
+text-align: center;
+}
+.tooltip p{
+margin:0;
+padding:0;
+color:#fff;
+background-color:#23579B;
+padding:2px 7px;
+}
+
+/* hide current buildings fill layers */
+	#current_buildings_items,  #current_buildings { display: none; }
+	label[for=current_buildings_items], label[for=current_buildings] { display: none; }
+		
+/* Style for Studio Menu */
+/* #demoLayerInfo */
+
+#rightInfoBar {
+    position: absolute;
+	display:block;
+	/* top: 80px; */
+	top: 82px;
+	right: 0;
+
+	/* Standard */
+	max-height: calc(100% - 230px);
+	/* Opera */
+	max-height: -o-calc(100% - 230px);
+	/* Firefox */
+	max-height: -moz-calc(100% - 230px);
+	/* WebKit */
+	max-height: -webkit-calc(100% - 230px);
+    overflow: auto;
+	/* background-color: transparent !important; */
+	background-color: #fff!important;
+	z-index: 100;
+}
+
+.rightInfoBarBorder {
+    border: solid #FFFFFF 3px;
+}
+
+#studioMenu {
+    position: absolute;
+	display:block;
+	/* top: 80px; */
+	top: 82px;
+	                    /* Standard */
+			            height: calc(100% - 171px);
+				        /* Opera */
+                        height: -o-calc(100% - 171px);
+				        /* Firefox */
+				        height: -moz-calc(100% - 171px);
+				        /* WebKit */
+                        height: -webkit-calc(100% - 171px);
+	/* Standard */
+	max-height: calc(100% - 171px);
+	/* Opera */
+	max-height: -o-calc(100% - 171px);
+	/* Firefox */
+	max-height: -moz-calc(100% - 171px);
+	/* WebKit */
+	max-height: -webkit-calc(100% - 171px);
+    overflow: auto;
+	box-shadow: 0 0 10px 2px rgba(31,51,73,.1)!important;
+	background-color: #fff!important;
+	padding: 10px 2px 10px 10px;
+	/* border-top: 2px solid #b0691d; */
+	z-index: 100;
+}
+
+
+/* width */
+#studioMenu::-webkit-scrollbar, #rightInfoBar::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+#studioMenu::-webkit-scrollbar-track, #rightInfoBar::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+#studioMenu::-webkit-scrollbar-thumb, #rightInfoBar::-webkit-scrollbar-thumb {
+  background: steelblue; /* #888; */
+}
+
+/* Handle on hover */
+#studioMenu::-webkit-scrollbar-thumb:hover, #rightInfoBar::-webkit-scrollbar-thumb:hover {
+  background: blue; /* #555; */
+}
+
+#studioMenu .title {
+	color: #23374d;
+	font-weight: bold;
+	font-size: 17px;
+	padding-bottom: 8px;
+	text-align: center;
+	/* #*A border-bottom: 1px solid #c6d2e1; */
+	border-bottom: 1px solid #ce5c00;
+	margin-bottom: 8px;
+}
+
+#studioMenu { width: 325px; } /* 300px */
+#demoLayerInfo, #infoLayerCastello, #infoLayerGrantLots, #infoLayerDutchGrants, #infoLayerGravesend, #infoLayerNativeGroups, #infoLayerKarl, #infoLayerFarms, #infoLayerCurrLots, #infoLayerSettlements { 
+    padding: 5px;
+	margin-top: 1px;
+	margin-bottom: 1px;
+    width: 270px; /* left: 258px; width: 300px; */ 
+  /* dont break out a link */
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  /* word-break: break-all; */
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+button#zoom-world, button.zoom-labels { padding: 5px 0 5px 0; cursor: pointer; }
+button#zoom-world > i, button.zoom-labels > i  { color: #555; }
+button#hide-zoom-label {display: none;}
+
+#demoLayerInfo, .demoLayerInfoPopUp { 
+    background-color: rgb(50, 205, 50, 0.3); /* #32CD32 LimeGreen */
+    border: solid #32CD32 2px;
+} 
+#infoLayerCastello, .infoLayerCastelloPopUp { 
+    background-color: rgb(255, 192, 203, 0.3);  /* #FFC0CB Pink */
+    border: solid pink 2px;
+} 
+#infoLayerSettlements, .infoLayerSettlementsPopUp { 
+    background-color: rgb(11, 14, 229, 0.2);  /* #0b0ee5 */
+    border: solid #0b0ee5 2px;
+} 
+#infoLayerGrantLots, .infoLayerGrantLotsPopUp { 
+    background-color: rgb(102, 205, 170, 0.3); /* #66CDAA MediumAquamarine */
+    border: solid #66CDAA 2px;
+}
+#infoLayerDutchGrants, .infoLayerDutchGrantsPopUp { 
+    background-color: rgb(255, 255, 0, 0.5); /* #FFFF00 Yellow */
+    border: solid #FFFF00 2px;
+}
+
+/* REPLACE THIS */
+#infoLayerGravesend, .infoLayerGravesendPopUp { 
+    background-color: rgb(255, 255, 0, 0.5); /* #FFFF00 Yellow */
+    border: solid #FFFF00 2px;
+}
+/* REPLACE THIS */
+
+#infoLayerNativeGroups, .infoLayerNativeGroupsPopUp { 
+    background-color: rgb(255, 192, 203, 0.3);  /* #FFC0CB Pink */
+    border: solid pink 2px;
+}
+
+#infoLayerKarl, .infoLayerKarlPopUp { 
+    background-color: rgb(255, 255, 0, 0.5); /* #FFFF00 Yellow */
+    border: solid #FFFF00 2px;
+}
+
+#infoLayerFarms, .infoLayerFarmsPopUp { 
+    /* background-color: rgb(255, 192, 203, 0.5); */
+	/* #FFC0CB Pink */
+    /* border: solid #FFC0CB 2px; */
+	background-color: rgb(255, 255, 0, 0.5); /* #FFFF00 Yellow */
+    border: solid #FFFF00 2px;
+}
+#infoLayerCurrLots, .infoLayerCurrLotsPopUp { 
+    background-color: rgb(123, 104, 238, 0.3); /* #7B68EE MediumSlateBlue */
+    border: solid #7B68EE 2px;
+}
+
+i.compress-expand-icon { cursor: pointer; color: #555; }
+i.zoom-to-layer { color: #1d43de; }
+i.layer-info, i.zoom-to-layer { cursor: pointer; }  /* float: right; margin-top: 2px; margin-right: 5px; */
+i.layer-info:hover, i.zoom-to-layer:hover, i.compress-expand-icon:hover { opacity: 0.7; }
+
+div.dummy-label-layer-space { width: 37px; display: inline-block; }
+div.layer-buttons-list { width: 100%; display: flex; flex-direction: row; justify-content: space-between; }
+div.layer-buttons-block { width: 38px; right: 3px; margin-right: 3px; position: absolute; display: inline-block; }
+
+/*
+.demoLayerInfoPopUp { 
+    height: 34px;
+    width: 34px;
+    background-color: green;
+	border-radius: 50%;
+	margin: 0 auto;
+} 
+.infoLayerCastelloPopUp { 
+    height: 15px;
+    width: 15px;
+    background-color: red;
+	border-radius: 50%;
+	margin: 0 auto;
+} 
+.infoLayerGrantLotsPopUp { 
+    height: 13px;
+    width: 100%;
+    background-color: #66CDAA;
+}
+.infoLayerDutchGrantsPopUp { 
+    height: 15px;
+    width: 100%;
+    background-color: #FFFF00;
+}
+*/
+
+.demoLayerInfoPopUp, .infoLayerCastelloPopUp, .infoLayerGrantLotsPopUp, .infoLayerDutchGrantsPopUp, .infoLayerDutchGrantsPopUp, .infoLayerFarmsPopUp, .infoLayerCurrLotsPopUp, .infoLayerSettlementsPopUp {
+    padding-left: 5px;
+	padding-right: 5px;
+}
+
+#view-hide-layer-panel {
+    position: absolute; 
+	/*
+	bottom: 135px; 
+	left: -3px; 
+	float: rigth; 
+	*/
+	top: 88px;
+	left: 337px; /* 300 <-> 312px | 325 <-> 312 + 25 */
+	z-index: 500; 
+	cursor: pointer;
+	border: solid sliver;
+}
+
+
+/* hide mapbox gl js close button icon  */
+/*
+.mapboxgl-popup-close-button { display: none; }
+*/
+
+i#mobi-hide-sidebar { 
+    color: blue;
+	position: absolute;
+    margin-top: -11px;	
+}
+
+i#mobi-hide-sidebar:hover { 
+    color: darkblue;
+}
+
+div#mobi-view-sidebar { 
+    color: #000;
+	position: absolute;
+    float: right;
+    bottom: 128px;
+    right: 20px;
+	height: 50px;
+    width: 50px;
+	text-align: center;
+    background-color: #fff;
+    border-radius: 50%;
+	border: 2px solid #000;
+}
+
+div#mobi-view-sidebar:hover { 
+    background-color: #ccc;
+}
+
+div#mobi-view-sidebar>i {
+   margin-top: 9px;
+}
+
+
+/* adaptive | responsive  design */
+div#mobi-year {
+    display: none;
+	width: 100%;
+	text-align: center;
+}
+   
+img#logo-img-wide {   
+    padding: 6px 0px 0px 21px; 
+    float: left;
+	height: 70px;
+}
+
+img#logo-img {   
+    padding: 5px 0px 0px 8px; 
+    float: left;
+	display: none;
+}
+
+@media (max-width: 1000px) {
+    span#ruler-date1, span#ruler-date2, span#ruler-date3, span#ruler-date4, span#ruler-date5 {
+	    display: none;
+	}
+	
+    div#mobi-year {
+	    margin-top: 5px;
+	    margin-bottom: -5px;
+        display: block;
+	}
+}
+
+@media (max-width: 930px) {
+    .mapboxgl-ctrl-bottom-right {
+	    bottom: 7px;
+	    right: 170px;
+	}
+}
+
+/*438*/
+@media (max-width: 503px) {
+    .header a.encyclopedia, .header label#about { display: none; }
+	.header i#info { display: inline-block; }
+}
+
+/*555*/
+@media (max-width: 657px) {
+    #studioMenu { width: 100%; }
+	#view-hide-layer-panel { display: none; }
+	#rightInfoBar { display: none; }
+	/* i.layer-info { margin-right: 21px;} */
+	div.layer-buttons-block { width: 111px; }
+	div.dummy-label-layer-space { width: 100px; }
+	div.layer-buttons-list { justify-content: space-around; }
+	
+	/*
+	img.img2 { display: none; }
+	
+	img#logo-img-wide {  
+		display: none;
+	}
+	
+	img#logo-img {  
+	    height: 34px;
+		display: inline-block;
+	}
+	*/
+	
+	#headerTextSuffix, .headerText { display: none; }
+	
+}
+
+
+/*555*/
+@media (min-width: 657px) {
+    #mobi-hide-sidebar, #mobi-view-sidebar { display: none; }
+}
+
+/*930*/
+@media (max-width: 1025px) {
+    .map { top: 43px; }
+	
+	#rightInfoBar { top: 45px; }
+	
+	#studioMenu { 
+	    top: 45px; 
+		/* Standard */
+			            height: calc(100% - 134px);
+				        /* Opera */
+                        height: -o-calc(100% - 134px);
+				        /* Firefox */
+				        height: -moz-calc(100% - 134px);
+				        /* WebKit */
+                        height: -webkit-calc(100% - 134px);
+	/* Standard */
+	max-height: calc(100% - 134px);
+	/* Opera */
+	max-height: -o-calc(100% - 134px);
+	/* Firefox */
+	max-height: -moz-calc(100% - 134px);
+	/* WebKit */
+	max-height: -webkit-calc(100% - 134px);
+	}
+	
+    /*
+	#headerTextSuffix { display: none; }
+	*/
+	
+	.headerText {
+					margin-top: 11px;
+					font-size: 13pt;
+					margin-left: 10px;
+				}
+	
+	.header-right {
+				margin-left: 5px;
+				margin-right: 5px;
+				}
+				
+		
+	.header a.encyclopedia, .header label#about {
+				  color: black;
+				  text-align: center;
+				  padding: 3px;
+				  text-decoration: none;
+				  font-size: 13px; 
+				  line-height: 15px;
+				  border-radius: 3px;
+				  border: solid black;
+				  font-weight: bold;
+				  margin-top: 3px;
+					margin: 3px;
+				}
+		
+    img#logo-img-wide {  
+		height: 39px;
+		padding: 2px 0px 0px 3px; 
+	}
+	
+	.header-right {
+	    margin-top: 5px;
+	}
+	
+
+}
+	    
+i.slash-icon { font-size: 11px; }
+
+	</style>
+	
+<!-------------------->
+<!---ADD MODAL DIV---->
+<!-------------------->
+	
+<input class="checker" type="checkbox" id="o" hidden>
+<div class="modal">
+  
+  <div class="modal-body">
+   <div class="modal-header">
+   <h1>ABOUT</h1><label for="o" id="close" title="Close">&times;</label>
+    </div>
+    <div class="modal-content">
+            New York City was founded by the Dutch in 1624 as <i>New Amsterdam</i>,
+			 the capital of New Netherland. The New Amsterdam History Center
+			 is devoted to documenting and mapping New Amsterdam, its
+			 diverse people, landscapes, institutions and global legacy today.
+			<p>
+			We’ve presented several versions of the <i>Castello Plan</i> and the 
+			 <i>Dutch Grants Map</i> here.
+			 You can see the settlement of houses, farms,
+			 taverns and workshops, surrounded by walls. Over the three
+			 centuries that followed, the area became the Financial District.
+			 The east wall was torn down and named Wall Street. The canals
+			 were paved over and turned into streets and in between developed
+			 skysrapers, and the island was expanded with infill.
+			 Above ground, almost nothing remains of New Amsterdam except the 
+			 original street pattern.  Underground, archeologists have found 
+			 evidence of the plots of houses and gardens, Amsterdam yellow 
+			 brick, and pollen samples of plants.
+			<p>
+			You can swipe the map to compare the Castello Plan in 1660
+			 to the present,
+			 and explore each lot, where it shows what was there and who lived
+			 there. Our next steps are to expand through the full history
+			 of New Amsterdam with a timeline from 1624 to 1664, when it
+			 was taken over
+			 by the English.
+			<p>
+			We need your help to make this work happen. Donate now to
+			 develop the map and expand the research.
+			<p>
+	</div>
+
+<!--
+    <div class="modal-footer">
+-->
+	  <!--
+      <label for="o">close</label>
+	  -->
+<!--
+	        <b><a href="http://newamsterdamhistorycenter.org/support/">Support Us</a></b>
+			<p style="color: #b0691d; font-size: 16px; font-weight: bold;">
+				<i>MAPPING EARLY NEW YORK</i>, PHASE 1 AND 2 are made possible by a grant from the SOCIETY OF THE DAUGHTERS OF HOLLAND DAMES.</p>
+    </div>
+-->
+   
+  </div>
+</div>
+
+		
+    <!-------------------->
+    <!--ADD HEADER DIV---->
+    <!-------------------->
+
+    <div class="header">
+
+
+        <!--LOGO-->
+        <a href="deadlink.html" class="logo">
+            <img style="padding: 12px 0px 0px 30px; float: left;" src="http://mapstructor.com/wp-content/uploads/2020/10/logo_header.png" height="50" align="middle">
+        </a>
+
+<!--
+<abbr title="World Health Organization">
+-->
+        <!--TEXT-->
+        <div id="header_text" class="headerText">
+            <!--
+				New Amsterdam History Center Online Exhibition
+				-->
+            | Map Name
+        </div>
+
+
+        <!--BUTTONS-->
+        <div class="header-right">
+            <a class="active" href="#home">Active</a>
+            <a href="explore.html">Dead Link</a>
+        </div>
+
+    </div>
+
+
+
+    <!---------------------->
+    <!--ADD LAYERS TOGGLE -->
+	<!---------------------->
+	
+	<button id="view-hide-layer-panel" ><br> <span id="dir-txt" >&#9204;</span> <br><br></button>
+	
+	
+	
+	<div id="rightInfoBar" class="rightInfoBarBorder">
+	
+	  <div class="infoLayerElem" id="infoLayerGrantLots"></div>
+	  <div class="infoLayerElem" id="infoLayerDutchGrants"></div>
+	  <div class="infoLayerElem" id="infoLayerNativeGroups"></div>
+	  <div class="infoLayerElem" id="demoLayerInfo"></div>
+	
+	</div>
+	
+	
+	
+    <div id="studioMenu">
+	  
+	  <i id="mobi-hide-sidebar"  class="fa fa-arrow-circle-left fa-3x"></i>
+	  
+	  <!--
+	  <p class="title">
+        ZOOM TO LAYERS
+      </p>
+	  <button onclick="zoomtobounds('LongIsland')">Long Island</button>
+	  <button onclick="zoomtobounds('Manhattan')">Manhattan</button>
+	  <button onclick="zoomtobounds('NYC')">New York City</button>
+	  <button onclick="zoomtobounds('Bronx')">Bronx</button>
+	  <button onclick="zoomtobounds('Brooklyn')">Brooklyn</button>
+	  <button onclick="zoomtobounds('Queens')">Queens</button>
+	  <button onclick="zoomtobounds('StatenIsland')">Staten Island</button>
+	  <br><br>
+      -->
+	  
+      <p class="title">
+        LAYERS
+      </p>
+	  <!-- #*A
+	  <br>
+	  -->
+	  <br>
+	  <center>
+	  <b><i class="fas fa-minus-square compress-expand-icon" id="manahatta-section-caret" onclick="sectionCompressExpand('#manahatta-section-layers','#manahatta-section-caret')" ></i> &nbsp; Manhattan</b>
+	  </center>
+	  <p>
+
+	  <div id="manahatta-section-layers">
+	  
+	  
+	  <!-- Dutch Grants  -->
+	  <div class="layer-list-row" >
+	  <input type="checkbox" id="grants_layer_items" name="grants_layer_items">
+	  <i class="fas fa-minus-square compress-expand-icon" id="dutch-grants-layer-caret" onclick="itemsCompressExpand('.dutch_grants_layer_item','#dutch-grants-layer-caret')" ></i>
+      <label for="grants_layer_items"> 1640-64 | Dutch Grants  <div class="dummy-label-layer-space"></div></label>
+	    <div class="layer-buttons-block">
+		    <div class="layer-buttons-list">
+		        <i  class="fa fa-crosshairs zoom-to-layer" onclick="zoomtocenter('NA')" title="Zoom to Layer" ></i>
+		        <i  class="fa fa-info-circle layer-info trigger-popup" id="grants-info-layer"  title="Layer Info" ></i>
+		    </div>
+		</div>
+	  </div>
+
+	  <!-- Dutch Grants Layers -->
+	  <div class="layer-list-row dutch_grants_layer_item" >
+	  &nbsp; &nbsp; &nbsp; <input type="checkbox" id="grants_layer" class="grants_layer" name="grants_layer">
+      <label for="grants_layer"> <i class="fa fa-square" style="color: #e3ed58;" ></i> Information</label>
+	  </div>
+	  
+	  <!-- Dutch Grants Layers Lines -->
+	  <div class="layer-list-row dutch_grants_layer_item" >
+	  &nbsp; &nbsp; &nbsp; <input type="checkbox" id="grants_layer_lines" class="grants_layer" name="grants_layer_lines">
+      <label for="grants_layer_lines"> <i class="far fa-square" style="color: #FF0000;" ></i> Lines</label>
+	  </div>
+
+	  
+
+	  <!-- Circle -->
+	  <div class="layer-list-row" >
+		<input type="checkbox" id="circle_point" name="circle_point" checked="checked" > <!-- disabled="disabled" -->
+		<label for="circle_point"> <i class="fa fa-play-circle"  style="color: #097911;" ></i>1643-75 | Demo Taxlot: C7 <div class="dummy-label-layer-space"></div></label>
+		<div class="layer-buttons-block">
+		    <div class="layer-buttons-list">
+		        <i  class="fa fa-crosshairs zoom-to-layer" onclick="zoomtocenter('NA')" title="Zoom to Layer" ></i>
+		        <i  class="fa fa-info-circle layer-info trigger-popup" id="demo-taxlot-info-layer"  title="Layer Info" ></i>
+		    </div>
+		</div>
+		</div>
+
+
+	  </div>
+    
+
+	  <br>
+	  <center>
+	  <b><i class="fas fa-minus-square compress-expand-icon" id="long-island-section-caret" onclick="sectionCompressExpand('#long-island-section-layers','#long-island-section-caret')" ></i> &nbsp; Long Island</b>
+	  </center>
+
+
+      <div id="long-island-section-layers" >
+      
+	   <!-- Long Island Native Groups Layers -->
+        <div class="layer-list-row" >
+		<input type="checkbox" id="native_groups_layer_items" name="native_groups_layer_items">
+		<i class="fas fa-minus-square compress-expand-icon" id="native-groups-layer-caret" onclick="itemsCompressExpand('.native_groups_layer_item','#native-groups-layer-caret')" ></i>
+		<label for="native_groups_layer_items"> 1600s | Long Island Tribes  <div class="dummy-label-layer-space"></div></label>
+		<div class="layer-buttons-block">
+		    <div class="layer-buttons-list">
+		        <i  class="fa fa-crosshairs zoom-to-layer" onclick="zoomtobounds('LongIsland')" title="Zoom to Layer" ></i>
+		        <i  class="fa fa-info-circle layer-info trigger-popup" id="native-groups-info-layer"  title="Layer Info" ></i>
+		    </div>
+		</div>
+		</div>
+  
+        <!-- Long Island Native Groups Labels -->
+		<div class="layer-list-row native_groups_layer_item" >
+		&nbsp; &nbsp; &nbsp; <input type="checkbox" class="native_groups_layer" id="native_groups_labels" name="native_groups_labels">
+		<label for="native_groups_labels"> <i class="fa fa-comment-dots"  style="color: #0b0ee5;" ></i>  Labels</label>
+		</div>
+  
+		<!-- Long Island Native Groups Area -->
+		<div class="layer-list-row native_groups_layer_item" >
+		&nbsp; &nbsp; &nbsp; <input type="checkbox" id="native_groups_area" class="native_groups_layer" name="native_groups_area">
+		<label for="native_groups_area"> <i class="fa fa-square" style="color: #FF1493;" ></i> Area</label>
+		</div>
+		
+		<!-- Long Island Native Groups Lines -->
+		<div class="layer-list-row native_groups_layer_item" >
+		&nbsp; &nbsp; &nbsp; <input type="checkbox" id="native_groups_lines" class="native_groups_layer" name="native_groups_lines">
+		<label for="native_groups_lines"> <i class="far fa-square" style="color: #FF0000;" ></i> Borders</label>
+		</div>
+	  
+	  </div>
+
+	  <br>
+
+
+
+
+      <div>
+        <!-- #*A
+		<br>
+		-->
+		<hr>
+		<p class="title">
+			MAPS
+		  </p>
+		  <!-- #*A
+		  <br>
+          -->
+		<!--CURRENT SATELLITE -->
+		<div class="layer-list-row" >
+			<input class='cjooubzup2kx52sqdf9zmmv2j' type='radio' name='ltoggle' value='cjooubzup2kx52sqdf9zmmv2j' checked="checked">
+			<input class='cjooubzup2kx52sqdf9zmmv2j' type='radio' name='rtoggle' value='cjooubzup2kx52sqdf9zmmv2j'>
+			&nbsp;
+			<label for='cjooubzup2kx52sqdf9zmmv2j'>Current Satellite <div class="dummy-label-layer-space"></div></label>
+			<div class="layer-buttons-block">
+		        <div class="layer-buttons-list">
+		            <i  style="width: 16px;"></i>
+		            <i  class="fa fa-info-circle layer-info trigger-popup" id="satellite-image"  title="Layer Info" ></i>
+		        </div>
+		    </div>
+			</div>
+	
+			<br>
+			<center>
+			<b><i class="fas fa-minus-square compress-expand-icon" id="castello-maps-section-caret" onclick="sectionCompressExpand('#castello-maps-section','#castello-maps-section-caret')" ></i> &nbsp; 1660 | Castello Plan</b>
+			</center>
+			
+          
+		<div id="castello-maps-section">
+		  
+		<!--CASTELLO COLORED (DEFAULT)-->
+		<div class="layer-list-row" >
+		<input class='cjowjzrig5pje2rmmnjb5b0y2' type='radio' name='ltoggle' value='cjowjzrig5pje2rmmnjb5b0y2'>
+		<input class='cjowjzrig5pje2rmmnjb5b0y2' type='radio' name='rtoggle' value='cjowjzrig5pje2rmmnjb5b0y2' checked="checked">
+		&nbsp;
+		<label for='cjowjzrig5pje2rmmnjb5b0y2'>Castello Redrawn (Default) <div class="dummy-label-layer-space"></div></label>
+		    <div class="layer-buttons-block">
+		        <div class="layer-buttons-list">
+		            <i  class="fa fa-crosshairs zoom-to-layer" onclick="zoomtocenter('NA')" title="Zoom to Layer" ></i>
+		            <i  class="fa fa-info-circle layer-info trigger-popup" id="castello-redrawn-plan"  title="Layer Info" ></i>
+		        </div>
+		    </div>
+        </div>
+
+		<!--ORIGINAL CASTELLO-->
+		<div class="layer-list-row" >
+		<input class='ck7phs10100951is1p3p4bv9j' type='radio' name='ltoggle' value='ck7phs10100951is1p3p4bv9j'>
+		<input class='ck7phs10100951is1p3p4bv9j' type='radio' name='rtoggle' value='ck7phs10100951is1p3p4bv9j'>
+		&nbsp;
+		<label for='ck7phs10100951is1p3p4bv9j'>1660 Original Castello Plan <div class="dummy-label-layer-space"></div></label>
+		    <div class="layer-buttons-block">
+		        <div class="layer-buttons-list">
+		            <i  class="fa fa-crosshairs zoom-to-layer" onclick="zoomtocenter('NA')" title="Zoom to Layer" ></i>
+		            <i  class="fa fa-info-circle layer-info trigger-popup" id="original-castello-plan"  title="Layer Info" ></i>
+		        </div>
+		    </div>
+        </div>
+
+	
+
+        </div>
+
+
+		
+
+        
+
+
+	  </div>
+
+	 
+	  <!--
+	  <br>
+	  <div class="infoLayerElem" id="infoLayerGrantLots"></div>
+	  <div class="infoLayerElem" id="infoLayerDutchGrants"></div>
+	  <div class="infoLayerElem" id="infoLayerGravesend"></div> 
+	  <div class="infoLayerElem" id="infoLayerNativeGroups"></div>
+	  <div class="infoLayerElem" id="infoLayerKarl"></div>
+	  <div class="infoLayerElem" id="infoLayerFarms"></div>
+	  <div class="infoLayerElem" id="infoLayerCastello"></div>
+	  <div class="infoLayerElem" id="infoLayerSettlements"></div>
+	  <div class="infoLayerElem" id="demoLayerInfo"></div>
+	  <div class="infoLayerElem" id="infoLayerCurrLots"></div>
+	  -->
+	 
+	  
+	</div>
+
+		<!-- MAP DIV-->
+        <!--
+		<div id="map" class="map"></div>
+		-->
+		<div id='before' class='map'></div>
+        <div id='after' class='map'></div>
+
+
+    
+
+    <!---------------------->
+    <!--ADD BASEMAP TOGGLE-->
+	<!---------------------->
+    <!--
+	<div id='baseMapMenu'>
+
+	</div>
+	-->
+
+
+		<!-- BASEMAP SWITHER DIV -->
+        <!--
+		<div id="styleSwitcher"></div>
+		-->
+		<div id="mobi-view-sidebar" ><i  class="fa fa-bars fa-2x"></i></div>
+
+        <!-- NAVIGATION PANEL DIV -->
+		<!--
+		<div id='navpanel'>
+		<b>NAVIGATION</b>
+		<div style="line-height: 58px; height: 58px; vertical-align: middle; width: 100%; margin-top: 3px;">
+		<i class="fas fa-3x fas fa-3x fa-caret-square-left nav-btn" onmousedown="rotateLoopASC()" onmouseup="rotateLoopASCend()"></i>
+		// onclick="rotatex(5)"
+		<svg version="1.1" id="Layer_1" style="margin-bottom: -10px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="55px" height="55px" viewBox="0 0 512 512" enable-background="new 0 0 160 160" xml:space="preserve">
+	    <g>
+	        <g id="compass-pointer" >
+                <path class="north-arr" d="M248.156,225.531l-26.094-26.094l147.063-56.563l-56.563,147.063l-26.094-26.094c2.688-10.594,0.438-22.188-7.844-30.469 S258.75,222.813,248.156,225.531z" />
+	            <path class="south-arr"  d="M233.375,278.625c-8.281-8.281-10.563-19.875-7.844-30.469l-26.094-26.094l-56.563,147.063 l147.063-56.563l-26.094-26.094C253.25,289.188,241.656,286.906,233.375,278.625z" >
+            </g>
+	        <path  class="compass-ring" d="M512,256c0,141.375-114.625,256-256,256
+	        S0,397.375,0,256S114.625,0,256,0S512,114.625,512,256z M240,32c0,8.844,7.156,16,16,16s16-7.156,16-16s-7.156-16-16-16
+	        S240,23.156,240,32z M48,256c0-8.844-7.156-16-16-16s-16,7.156-16,16s7.156,16,16,16S48,264.844,48,256z M272,480
+	        c0-8.844-7.156-16-16-16s-16,7.156-16,16s7.156,16,16,16S272,488.844,272,480z M448,256c0-105.875-86.125-192-192-192
+	        S64,150.125,64,256s86.125,192,192,192S448,361.875,448,256z M496,256c0-8.844-7.156-16-16-16s-16,7.156-16,16s7.156,16,16,16
+	        S496,264.844,496,256z"/>
+	    </g>
+        </svg>
+		// onclick="rotatex(-5)"
+        <i class="fas fa-3x fa-caret-square-right nav-btn" onmousedown="rotateLoopDESC()" onmouseup="rotateLoopDESCend()"></i> 
+	    </div>
+	    
+		<span>
+        <i class="fas fa-3x fa-plus-square nav-btn" onclick="setZoom(1)"></i>&nbsp;
+        <i class="fas fa-3x fa-crosshairs nav-init" onclick="zoomtofit()"></i>&nbsp;
+        <i class="fas fa-3x fa-minus-square nav-btn" onclick="setZoom(-1)"></i>
+		</span>
+		
+		</div>
+        -->
+		
+		<!-- TIMELINE PANEL DIV -->
+		<div id='datepanel'><b><span id="date"></span></b></div>
+		<!--
+		<div id='sidepanel'>
+		
+			<div id="content">
+				<h1>NAHC Taxlot C7 Demo</h1>
+				<hr/>
+				<p class="info" style="text-align:center">
+				Show New York on:
+				<br/> +
+				<input type="text" id="date" size="4" class="y2000" value="" /> +
+				</p>
+                                -->
+				<!--
+				<div id="slider"></div>
+                                -->
+		                <!--
+				<br>
+				<nav id="legend"></nav>
+				<div>
+				<span class="footnote">
+						Our goal is to go to any time and see the way New York was 
+						then, beginning in 1609.
+						This is our beta project, showing a history of a single
+						lot from 1643-1675.
+						<p>
+						Slide the timeline and click the big dot to see what was there.
+						The color changes when the lot changes hands.
+						The color first changes to green in 1659.
+						<p>
+						More buildings and data will be added soon.
+
+					</span>
+				</div>
+				</br>
+				<div id="footnotediv" style="display:none">
+
+
+					
+				</div>
+			</div>
+		</div>
+        -->
+	
+	        
+	    <!-------------------->
+		<!--ADD FOOTER DIV---->
+		<!-------------------->
+		<div id="footer">
+		
+			<!-- TIMELINE slider DIV -->
+			<div id="slider">
+			 
+			    <!-- TIMELINE mobile info -->
+			    <div id="mobi-year"> ... </div>
+				
+			    <!-- TIMELINE ruler DIV -->
+			    <div class="timeline">
+			        <div class="year"><span id="ruler-date1"> ... </span><span class="timeline-ruler"></span></div>
+                    <div class="year"><span id="ruler-date2"> ... </span><span class="timeline-ruler"></span></div>
+                    <div class="year"><span id="ruler-date3"> ... </span><span class="timeline-ruler"></span></div>
+                    <div class="year"><span id="ruler-date4"> ... </span><span class="timeline-ruler"></span></div>
+                    <div class="year"><span id="ruler-date5"> ... </span><span class="timeline-ruler"></span></div>
+                </div>
+				
+		    </div>
+			
+		</div>
+	
+	
+	
+		<!-- MAP.JS SOURCE -->
+		<script src="timeline/js/mapinit.js"></script>
+		<script src="timeline/js/beforelayers.js"></script>
+		<script src="timeline/js/afterlayers.js"></script>
+		<script src="timeline/js/sliderpopups.js"></script>
+        
+
+	</body>
+
+</html>
+
+
