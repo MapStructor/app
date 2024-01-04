@@ -142,7 +142,7 @@
     <script src="timeline/vendor/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
     <script src="timeline/vendor/jquery.ui.touch-punch.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
-    
+
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.js"></script>
     <link
@@ -182,11 +182,10 @@
 
       gtag("config", "UA-159545294-1");
     </script>
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/index.css" />
   </head>
 
   <body>
-
     <!-------------------->
     <!---ADD MODAL DIV---->
     <!-------------------->
@@ -226,10 +225,9 @@
             the map and expand the research.
           </p>
         </div>
-
       </div>
     </div>
-<!-- HEADER -->
+    <!-- HEADER -->
     <div class="header">
       <a href="http://newamsterdamhistorycenter.org" class="logo">
         <img
@@ -247,7 +245,6 @@
       </div>
 
       <div class="header-right">
-
         <a
           class="encyclopedia"
           href="https://newamsterdamhistorycenter.org/full-3d-model/"
@@ -277,7 +274,7 @@
       </div>
     </div>
 
-<!-- LAYER TOGGLE -->
+    <!-- LAYER TOGGLE -->
     <button id="view-hide-layer-panel">
       <br />
       <span id="dir-txt">&#9204;</span> <br /><br />
@@ -323,7 +320,6 @@
       </center>
       <div id="long-island-section-layers"></div>
 
-      
       <br />
       <div>
         <script src="js/generateLayers.js"></script>
@@ -372,70 +368,7 @@
           >
         </center>
         <div id="castello-maps-section"></div>
-        <br />
         <center>
-          <a
-            class="encyclopedia"
-            href="https://sandcastle.cesium.com/standalone.html#c=jVJtb9owEP4rJz5UIFUOL2q1drQaCxsKamCloYUqX0xiiMGxg+1Aw9T/PueFrVTdtE+W7567e57nzrJgIDHXYBNF03j4ADgIiFKgBWQilUAFB6wU0crnJQY5gqOQLHHKdK8Ae2JDONyAXyPZMFoMAjqmQ2d6cFoj6iiHTy4C27l0Nsns0R5eIQPahoNNDqLz9jMbxe7etZsXcy+M7rz7zsib6/n6O3Vps+n2e4ex52Ru/2s07k/pnT1Mnk0z13P3I89t5//57J6O19/ao8OmM1pvDm5/coWSUG6n6/XlUwtPPwnRfpqpcNuyqe1EQzqZKD7odWbRYnO1mvu1zz73eSC40rCjZE+kEcPJvjIFPRaxul8Lir8tuMaUE+nXzuGnzwE0kdJEfkixoyGR14D3mB49ReXjnWLQUorYONnLvXXCet4GoJU/jXOfvzYMp5ILUgHhBK2YWBDje6IjjyjdW5lmSlddDV8tU1Lo0DIrWZWCNGXEjDCID0h1+l6Zfk+nddlqNzsXOQuAEx6JpDHVdEcUwmFYr9qXwHJCBT8IEXviLSCHWBb0koRloCMC1RWB0hkjQJdgqskLVfmxHfmTFy2xygVWTItrRGW4mGrqKvsqbaatWU9YLzENODv7RxqZC/8PyPHiH3KqjWJNpcvwm1ip4uRy3rpcVP61Y6Hk1SweAqyDCOpmsUI2/mxSMIKYWFVxAzfg2nmtW0y9zVFfaJwIqSGVrI6QpUmcMKyJshZpsDH8AqXyuq51LOmGdAc0vPngsCFgxmeTWaaMPdAD8Wu3XcvgT8qYwCHlq/GOSIYzA8lpdKPW7V2ZQAh1LfPNh76v1UKwBZZv+ho1kdaJurYshXkYYKWN5pIaCkRsrTBjRGbWLw"
-            target="_blank"
-            ><button id="zoom-world">
-              &nbsp; &nbsp; <i class="fa fa-globe"></i> &nbsp;
-              <b>3D New Amsterdam</b> &nbsp; &nbsp; &nbsp;
-            </button></a
-          >
-          <br />
-        </center>
-        <br />
-        <center>
-          <b
-            ><i
-              class="fas fa-plus-square compress-expand-icon"
-              id="manahatta-maps-section-caret"
-              onclick="sectionCompressExpand('#manahatta-maps-section','#manahatta-maps-section-caret')"
-            ></i>
-            &nbsp; Manhattan and Surrounding</b
-          >
-        </center>
-        <div id="manahatta-maps-section"></div>
-        <br />
-        <center>
-          <b
-            ><i
-              class="fas fa-plus-square compress-expand-icon"
-              id="long-island-maps-section-caret"
-              onclick="sectionCompressExpand('#long-island-maps-section','#long-island-maps-section-caret')"
-            ></i>
-            &nbsp; Long Island</b
-          >
-        </center>
-        <div id="long-island-maps-section"></div>
-        <br />
-        <center>
-          <b
-            ><i
-              class="fas fa-plus-square compress-expand-icon"
-              id="new-netherland-maps-section-caret"
-              onclick="sectionCompressExpand('#new-netherland-maps-section','#new-netherland-maps-section-caret')"
-            ></i>
-            &nbsp; New Netherland</b
-          >
-        </center>
-        <div id="new-netherland-maps-section"></div>
-        <br />
-        <center>
-          <b
-            ><i
-              class="fas fa-plus-square compress-expand-icon"
-              id="new-england-maps-section-caret"
-              onclick="sectionCompressExpand('#new-england-maps-section','#new-england-maps-section-caret')"
-            ></i>
-            &nbsp; New England</b
-          >
-        </center>
-        <div id="new-england-maps-section"></div>
-        <br />
-        <center>
-
           <button onclick="zoomtobounds('World')" id="zoom-world">
             &nbsp; &nbsp; <i class="fa fa-globe"></i> &nbsp;
             <b>Zoom to World</b> &nbsp; &nbsp; &nbsp;

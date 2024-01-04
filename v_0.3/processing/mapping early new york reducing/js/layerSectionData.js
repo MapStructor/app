@@ -46,53 +46,47 @@ const manhattanLayerSections = [
     zoomTo: "NA",
     infoId: "castello-info-layer",
     type: "castello-points",
-  }
+  },
 ];
 
 const longIslandLayerSections = [
-
   {
-    id: 'native_groups_layer_items',
-    name: 'native_groups_layer_items',
-    caretId: 'native-groups-layer-caret',
-    label: '1600s | Long Island Tribes',
-    zoomTo: 'LongIsland',
-    infoId: 'native-groups-info-layer',
-    type: 'group',
-    itemSelector: ".native_groups_layer_item"
+    id: "native_groups_layer_items",
+    name: "native_groups_layer_items",
+    caretId: "native-groups-layer-caret",
+    label: "1600s | Long Island Tribes",
+    zoomTo: "LongIsland",
+    infoId: "native-groups-info-layer",
+    type: "group",
+    itemSelector: ".native_groups_layer_item",
   },
   {
-    className: 'native_groups_layer',
-    id: 'native_groups_labels',
-    name: 'native_groups_labels',
-    iconColor: '#0b0ee5',
-    label: 'Labels',
+    className: "native_groups_layer",
+    id: "native_groups_labels",
+    name: "native_groups_labels",
+    iconColor: "#0b0ee5",
+    label: "Labels",
     topLayerClass: "native_groups_layer",
     iconType: "comment-dots",
     isSolid: true,
   },
   {
-    className: 'native_groups_layer',
-    id: 'native_groups_area',
-    name: 'native_groups_area',
-    iconColor: '#ff1493',
-    label: 'Area',
+    className: "native_groups_layer",
+    id: "native_groups_area",
+    name: "native_groups_area",
+    iconColor: "#ff1493",
+    label: "Area",
     iconType: "square",
     topLayerClass: "native_groups_layer",
-    isSolid: true
+    isSolid: true,
   },
   {
-    className: 'native_groups_layer',
-    id: 'native_groups_lines',
-    name: 'native_groups_lines',
-    iconColor: '#ff0000',
-    label: 'Borders',
+    className: "native_groups_layer",
+    id: "native_groups_lines",
+    name: "native_groups_lines",
+    iconColor: "#ff0000",
+    label: "Borders",
     iconType: "square",
     topLayerClass: "native_groups_layer",
   },
-  
 ];
-
-const informationOfInterest = [
-  
-]
