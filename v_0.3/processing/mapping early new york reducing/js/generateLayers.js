@@ -391,7 +391,6 @@ $("#long-island-section-layers").html(renderLongIslandLayers(longIslandLayerSect
 $("#manahatta-section-layers").html(
   renderManhattanLayers(manhattanLayerSections)
 );
-$("#info-section-layers").html(renderLongIslandLayers(informationOfInterest))
 }catch(error){
   console.log(error)
 }
