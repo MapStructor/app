@@ -828,20 +828,7 @@ function buildPopUpInfo(props) {
 }
 
 
-function buildGrantLotsPopUpInfo(props) {
-  const popup_html = `
-    <h3>Grant Lot Division</h3><hr><br>
-    <b>Original Dutch Grant:</b> <a href='https://encyclopedia.nahc-mapping.org/grantlot/${props.Lot}' target='_blank'>${props.Lot}</a><br><br>
-    <b>Lot Division: </b>${props.dutchlot}<br>
-    <b>Castello Taxlot (1660): </b>${props.castello}<br><br>
-    <b>Ownership:</b> ${props.name}<br>
-    <b>From:</b> ${props.from}<br><br>
-    <b>Start:</b> ${props.day1}, ${props.year1}<br>
-    <b>End:</b> ${props.day2}, ${props.year2}<br><br>
-    <b>Description:</b><br>${props.description}<br><br>`;
 
-  $("#infoLayerGrantLots").html(popup_html);
-}
 
 
 function buildDutchGrantPopUpInfo(props) {

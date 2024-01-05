@@ -859,7 +859,6 @@ function CurrLotsHandle(event) {
 
       closeCurrLotsInfo();
     } else {
-      buildCurrLotsPopUpInfo(event.features[0].properties);
       if ($(".infoLayerElem").first().attr("id") != "infoLayerCurrLots")
         $("#infoLayerCurrLots").insertBefore($(".infoLayerElem").first());
       $("#infoLayerCurrLots").slideDown();
@@ -890,7 +889,6 @@ function CurrLotsHandle(event) {
         beforeHighCurrLotsPopUp.addTo(beforeMap);
     }
   } else {
-    buildCurrLotsPopUpInfo(event.features[0].properties);
     if ($(".infoLayerElem").first().attr("id") != "infoLayerCurrLots")
       $("#infoLayerCurrLots").insertBefore($(".infoLayerElem").first());
     $("#infoLayerCurrLots").slideDown();
@@ -972,7 +970,7 @@ function GrantLotsHandle(event) {
       closeGrantLotsInfo();
     } else {
       
-      buildGrantLotsPopUpInfo(event.features[0].properties);
+      
 
       if ($(".infoLayerElem").first().attr("id") != "infoLayerGrantLots")
         $("#infoLayerGrantLots").insertBefore($(".infoLayerElem").first());
@@ -988,7 +986,7 @@ function GrantLotsHandle(event) {
         beforeHighGrantLotsPopUp.addTo(beforeMap);
     }
   } else {
-    buildGrantLotsPopUpInfo(event.features[0].properties);
+    
     if ($(".infoLayerElem").first().attr("id") != "infoLayerGrantLots")
       $("#infoLayerGrantLots").insertBefore($(".infoLayerElem").first()); 
     $("#infoLayerGrantLots").slideDown();
@@ -1341,7 +1339,7 @@ function FarmsClickHandle(event) {
 
       closeFarmsInfo();
     } else {
-      buildFarmsPopUpInfo(event.features[0].properties);
+      
       if ($(".infoLayerElem").first().attr("id") != "infoLayerFarms")
         $("#infoLayerFarms").insertBefore($(".infoLayerElem").first());
       $("#infoLayerFarms").slideDown();
@@ -1370,7 +1368,7 @@ function FarmsClickHandle(event) {
       if (!beforeHighFarmPopUp.isOpen()) beforeHighFarmPopUp.addTo(beforeMap);
     }
   } else {
-    buildFarmsPopUpInfo(event.features[0].properties);
+    
     if ($(".infoLayerElem").first().attr("id") != "infoLayerFarms")
       $("#infoLayerFarms").insertBefore($(".infoLayerElem").first());
     $("#infoLayerFarms").slideDown();
@@ -1553,7 +1551,7 @@ function GravesendClickHandle(event) {
 
       closeGravesendInfo();
     } else {
-      buildGravesendPopUpInfo(event.features[0].properties);
+      
       if ($(".infoLayerElem").first().attr("id") != "infoLayerGravesend")
         $("#infoLayerGravesend").insertBefore($(".infoLayerElem").first());
       $("#infoLayerGravesend").slideDown();
@@ -1587,7 +1585,7 @@ function GravesendClickHandle(event) {
         beforeHighMapGravesendPopUp.addTo(beforeMap);
     }
   } else {
-    buildGravesendPopUpInfo(event.features[0].properties);
+    
     if ($(".infoLayerElem").first().attr("id") != "infoLayerGravesend")
       $("#infoLayerGravesend").insertBefore($(".infoLayerElem").first());
     $("#infoLayerGravesend").slideDown();
@@ -1780,7 +1778,7 @@ function KarlClickHandle(event) {
 
       closeKarlInfo();
     } else {
-      buildKarlPopUpInfo(event.features[0].properties);
+      
       if ($(".infoLayerElem").first().attr("id") != "infoLayerKarl")
         $("#infoLayerKarl").insertBefore($(".infoLayerElem").first());
       $("#infoLayerKarl").slideDown();
@@ -1811,7 +1809,7 @@ function KarlClickHandle(event) {
         beforeHighMapKarlPopUp.addTo(beforeMap);
     }
   } else {
-    buildKarlPopUpInfo(event.features[0].properties);
+    
     if ($(".infoLayerElem").first().attr("id") != "infoLayerKarl")
       $("#infoLayerKarl").insertBefore($(".infoLayerElem").first());
     $("#infoLayerKarl").slideDown();
