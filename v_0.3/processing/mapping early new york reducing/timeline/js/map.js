@@ -90,15 +90,6 @@ var afterMapPopUp = new mapboxgl.Popup({
 var coordinates = [];
 var places_popup_html = "";
 
-var afterMapPlacesPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-  }),
-  beforeMapPlacesPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-  });
-
 var afterMapGrantLotPopUp = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false,
@@ -276,8 +267,6 @@ afterMap.on("error", function (e) {
   if (e && e.error !== "Error") console.log(e);
 });
 
-//TIME LAYER FILTERING. NOT SURE HOW WORKS.
-
 function changeDate(unixDate) {
   var year = parseInt(moment.unix(unixDate).format("YYYY"));
   var date = parseInt(moment.unix(unixDate).format("YYYYMMDD"));
@@ -367,9 +356,7 @@ function changeDate(unixDate) {
   if (demo_layer_view_flag) {
     buildPopUpInfo(layer_features[0].properties);
   }
-} //end function changeDate
-
-//LAYERS AND LEGEND
+} 
 
 function addGrantLotsBeforeLayers(date) {
   //REMOVING TAX LOT POINTS IF EXIST
@@ -608,7 +595,6 @@ function addGrantLotsAfterLayers(date) {
   }
 }
 
-
 function addCastelloAfterLayers() {
   const layerId = "places-right";
   const sourceLayer = "taxlots-cpwvol";
@@ -680,27 +666,24 @@ afterMap.on("style.load", function () {
 //MAP LAYERS
 
 function addBeforeLayers(yr, date) {
-  const grantLayerId = "dutch_grants-5ehfqe-left";
-  const taxLotLayerId = "lot_events-bf43eb-left";
-
   removeTaxPoints(beforeMap, [
-    { type: "layer", id: grantLayerId },
-    { type: "source", id: grantLayerId.replace("-left", "") },
-    { type: "layer", id: taxLotLayerId },
-    { type: "source", id: taxLotLayerId.replace("-left", "") },
+    { type: "layer", id: "dutch_grants-5ehfqe-left" },
+    { type: "source", id: "dutch_grants-5ehfqe-left".replace("-left", "") },
+    { type: "layer", id: "lot_events-bf43eb-left" },
+    { type: "source", id: "lot_events-bf43eb-left".replace("-left", "") },
   ]);
 
   // ADD GRANTS POLYGONS
-  addMapLayer(beforeMap, getBeforeLayer(grantLayerId), date);
+  addMapLayer(beforeMap, getBeforeLayer("dutch_grants-5ehfqe-left"), date);
 
   // CURSOR ON HOVER - DUTCH GRANTS
-  setupHoverHandlers(beforeMap, grantLayerId, beforeMapDutchGrantPopUp, "Dutch Grant Lot");
+  setupHoverHandlers(beforeMap, "dutch_grants-5ehfqe-left", beforeMapDutchGrantPopUp, "Dutch Grant Lot");
 
   // ADD TAX LOT POINTS
-  addMapLayer(beforeMap, getBeforeLayer(taxLotLayerId), date);
+  addMapLayer(beforeMap, getBeforeLayer("lot_events-bf43eb-left"), date);
 
   // CHANGE TO CURSOR WHEN HOVERING - TAX LOT POINTS
-  setupHoverHandlers(beforeMap, taxLotLayerId, beforeMapPopUp, "Taxlot", "C7");
+  setupHoverHandlers(beforeMap, "lot_events-bf43eb-left", beforeMapPopUp, "Taxlot", "C7");
 }
 
 function setupHoverHandlers(map, layerId, popup, popupContentKey, popupContentValue) {
@@ -745,27 +728,24 @@ function showPopup(map, feature, popup, key, value) {
 
 
 function addAfterLayers(yr, date) {
-  const grantLayerId = "dutch_grants-5ehfqe-right";
-  const taxLotLayerId = "lot_events-bf43eb-right";
-
   removeTaxPoints(afterMap, [
-    { type: "layer", id: grantLayerId },
-    { type: "source", id: grantLayerId.replace("-right", "") },
-    { type: "layer", id: taxLotLayerId },
-    { type: "source", id: taxLotLayerId.replace("-right", "") },
+    { type: "layer", id: "dutch_grants-5ehfqe-right" },
+    { type: "source", id: "dutch_grants-5ehfqe-right".replace("-right", "") },
+    { type: "layer", id: "lot_events-bf43eb-right" },
+    { type: "source", id: "lot_events-bf43eb-right".replace("-right", "") },
   ]);
 
   // ADD GRANTS POLYGONS
-  addMapLayer(afterMap, getLayer(grantLayerId), date);
+  addMapLayer(afterMap, getLayer("dutch_grants-5ehfqe-right"), date);
 
   // CURSOR ON HOVER - DUTCH GRANTS
-  setupHoverHandlers(afterMap, grantLayerId, afterMapDutchGrantPopUp, "Dutch Grant Lot");
+  setupHoverHandlers(afterMap, "dutch_grants-5ehfqe-right", afterMapDutchGrantPopUp, "Dutch Grant Lot");
 
   // ADD TAX LOT POINTS
-  addMapLayer(afterMap, getLayer(taxLotLayerId), date);
+  addMapLayer(afterMap, getLayer("lot_events-bf43eb-right"), date);
 
   // CHANGE TO CURSOR WHEN HOVERING - TAX LOT POINTS
-  setupHoverHandlers(afterMap, taxLotLayerId, afterMapPopUp, "Taxlot", "C7");
+  setupHoverHandlers(afterMap, "lot_events-bf43eb-right", afterMapPopUp, "Taxlot", "C7");
 }
 
 function setupHoverHandlers(map, layerId, popup, popupContentKey, popupContentValue) {
