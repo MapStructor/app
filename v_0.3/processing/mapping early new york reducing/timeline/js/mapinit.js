@@ -1,28 +1,19 @@
 var grant_lots_view_id = null,
   dgrants_layer_view_id = null,
-  gravesend_layer_view_id = null, // REPLACE THIS
   native_group_layer_view_id = null,
-  karl_layer_view_id = null,
-  farms_layer_view_id = null,
-  curr_layer_view_id = null,
   grant_lots_view_flag = false,
   demo_layer_view_flag = false,
   castello_layer_view_flag = false,
   settlements_layer_view_flag = false,
   info_layer_view_flag = false,
   dgrants_layer_view_flag = false,
-  gravesend_layer_view_flag = false, // REPLACE THIS
-  native_group_layer_view_flag = false,
-  karl_layer_view_flag = false,
-  farms_layer_view_flag = false,
-  curr_layer_view_flag = false;
+  native_group_layer_view_flag = false;
 
 $("#infoLayerGrantLots").slideUp();
 $("#infoLayerDutchGrants").slideUp();
 $("#demoLayerInfo").slideUp();
 $("#infoLayerCastello").slideUp();
 $("#infoLayerNativeGroups").slideUp();
-$("#infoLayerKarl").slideUp();
 
 // world bounds
 const WorldBounds = [
@@ -71,11 +62,7 @@ var LongIslandBounds = [
 //ACCESS TOKEN
 
 mapboxgl.accessToken =
-
-  //mapny access token
   "pk.eyJ1IjoibWFwbnkiLCJhIjoiY2xtMG93amk4MnBrZTNnczUzY2VvYjg0ciJ9.MDMHYBlVbG14TJD120t6NQ";
-
-//ADD MAP CONTAINER
 
 var beforeMap = new mapboxgl.Map({
   container: "before",
@@ -104,13 +91,10 @@ var afterHighDemoPopUp = new mapboxgl.Popup({
     closeOnClick: false,
   });
 
-
 var map = new mapboxgl.Compare(beforeMap, afterMap, {
   // Set this to enable comparing two maps by mouse movement:
   // mousemove: true
 });
-
-//ADD NAVIGATION CONTROLS (ZOOM IN AND OUT)
 
 //Before map
 var nav = new mapboxgl.NavigationControl();
@@ -377,13 +361,11 @@ function zoomLabels(sel_opt) {
   }
 }
 
-//BASEMAP MENU SWITCHING FUNCTIONALITY
-
 //RIGHT MENU
 var rightInputs = document.getElementsByName("rtoggle");
 
 function switchRightLayer(layer) {
-  var rightLayerClass = layer.target.className; //*A layer.target.id;
+  var rightLayerClass = layer.target.className;
   afterMap.setStyle("mapbox://styles/mapny/" + rightLayerClass);
 }
 
@@ -395,7 +377,7 @@ for (var i = 0; i < rightInputs.length; i++) {
 var leftInputs = document.getElementsByName("ltoggle");
 
 function switchLeftLayer(layer) {
-  var leftLayerClass = layer.target.className; 
+  var leftLayerClass = layer.target.className;
   beforeMap.setStyle("mapbox://styles/mapny/" + leftLayerClass);
 }
 
@@ -403,20 +385,12 @@ for (var i = 0; i < leftInputs.length; i++) {
   leftInputs[i].onclick = switchLeftLayer;
 }
 
-// on Map events
-
 var urlHash = window.location.hash;
 var castello_click_ev = false,
   grant_lots_click_ev = false,
   demo_taxlot_click_ev = false,
   dutch_grant_click_ev = false,
-  gravesend_click_ev = false, // REPLACE THIS
   native_groups_click_ev = false,
-  karl_click_ev = false,
-  farms_click_ev = false,
-  curr_layer_click_ev = false,
-  settlements_click_ev = false,
-  info_click_ev = false,
   zoom_labels_click_ev = false;
 
 var afterMapPopUp = new mapboxgl.Popup({
@@ -493,21 +467,6 @@ var afterMapDutchGrantPopUp = new mapboxgl.Popup({
     offset: 5,
   });
 
-/* REPLACE THIS */
-
-
-var afterMapGravesendTwoPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  }),
-  beforeMapGravesendTwoPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  });
-/* REPLACE THIS */
-
 var afterMapNativeGroupsPopUp = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false,
@@ -530,108 +489,6 @@ var afterHighMapNativeGroupsPopUp = new mapboxgl.Popup({
     offset: 5,
   });
 
-var afterMapKarlPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  }),
-  beforeMapKarlPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  });
-
-var afterHighMapKarlPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  }),
-  beforeHighMapKarlPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  });
-
-var afterMapKarlTwoPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  }),
-  beforeMapKarlTwoPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  });
-
-var afterHighFarmPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  }),
-  beforeHighFarmPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  });
-
-var afterMapFarmPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  }),
-  beforeMapFarmPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  });
-
-var afterMapCurrLotsPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  }),
-  beforeMapCurrLotsPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 5,
-  });
-
-var afterMapSettlementsPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-  }),
-  beforeMapSettlementsPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-  });
-
-var afterHighMapSettlementsPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-  }),
-  beforeHighMapSettlementsPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-  });
-
-var afterMapInfoPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-  }),
-  beforeMapInfoPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-  });
-
-var afterHighMapInfoPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-  }),
-  beforeHighMapInfoPopUp = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-  });
-
 var hoveredStateIdRight = null,
   hoveredStateIdLeft = null,
   hoveredStateIdRightCircle = null,
@@ -643,19 +500,8 @@ var hoveredStateIdRight = null,
   hoveredDutchGrantIdRight = null,
   hoveredDutchGrantIdLeft = null,
   /* REPLACE THIS */
-  hoveredGravesendIdRight = null,
-  hoveredGravesendIdLeft = null,
-  /* REPLACE THIS */
   hoveredNativeGroupsIdRight = null,
-  hoveredNativeGroupsIdLeft = null,
-  hoveredKarlIdRight = null,
-  hoveredKarlIdLeft = null,
-  hoveredFarmsIdRight = null,
-  hoveredFarmsIdLeft = null,
-  hoveredCurrLotsIdRight = null,
-  hoveredCurrLotsIdLeft = null,
-  hoveredSettlementsIdRight = null,
-  hoveredSettlementsIdLeft = null;
+  hoveredNativeGroupsIdLeft = null;
 (hoveredInfoIdRight = null), (hoveredInfoIdLeft = null);
 
 var clickedInfoId = null,
@@ -671,19 +517,14 @@ beforeMap.on("load", function () {
   init_bearing = beforeMap.getBearing();
   init_center = beforeMap.getCenter();
 
-  // CLICK AND OPEN POPUP
   beforeMap
-  .on("click", "lot_events-bf43eb-left", function (e) {
-    DemoClickHandle(e);
-  })
+    .on("click", "lot_events-bf43eb-left", function (e) {
+      DemoClickHandle(e);
+    })
     .on("click", "places-left", function (e) {
       CastelloClickHandle(e);
     })
 
-
-    .on("click", "grant-lots-left", function (e) {
-      GrantLotsHandle(e);
-    })
     .on("click", "dutch_grants-5ehfqe-left", function (e) {
       DutchGrantsClickHandle(e);
     })
@@ -697,21 +538,13 @@ beforeMap.on("load", function () {
 });
 
 afterMap.on("load", function () {
-  //*A var sliderVal = $("#date").val();
-
-  // CLICK AND OPEN POPUP
   afterMap
-  .on("click", "lot_events-bf43eb-right", function (e) {
-    DemoClickHandle(e);
-  })
+    .on("click", "lot_events-bf43eb-right", function (e) {
+      DemoClickHandle(e);
+    })
     .on("click", "places-right", function (e) {
       CastelloClickHandle(e);
     })
-
-    .on("click", "grant-lots-right", function (e) {
-      GrantLotsHandle(e);
-    })
-
     .on("click", "dutch_grants-5ehfqe-right", function (e) {
       DutchGrantsClickHandle(e);
     })
@@ -732,8 +565,6 @@ afterMap.on("error", function (e) {
   // Hide those annoying non-error errors
   if (e && e.error !== "Error") console.log(e);
 });
-
-// ===== Layers click event functions ======
 
 function DefaultHandle() {
   if (
@@ -759,85 +590,9 @@ function DefaultHandle() {
   castello_click_ev = false;
   grant_lots_click_ev = false;
   dutch_grant_click_ev = false;
-  farms_click_ev = false;
-  curr_layer_click_ev = false;
-  settlements_click_ev = false;
-  info_click_ev = false;
-  gravesend_click_ev = false;
   native_groups_click_ev = false;
-  karl_click_ev = false;
   zoom_labels_click_ev = false;
 }
-
-
-
-function GrantLotsHandle(event) {
-  
-  var highPopUpHTML =
-    "<div class='infoLayerGrantLotsPopUp'>" +
-    event.features[0].properties.name +
-    "<br>" +
-    "<b>Start:</b> " +
-    event.features[0].properties.day1 +
-    ", " +
-    event.features[0].properties.year1 +
-    "<br>" +
-    "<b>End:</b> " +
-    event.features[0].properties.day2 +
-    ", " +
-    event.features[0].properties.year2 +
-    "<br>" +
-    "<b>Lot Division: </b>" +
-    event.features[0].properties.dutchlot +
-    "</div>";
-
-  if (grant_lots_view_id == event.features[0].id) {
-    if (grant_lots_view_flag) {
-      if ($("#view-hide-layer-panel").length > 0)
-        if (!layer_view_flag) {
-          $("#rightInfoBar").css("display", "block");
-          setTimeout(function () {
-            $("#rightInfoBar").slideUp();
-          }, 500);
-        }
-
-      closeGrantLotsInfo();
-    } else {
-      
-      
-
-      if ($(".infoLayerElem").first().attr("id") != "infoLayerGrantLots")
-        $("#infoLayerGrantLots").insertBefore($(".infoLayerElem").first());
-      $("#infoLayerGrantLots").slideDown();
-      if ($("#view-hide-layer-panel").length > 0)
-        if (!layer_view_flag) $("#view-hide-layer-panel").trigger("click");
-      grant_lots_view_flag = true;
-      afterHighGrantLotsPopUp.setLngLat(event.lngLat).setHTML(highPopUpHTML);
-      if (!afterHighGrantLotsPopUp.isOpen())
-        afterHighGrantLotsPopUp.addTo(afterMap);
-      beforeHighGrantLotsPopUp.setLngLat(event.lngLat).setHTML(highPopUpHTML);
-      if (!beforeHighGrantLotsPopUp.isOpen())
-        beforeHighGrantLotsPopUp.addTo(beforeMap);
-    }
-  } else {
-    
-    if ($(".infoLayerElem").first().attr("id") != "infoLayerGrantLots")
-      $("#infoLayerGrantLots").insertBefore($(".infoLayerElem").first()); 
-    $("#infoLayerGrantLots").slideDown();
-    if ($("#view-hide-layer-panel").length > 0)
-      if (!layer_view_flag) $("#view-hide-layer-panel").trigger("click");
-    grant_lots_view_flag = true;
-    afterHighGrantLotsPopUp.setLngLat(event.lngLat).setHTML(highPopUpHTML);
-    if (!afterHighGrantLotsPopUp.isOpen())
-      afterHighGrantLotsPopUp.addTo(afterMap);
-    beforeHighGrantLotsPopUp.setLngLat(event.lngLat).setHTML(highPopUpHTML);
-    if (!beforeHighGrantLotsPopUp.isOpen())
-      beforeHighGrantLotsPopUp.addTo(beforeMap);
-  }
-  grant_lots_view_id = event.features[0].id;
-  grant_lots_click_ev = true;
-}
-
 
 function closeCastelloInfo() {
   $("#infoLayerCastello").slideUp();
@@ -933,7 +688,6 @@ function closeDemoInfo() {
   if (beforeHighDemoPopUp.isOpen()) beforeHighDemoPopUp.remove();
 }
 
-
 function DemoClickHandle(event) {
   if (demo_layer_view_flag) {
     if ($("#view-hide-layer-panel").length > 0)
@@ -946,7 +700,6 @@ function DemoClickHandle(event) {
 
     closeDemoInfo();
   } else {
-
     demo_layer_taxlot = event.features[0].properties.TAXLOT;
 
     demoFilterRangeCalc();
@@ -1297,7 +1050,6 @@ function demoFilterRangeCalc() {
     layers: ["lot_events-bf43eb-right"],
   });
 
-
   if (demo_layer_features.length > 0) {
     var sliderStartMin = null,
       sliderEndMax = null,
@@ -1425,7 +1177,6 @@ function changeDate(unixDate) {
   beforeMap.setFilter("grant-lots-lines-left", dateFilter);
   afterMap.setFilter("grant-lots-lines-right", dateFilter);
 
-
   demoFilterRangeCalc();
 } //end function changeDate
 
@@ -1433,260 +1184,6 @@ function changeDate(unixDate) {
 var lbl_color = "#482525";
 var lbl_color_hover = "#ff0000";
 
-var LongIslandZoomLabel = {
-  id: "label-long-island",
-  type: "symbol",
-  source: {
-    type: "geojson",
-    data: {
-      type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          properties: {
-            title: "Long Island",
-            icon: "circle",
-          },
-          geometry: {
-            type: "Point",
-            coordinates: [-72.94912, 40.85225],
-          },
-        },
-      ],
-    },
-  },
-  layout: {
-    visibility: "visible",
-    "text-font": ["Asap Medium"],
-    "text-field": "{title}",
-    "text-size": 18,
-  },
-  paint: {
-    "text-color": "#000000",
-    "text-halo-width": 3,
-    "text-halo-blur": 2,
-    "text-halo-color": "#ffffff",
-    "text-opacity": {
-      default: 1,
-      stops: [
-        [7.5, 0],
-        [8, 1],
-      ],
-    },
-  },
-};
-
-var BrooklynZoomLabel = {
-  id: "label-brooklyn",
-  type: "symbol",
-  source: {
-    type: "geojson",
-    data: {
-      type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          properties: {
-            title: "Brooklyn",
-            icon: "circle",
-          },
-          geometry: {
-            type: "Point",
-            coordinates: [-73.93772792292754, 40.65432897355928],
-          },
-        },
-      ],
-    },
-  },
-  layout: {
-    visibility: "visible",
-    "text-font": ["Asap Medium"],
-    "text-field": "{title}",
-    "text-size": 18,
-  },
-  paint: {
-    "text-color": "#000000",
-    "text-halo-width": 3,
-    "text-halo-blur": 2,
-    "text-halo-color": "#ffffff",
-    "text-opacity": {
-      default: 1,
-      stops: [
-        [10.2, 0],
-        [10.5, 1],
-      ],
-    },
-  },
-};
-
-var NewAmsterdamZoomLabel = {
-  id: "label-new-amsterdam",
-  type: "symbol",
-  source: {
-    type: "geojson",
-    data: {
-      type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          properties: {
-            title: "New Amsterdam",
-            icon: "circle",
-          },
-          geometry: {
-            type: "Point",
-            coordinates: [-74.01255, 40.704882],
-          },
-        },
-      ],
-    },
-  },
-  layout: {
-    visibility: "visible",
-    "text-font": ["Asap Medium"],
-    "text-field": "{title}",
-    "text-size": 18,
-  },
-  paint: {
-    "text-color": "#000000",
-    "text-halo-width": 3,
-    "text-halo-blur": 2,
-    "text-halo-color": "#ffffff",
-    "text-opacity": {
-      default: 1,
-      stops: [
-        [6, 0],
-        [6.5, 1],
-      ],
-    },
-  },
-};
-
-var ManhattanZoomLabel = {
-  id: "label-manhattan",
-  type: "symbol",
-  source: {
-    type: "geojson",
-    data: {
-      type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          properties: {
-            title: "Manhattan",
-            icon: "circle",
-          },
-          geometry: {
-            type: "Point",
-            coordinates: [-73.97719031118277, 40.78097749612493],
-          },
-        },
-      ],
-    },
-  },
-  layout: {
-    visibility: "visible",
-    "text-font": ["Asap Medium"],
-    "text-field": "{title}",
-    "text-size": 18,
-  },
-  paint: {
-    "text-color": "#000000",
-    "text-halo-width": 3,
-    "text-halo-blur": 2,
-    "text-halo-color": "#ffffff",
-    "text-opacity": {
-      default: 1,
-      stops: [
-        [10.2, 0],
-        [10.5, 1],
-      ],
-    },
-  },
-};
-
-var NewNetherlandZoomLabel = {
-  id: "label-new-netherland",
-  type: "symbol",
-  source: {
-    type: "geojson",
-    data: {
-      type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          properties: {
-            title: "New Netherland",
-            icon: "circle",
-          },
-          geometry: {
-            type: "Point",
-            coordinates: [-73.60361111111109, 41.09659166666665],
-          },
-        },
-      ],
-    },
-  },
-  layout: {
-    visibility: "visible",
-    "text-font": ["Asap Medium"],
-    "text-field": "{title}",
-    "text-size": 18,
-  },
-  paint: {
-    "text-color": "#000000",
-    "text-halo-width": 3,
-    "text-halo-blur": 2,
-    "text-halo-color": "#ffffff",
-  },
-};
-
-var NewEnglandZoomLabel = {
-  id: "label-new-england",
-  type: "symbol",
-  source: {
-    type: "geojson",
-    data: {
-      type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          properties: {
-            title: "New England",
-            icon: "circle",
-          },
-          geometry: {
-            type: "Point",
-            coordinates: [-71.67755127, 42.4971076267],
-          },
-        },
-      ],
-    },
-  },
-  //For some reason, New Netherland label disappears unless minzoom is created
-  minzoom: 5.2,
-  layout: {
-    visibility: "visible",
-    "text-font": ["Asap Medium"],
-    "text-field": "{title}",
-    "text-size": 18,
-    //"text-anchor": "center"
-  },
-  paint: {
-    "text-color": "#000000",
-    "text-halo-width": 3,
-    "text-halo-blur": 2,
-    "text-halo-color": "#ffffff",
-
-    "text-opacity": {
-      default: 1,
-      stops: [
-        [5.2, 0],
-        [5.6, 1],
-      ],
-    },
-  },
-};
 
 //BASEMAP SWITCHING
 beforeMap.on("style.load", function () {
