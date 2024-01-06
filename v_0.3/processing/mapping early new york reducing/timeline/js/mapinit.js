@@ -19,19 +19,13 @@ var grant_lots_view_id = null,
 
 $("#infoLayerGrantLots").slideUp();
 $("#infoLayerDutchGrants").slideUp();
-$("#infoLayerFarms").slideUp();
 $("#demoLayerInfo").slideUp();
 $("#infoLayerCastello").slideUp();
-$("#infoLayerCurrLots").slideUp();
-$("#infoLayerSettlements").slideUp();
-$("#infoLayerInfoPoint").slideUp();
-$("#infoLayerGravesend").slideUp(); // REPLACE THIS
 $("#infoLayerNativeGroups").slideUp();
 $("#infoLayerKarl").slideUp();
 
 // world bounds
 const WorldBounds = [
-
   [-179, -59], // [west, south]
   [135, 77], // [east, north]
 ];
@@ -100,6 +94,16 @@ var afterMap = new mapboxgl.Map({
   zoom: 0,
   attributionControl: false,
 });
+
+var afterHighDemoPopUp = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false,
+  }),
+  beforeHighDemoPopUp = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false,
+  });
+
 
 var map = new mapboxgl.Compare(beforeMap, afterMap, {
   // Set this to enable comparing two maps by mouse movement:
@@ -669,6 +673,9 @@ beforeMap.on("load", function () {
 
   // CLICK AND OPEN POPUP
   beforeMap
+  .on("click", "lot_events-bf43eb-left", function (e) {
+    DemoClickHandle(e);
+  })
     .on("click", "places-left", function (e) {
       CastelloClickHandle(e);
     })
@@ -694,7 +701,9 @@ afterMap.on("load", function () {
 
   // CLICK AND OPEN POPUP
   afterMap
-
+  .on("click", "lot_events-bf43eb-right", function (e) {
+    DemoClickHandle(e);
+  })
     .on("click", "places-right", function (e) {
       CastelloClickHandle(e);
     })
@@ -763,6 +772,7 @@ function DefaultHandle() {
 
 
 function GrantLotsHandle(event) {
+  
   var highPopUpHTML =
     "<div class='infoLayerGrantLotsPopUp'>" +
     event.features[0].properties.name +
@@ -828,6 +838,13 @@ function GrantLotsHandle(event) {
   grant_lots_click_ev = true;
 }
 
+
+function closeCastelloInfo() {
+  $("#infoLayerCastello").slideUp();
+  castello_layer_view_flag = false;
+  if (afterHighCastelloPopUp.isOpen()) afterHighCastelloPopUp.remove();
+  if (beforeHighCastelloPopUp.isOpen()) beforeHighCastelloPopUp.remove();
+}
 
 function CastelloClickHandle(event) {
   if (castello_layer_view_flag && clickedStateId == event.features[0].id) {
@@ -909,6 +926,76 @@ function CastelloClickHandle(event) {
   castello_click_ev = true;
 }
 
+function closeDemoInfo() {
+  $("#demoLayerInfo").slideUp();
+  demo_layer_view_flag = false;
+  if (afterHighDemoPopUp.isOpen()) afterHighDemoPopUp.remove();
+  if (beforeHighDemoPopUp.isOpen()) beforeHighDemoPopUp.remove();
+}
+
+
+function DemoClickHandle(event) {
+  if (demo_layer_view_flag) {
+    if ($("#view-hide-layer-panel").length > 0)
+      if (!layer_view_flag) {
+        $("#rightInfoBar").css("display", "block");
+        setTimeout(function () {
+          $("#rightInfoBar").slideUp();
+        }, 500);
+      }
+
+    closeDemoInfo();
+  } else {
+
+    demo_layer_taxlot = event.features[0].properties.TAXLOT;
+
+    demoFilterRangeCalc();
+
+    buildPopUpInfo(event.features[0].properties);
+    if ($(".infoLayerElem").first().attr("id") != "demoLayerInfo")
+      $("#demoLayerInfo").insertBefore($(".infoLayerElem").first());
+    $("#demoLayerInfo").slideDown();
+
+    if (!layer_view_flag)
+      if ($("#view-hide-layer-panel").length > 0)
+        $("#view-hide-layer-panel").trigger("click");
+
+    demo_layer_view_flag = true;
+
+    var coordinates = [];
+    coordinates = event.features[0].geometry.coordinates.slice();
+
+    // Ensure that if the map is zoomed out such that multiple
+    // copies of the feature are visible, the popup appears
+    // over the copy being pointed to.
+    while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
+      coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+
+    beforeHighDemoPopUp
+      .setLngLat(coordinates)
+      .setHTML(
+        "<div class='demoLayerInfoPopUp'><b><h2>Taxlot: <a href='https://encyclopedia.nahc-mapping.org/taxlot/" +
+          demo_layer_taxlot +
+          "' target='_blank'>" +
+          demo_layer_taxlot +
+          "</a></h2></b></div>"
+      );
+    if (!beforeHighDemoPopUp.isOpen()) beforeHighDemoPopUp.addTo(beforeMap);
+
+    afterHighDemoPopUp
+      .setLngLat(coordinates)
+      .setHTML(
+        "<div class='demoLayerInfoPopUp'><b><h2>Taxlot: <a href='https://encyclopedia.nahc-mapping.org/taxlot/" +
+          demo_layer_taxlot +
+          "' target='_blank'>" +
+          demo_layer_taxlot +
+          "</a></h2></b></div>"
+      );
+    if (!afterHighDemoPopUp.isOpen()) afterHighDemoPopUp.addTo(afterMap);
+  }
+  demo_taxlot_click_ev = true;
+}
 
 function DutchGrantsClickHandle(event) {
   var highPopUpHTML = "";
@@ -1635,8 +1722,6 @@ afterMap.on("style.load", function () {
   var date = parseInt(moment.unix(sliderVal).format("YYYYMMDD"));
 
   setTimeout(function () {
-    addKarlAfterLayers(date);
-    addKarlLinesAfterLayers(date);
     addInfoAfterLayers(date);
     addInfoLabelsAfterLayers(date);
   }, 500);
