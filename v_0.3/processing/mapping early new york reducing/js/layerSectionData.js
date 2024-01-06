@@ -88,5 +88,5 @@ const longIslandLayerSections = [
     label: "Borders",
     iconType: "square",
     topLayerClass: "native_groups_layer",
-  },
+  }
 ];

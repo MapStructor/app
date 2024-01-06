@@ -105,7 +105,40 @@ const layers = [
       ],
     },
   },
-  
+  {
+    id: "native-groups-labels-right",
+    type: "symbol",
+    source: {
+      type: "vector",
+      url: "mapbox://mapny.5m6t979e",
+    },
+    layout: {
+      visibility: document.getElementById("native_groups_labels").checked
+        ? "visible"
+        : "none",
+      "text-field": "{name}",
+      "text-offset": [0, 1],
+      "text-size": {
+        stops: [
+          [0, 4],
+          [22, 34],
+        ],
+      },
+    },
+    "source-layer": "indian_labels_long_island-247yi6",
+    paint: {
+      "text-color": "#000080",
+      "text-halo-color": "#ffffff",
+      "text-halo-width": 5,
+      "text-halo-blur": 1,
+      "text-opacity": {
+        stops: [
+          [6, 0],
+          [7, 1],
+        ],
+      },
+    },
+  },
   {
     id: "native-groups-lines-right",
     type: "line",
@@ -242,6 +275,40 @@ const layers = [
       },
     },
   },
+  {
+    id: "native-groups-labels-left",
+    type: "symbol",
+    source: {
+      type: "vector",
+      url: "mapbox://mapny.5m6t979e",
+    },
+    layout: {
+      visibility: document.getElementById("native_groups_labels").checked
+        ? "visible"
+        : "none",
+      "text-field": "{name}",
+      "text-offset": [0, 1],
+      "text-size": {
+        stops: [
+          [0, 4],
+          [22, 34],
+        ],
+      },
+    },
+    "source-layer": "indian_labels_long_island-247yi6",
+    paint: {
+      "text-color": "#000080",
+      "text-halo-color": "#ffffff",
+      "text-halo-width": 5,
+      "text-halo-blur": 1,
+      "text-opacity": {
+        stops: [
+          [6, 0],
+          [7, 1],
+        ],
+      },
+    },
+  }
 ];
 
 const beforeLayers = [
@@ -462,5 +529,38 @@ const beforeLayers = [
       "fill-outline-color": "#FFD700",
     },
   },
-  
+  {
+    id: "native-groups-labels-left",
+    type: "symbol",
+    source: {
+      type: "vector",
+      url: "mapbox://mapny.5m6t979e",
+    },
+    layout: {
+      visibility: document.getElementById("native_groups_labels").checked
+        ? "visible"
+        : "none",
+      "text-field": "{name}",
+      "text-offset": [0, 1],
+      "text-size": {
+        stops: [
+          [0, 4],
+          [22, 34],
+        ],
+      },
+    },
+    "source-layer": "indian_labels_long_island-247yi6",
+    paint: {
+      "text-color": "#000080",
+      "text-halo-color": "#ffffff",
+      "text-halo-width": 5,
+      "text-halo-blur": 1,
+      "text-opacity": {
+        stops: [
+          [6, 0],
+          [7, 1],
+        ],
+      },
+    },
+  }
 ]

@@ -490,22 +490,6 @@ $(document).ready(function () {
     }
   });
 
-  $("#info_points").click(function () {
-    if ($(this).prop("checked")) {
-      if (infos_entity_length == 0) {
-        getInfosEntity();
-      }
-      beforeMap.setLayoutProperty("info-points-left", "visibility", "visible");
-      afterMap.setLayoutProperty("info-points-right", "visibility", "visible");
-    } else {
-      beforeMap.setLayoutProperty("info-points-left", "visibility", "none");
-      afterMap.setLayoutProperty("info-points-right", "visibility", "none");
-
-      if (info_layer_view_flag) {
-        closeInfoLayerInfo();
-      }
-    }
-  });
 
   $("#info_labels").click(function () {
     if ($(this).prop("checked")) {
@@ -1037,6 +1021,39 @@ $(document).ready(function () {
   });
 
   // close modal by click outside the box
+
+  $("#circle_point").click(function () {
+    if ($(this).prop("checked")) {
+      if (taxlot_events_info_length == 0) {
+        getTaxlotEventsInfo();
+      }
+      beforeMap.setLayoutProperty(
+        "lot_events-bf43eb-left",
+        "visibility",
+        "visible"
+      );
+      afterMap.setLayoutProperty(
+        "lot_events-bf43eb-right",
+        "visibility",
+        "visible"
+      );
+    } else {
+      beforeMap.setLayoutProperty(
+        "lot_events-bf43eb-left",
+        "visibility",
+        "none"
+      );
+      afterMap.setLayoutProperty(
+        "lot_events-bf43eb-right",
+        "visibility",
+        "none"
+      );
+
+      if (demo_layer_view_flag) {
+        closeDemoInfo();
+      }
+    }
+  });
 
   $("div.modal-body").click(function (e) {
     e.stopPropagation();

@@ -1156,24 +1156,6 @@ function closeGrantLotsInfo() {
   if (beforeHighGrantLotsPopUp.isOpen()) beforeHighGrantLotsPopUp.remove();
 }
 
-
-
-function closeCastelloInfo() {
-  $("#infoLayerCastello").slideUp();
-  castello_layer_view_flag = false;
-  if (afterHighCastelloPopUp.isOpen()) afterHighCastelloPopUp.remove();
-  if (beforeHighCastelloPopUp.isOpen()) beforeHighCastelloPopUp.remove();
-}
-
-
-
-function closeInfoLayerInfo() {
-  $("#infoLayerInfoPoint").slideUp();
-  info_layer_view_flag = false;
-  if (afterHighMapInfoPopUp.isOpen()) afterHighMapInfoPopUp.remove();
-  if (beforeHighMapInfoPopUp.isOpen()) beforeHighMapInfoPopUp.remove();
-}
-
 function closeDutchGrantsInfo() {
   $("#infoLayerDutchGrants").slideUp();
   dgrants_layer_view_flag = false;
@@ -1347,12 +1329,6 @@ function changeDate(unixDate) {
   beforeMap.setFilter("dutch_grants-5ehfqe-left-highlighted", dateFilter);
   afterMap.setFilter("dutch_grants-5ehfqe-right-highlighted", dateFilter);
 
-  beforeMap.setFilter("original_grants_and_farms-left", dateFilter);
-  afterMap.setFilter("original_grants_and_farms-right", dateFilter);
-
-  beforeMap.setFilter("original_grants_and_farms-left-highlighted", dateFilter);
-  afterMap.setFilter("original_grants_and_farms-right-highlighted", dateFilter);
-
   beforeMap.setFilter("lot_events-bf43eb-left", dateFilter);
   afterMap.setFilter("lot_events-bf43eb-right", dateFilter);
 
@@ -1361,16 +1337,6 @@ function changeDate(unixDate) {
 
   beforeMap.setFilter("grant-lots-lines-left", dateFilter);
   afterMap.setFilter("grant-lots-lines-right", dateFilter);
-
-  beforeMap.setFilter("settlements-left", dateFilter);
-  afterMap.setFilter("settlements-right", dateFilter);
-
-  beforeMap.setFilter("info-points-left", dateFilter);
-  afterMap.setFilter("info-points-right", dateFilter);
-
-  beforeMap.setFilter("info-labels-left", dateFilter);
-  afterMap.setFilter("info-labels-right", dateFilter);
-
 
 
   demoFilterRangeCalc();
@@ -1655,9 +1621,6 @@ beforeMap.on("style.load", function () {
     addBeforeLabelsLayer();
     addCastelloBeforeLayers();
     addCurrentLotsBeforeLayers();
-    addCurrentLotsLinesBeforeLayers();
-    addCurrentBuildingsBeforeLayers();
-    addCurrentBuildingsLinesBeforeLayers();
     addManahattaBeforeLayers();
     addLongIslandCoastlineBeforeLayers();
     addIndianPathsBeforeLayers();
@@ -1674,8 +1637,6 @@ afterMap.on("style.load", function () {
   setTimeout(function () {
     addKarlAfterLayers(date);
     addKarlLinesAfterLayers(date);
-    addSettlementsAfterLayers(date);
-    addSettlementsLabelsAfterLayers(date);
     addInfoAfterLayers(date);
     addInfoLabelsAfterLayers(date);
   }, 500);
@@ -1684,19 +1645,13 @@ afterMap.on("style.load", function () {
     addGrantLotsAfterLayers(date);
     addGrantLotsLinesAfterLayers(date);
     addAfterLayers(yr, date);
-    addAfterFarmsLayer(date);
   }, 1500);
 
   setTimeout(function () {
     addAfterLabelsLayer();
     addCastelloAfterLayers();
-    addCurrentLotsAfterLayers();
-    addCurrentLotsLinesAfterLayers();
-    addCurrentBuildingsAfterLayers();
-    addCurrentBuildingsLinesAfterLayers();
     addManahattaAfterLayers();
     addLongIslandCoastlineAfterLayers();
-    addIndianPathsAfterLayers();
     addLongIslandNativeGroupsAfterLayers();
   }, 2500);
 });

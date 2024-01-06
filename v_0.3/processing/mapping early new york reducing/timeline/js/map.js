@@ -827,10 +827,6 @@ function buildPopUpInfo(props) {
   $("#demoLayerInfo").html(popup_html);
 }
 
-
-
-
-
 function buildDutchGrantPopUpInfo(props) {
   const popup_html = `
     <h3>Dutch Grant</h3><hr>

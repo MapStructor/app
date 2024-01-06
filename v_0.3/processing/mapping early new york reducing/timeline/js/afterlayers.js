@@ -324,81 +324,6 @@ function addKarlLinesAfterLayers(date) {
 
 // Farms Dynamic Layer
 
-function addAfterFarmsLayer(date) {
-  addMapLayer(afterMap, getLayer("original_grants_and_farms-right-highlighted"), date)
-  addMapLayer(afterMap, getLayer("original_grants_and_farms-right"), date)
-  addMapLayer(afterMap, getLayer("farms-lines-right"), date)
-
-  function cursorOnHover() {
-    afterMap.on("mouseenter", "original_grants_and_farms-right", function (e) {
-      afterMap.getCanvas().style.cursor = "pointer";
-      afterMapFarmPopUp.setLngLat(e.lngLat).addTo(afterMap);
-    });
-
-    afterMap.on("mousemove", "original_grants_and_farms-right", function (e) {
-      if (e.features.length > 0) {
-        if (hoveredFarmsIdRight) {
-          afterMap.setFeatureState(
-            {
-              source: "original_grants_and_farms-right",
-              sourceLayer: "original_farms-6me5t0",
-              id: hoveredFarmsIdRight,
-            },
-            { hover: false }
-          );
-        }
-        hoveredFarmsIdRight = e.features[0].id;
-        afterMap.setFeatureState(
-          {
-            source: "original_grants_and_farms-right",
-            sourceLayer: "original_farms-6me5t0",
-            id: hoveredFarmsIdRight,
-          },
-          { hover: true }
-        );
-
-        var coordinates = e.features[0].geometry.coordinates.slice();
-
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-
-        //AFTER MAP POP UP CONTENTS
-        afterMapFarmPopUp
-          .setLngLat(e.lngLat)
-          .setHTML(
-            "<div class='infoLayerFarmsPopUp'>" +
-              e.features[0].properties.To +
-              "</div>"
-          );
-      }
-    });
-  }
-
-  function offHover() {
-    afterMap.on("mouseleave", "original_grants_and_farms-right", function () {
-      afterMap.getCanvas().style.cursor = "";
-      if (hoveredFarmsIdRight) {
-        afterMap.setFeatureState(
-          {
-            source: "original_grants_and_farms-right",
-            sourceLayer: "original_farms-6me5t0",
-            id: hoveredFarmsIdRight,
-          },
-          { hover: false }
-        );
-      }
-      hoveredFarmsIdRight = null;
-      if (afterMapFarmPopUp.isOpen()) afterMapFarmPopUp.remove();
-    });
-  }
-
-  cursorOnHover();
-  offHover();
-}
 
 // Info Static Layer
 
@@ -544,118 +469,6 @@ function addCastelloAfterLayers() {
   });
 }
 
-// Current Static Layers
-
-function addCurrentLotsAfterLayers() {
-  //REMOVING CURRENT LOTS IF EXIST
-  removeTaxPoints(afterMap, [{
-    type: "layer",
-    id: "curr-lots-right"
-  }, {
-    type: "source",
-    id: "current_lots-94syr2"
-  }])
-    addMapLayer(afterMap, getLayer("curr-lots-high-right"))
-    addMapLayer(afterMap, getLayer("curr-lots-right"))
-
-  //CURSOR ON HOVER
-  //ON HOVER
-  afterMap.on("mouseenter", "curr-lots-right", function (e) {
-    afterMap.getCanvas().style.cursor = "pointer";
-    afterMapCurrLotsPopUp.setLngLat(e.lngLat).addTo(afterMap);
-  });
-
-  afterMap.on("mousemove", "curr-lots-right", function (e) {
-    if (e.features.length > 0) {
-      if (hoveredCurrLotsIdRight) {
-        afterMap.setFeatureState(
-          {
-            source: "curr-lots-right",
-            sourceLayer: "current_lots-94syr2",
-            id: hoveredCurrLotsIdRight,
-          },
-          { hover: false }
-        );
-      }
-      hoveredCurrLotsIdRight = e.features[0].id;
-      afterMap.setFeatureState(
-        {
-          source: "curr-lots-right",
-          sourceLayer: "current_lots-94syr2",
-          id: hoveredCurrLotsIdRight,
-        },
-        { hover: true }
-      );
-
-      var PopUpHTML =
-        "<div class='infoLayerCurrLotsPopUp'>" +
-        "<b>" +
-        e.features[0].properties.OwnerName +
-        "</b>" +
-        "<br>" +
-        e.features[0].properties.Address +
-        "</div>";
-
-      //AFTER MAP POP UP CONTENTS
-      afterMapCurrLotsPopUp.setLngLat(e.lngLat).setHTML(PopUpHTML);
-    }
-  });
-
-  //OFF HOVER
-  afterMap.on("mouseleave", "curr-lots-right", function () {
-    afterMap.getCanvas().style.cursor = "";
-    if (hoveredCurrLotsIdRight) {
-      afterMap.setFeatureState(
-        {
-          source: "curr-lots-right",
-          sourceLayer: "current_lots-94syr2",
-          id: hoveredCurrLotsIdRight,
-        },
-        { hover: false }
-      );
-    }
-    hoveredCurrLotsIdRight = null;
-    if (afterMapCurrLotsPopUp.isOpen()) afterMapCurrLotsPopUp.remove();
-  });
-}
-
-function addCurrentLotsLinesAfterLayers() {
-  //REMOVING CURRENT LOTS IF EXIST
-  removeTaxPoints(afterMap, [{
-    type: "layer",
-    id: "curr-lots-lines-right"
-  }, {
-    type: "source",
-    id: "current_lots_lines-41dc4r"
-  }])
-  addMapLayer(afterMap, getLayer("curr-lots-lines-right"))
-}
-
-function addCurrentBuildingsLinesAfterLayers() {
-  //REMOVING CURRENT LOTS IF EXIST
-  addMapLayer(afterMap, [{
-    type: "layer",
-    id: "curr-builds-lines-right"
-  }, {
-    type: "source",
-    id: "current_buildings_lines-3k97hu"
-  }])
-
-  addMapLayer(afterMap, getLayer("curr-builds-lines-right"))
-}
-
-function addCurrentBuildingsAfterLayers() {
-  //REMOVING CURRENT LOTS IF EXIST
-  removeTaxPoints(afterMap, [{
-    type: "layer",
-    id: "curr-builds-right"
-  }, {
-    type: "source",
-    id: "current_buildings_1-cjgsm"
-  }])
-
-  addMapLayer(afterMap, getLayer( "curr-builds-right"))
-}
 
 function addLongIslandCoastlineAfterLayers() {
   addMapLayer(afterMap, getLayer( "long-island-right"))
@@ -668,9 +481,7 @@ function addManahattaAfterLayers() {
   addMapLayer(afterMap, getLayer("streams-right"))
 }
 
-function addIndianPathsAfterLayers() {
-  addMapLayer(afterMap, getLayer("indian-paths-right"))
-}
+
 
 function addLongIslandNativeGroupsAfterLayers() {
   addMapLayer(afterMap, getLayer("native-groups-lines-right"))

@@ -560,45 +560,7 @@ function addCurrentLotsBeforeLayers() {
   });
 }
 
-function addCurrentLotsLinesBeforeLayers() {
-  removeTaxPoints(beforeMap, [{
-    type: "layer",
-    id: "curr-lots-lines-left"
-  }, {
-    type: "source",
-    id: "current_lots_lines-41dc4r"
-  }])
 
-  addMapLayer(beforeMap, getBeforeLayer("curr-lots-lines-left"))
-}
-
-function addCurrentBuildingsLinesBeforeLayers() {
-  removeTaxPoints(beforeMap, [{
-    type: "layer",
-    id: "curr-builds-lines-left"
-  }, {
-    type: "source",
-    id: "current_buildings_lines-3k97hu"
-  }])
-  addMapLayer(beforeMap, getBeforeLayer("curr-builds-lines-left"))
-}
-
-function addCurrentBuildingsBeforeLayers() {
-  //REMOVING CURRENT LOTS IF EXIST
-  removeTaxPoints(beforeMap, [
-    {
-      type: "layer",
-      id: "curr-builds-left"
-    },
-    {
-      type: "source",
-      id: "current_buildings_1-cjgsm"
-    }
-  ])
-  
-
-  addMapLayer(beforeMap, getBeforeLayer("curr-builds-left"))
-}
 
 function addLongIslandCoastlineBeforeLayers() {
   addMapLayer(beforeMap, getBeforeLayer("long-island-left"))
