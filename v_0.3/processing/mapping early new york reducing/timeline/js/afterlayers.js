@@ -243,12 +243,6 @@ function addGrantLotsLinesAfterLayers(date) {
   addMapLayer(afterMap, getLayer("grant-lots-lines-right"), date)
 }
 
-
-// Farms Dynamic Layer
-
-
-// Info Static Layer
-
 function addInfoAfterLayers(date) {
   // Add a layer showing the info.
   addMapLayer(afterMap, getLayer("info-points-right"), date)
@@ -323,8 +317,6 @@ function addInfoLabelsAfterLayers(date) {
   // Add a layer showing the places.
   addMapLayer(afterMap, getLayer("info-labels-right"), date)
 }
-
-
 
 // Castello Static Layer
 

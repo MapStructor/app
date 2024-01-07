@@ -726,7 +726,6 @@ function showPopup(map, feature, popup, key, value) {
   popup.setLngLat(coordinates).setHTML(popupHTML);
 }
 
-
 function addAfterLayers(yr, date) {
   removeTaxPoints(afterMap, [
     { type: "layer", id: "dutch_grants-5ehfqe-right" },
