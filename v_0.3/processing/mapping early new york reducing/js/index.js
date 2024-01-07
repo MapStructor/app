@@ -1,24 +1,3 @@
-if (
-  /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  )
-) {
-  // true for mobile device
-  console.warn("mobile device");
-  console.warn("redirect");
-  window.location.href = "./mobile.html";
-} else {
-  console.warn("not mobile device");
-  if (window.innerWidth <= 670) {
-    console.warn("but small size");
-    console.warn("redirect");
-    window.location.href = "./mobile.html";
-  } else {
-    console.warn("start");
-    console.warn("load");
-  }
-}
-
 function handleAjaxError(xhr, textStatus) {
   // LOADING ERROR!
   console.warn("jQuery AJAX request  ERROR !!!");
