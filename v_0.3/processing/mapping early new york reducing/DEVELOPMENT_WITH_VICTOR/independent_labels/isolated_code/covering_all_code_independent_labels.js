@@ -1,3 +1,10 @@
+/* Pasted everything into GPT from independent_labels_isolated_code.js and asked:
+I want to have all the unique stuff needed to generate labels in a simple list, like
+ an array, and template functions that make it all work.
+*/
+
+
+
 /*
 Unique Information for Labels:
 Create an array containing the unique properties for each label:
@@ -114,4 +121,12 @@ labelData.forEach(labelInfo => {
   afterMap.addLayer(labelObject);
   addInteractivityToLabel(afterMap, labelObject, labelInfo.title.replace(/\s+/g, ''));
 });
-The afterMap variable in this case is assumed to be the Mapbox GL JS map instance that you're working with, and the zoomtobounds function is assumed to be available in the scope. The variable lbl_color_hover and lbl_color are the colors for the label text when hovered and in normal state, respectively. The array labelData contains the unique properties for each label, including title and coordinates, with an optional minZoom level when necessary. The function createLabel generates the label object, and addInteractivityToLabel adds interactivity to each label on the provided map instance.
+
+/*
+The afterMap variable in this case is assumed to be the Mapbox GL JS map instance that you're working
+ with, and the zoomtobounds function is assumed to be available in the scope. The variable lbl_color
+ hover and lbl_color are the colors for the label text when hovered and in normal state, respectively.
+ The array labelData contains the unique properties for each label, including title and coordinates,
+ with an optional minZoom level when necessary. The function createLabel generates the label object,
+ and addInteractivityToLabel adds interactivity to each label on the provided map instance.
+*/
