@@ -23,6 +23,7 @@ var labelData = [
   {
     title: "Manhattan",
     coordinates: [-73.97719031118277, 40.78097749612493],
+    minZoom: null,
   },
   {
     title: "New Netherland",
