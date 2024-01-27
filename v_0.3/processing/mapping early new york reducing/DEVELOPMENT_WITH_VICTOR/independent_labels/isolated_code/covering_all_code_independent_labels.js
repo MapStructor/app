@@ -15,27 +15,27 @@ var labelData = [
   {
     title: "Long Island",
     coordinates: [-72.94912, 40.85225],
-    minZoom: null,
+    minZoom: undefined,
   },
   {
     title: "Brooklyn",
     coordinates: [-73.93772792292754, 40.65432897355928],
-    minZoom: null,
+    minZoom: undefined,
   },
   {
     title: "New Amsterdam",
     coordinates: [-74.01255, 40.704882],
-    minZoom: null,
+    minZoom: undefined,
   },
   {
     title: "Manhattan",
     coordinates: [-73.97719031118277, 40.78097749612493],
-    minZoom: null,
+    minZoom: undefined,
   },
   {
     title: "New Netherland",
     coordinates: [-73.60361111111109, 41.09659166666665],
-    minZoom: null,
+    minZoom: undefined,
   },
   {
     title: "New England",
@@ -110,17 +110,6 @@ function addInteractivityToLabel(map, labelObject, boundsName) {
   });
 }
 
-/*
-Putting it All Together:
-Loop through the label data to create and add the labels to the map, applying interactivity to each:
-*/
-
-
-labelData.forEach(labelInfo => {
-  const labelObject = createLabel(labelInfo.title, labelInfo.coordinates, labelInfo.minZoom);
-  afterMap.addLayer(labelObject);
-  addInteractivityToLabel(afterMap, labelObject, labelInfo.title.replace(/\s+/g, ''));
-});
 
 /*
 The afterMap variable in this case is assumed to be the Mapbox GL JS map instance that you're working

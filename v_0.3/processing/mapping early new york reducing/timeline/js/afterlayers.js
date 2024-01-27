@@ -484,7 +484,7 @@ function addLongIslandNativeGroupsAfterLayers() {
 // Interactive Zoom Labels Layer
 
 function addAfterLabelsLayer() {
-  afterMap.addLayer(LongIslandZoomLabel);
+  // afterMap.addLayer(LongIslandZoomLabel);
 
   afterMap.on("mouseenter", "label-long-island", function (e) {
     afterMap.setPaintProperty(
@@ -505,7 +505,7 @@ function addAfterLabelsLayer() {
     zoomtobounds("LongIsland");
   });
 
-  afterMap.addLayer(BrooklynZoomLabel);
+  // afterMap.addLayer(BrooklynZoomLabel);
 
   afterMap.on("mouseenter", "label-brooklyn", function (e) {
     afterMap.setPaintProperty("label-brooklyn", "text-color", lbl_color_hover);
@@ -522,7 +522,7 @@ function addAfterLabelsLayer() {
     zoomtobounds("Brooklyn");
   });
 
-  afterMap.addLayer(NewAmsterdamZoomLabel);
+  // afterMap.addLayer(NewAmsterdamZoomLabel);
 
   afterMap.on("mouseenter", "label-new-amsterdam", function (e) {
     afterMap.setPaintProperty(
@@ -543,7 +543,7 @@ function addAfterLabelsLayer() {
     zoomtocenter("NA");
   });
 
-  afterMap.addLayer(ManhattanZoomLabel);
+  // afterMap.addLayer(ManhattanZoomLabel);
 
   afterMap.on("mouseenter", "label-manhattan", function (e) {
     afterMap.setPaintProperty("label-manhattan", "text-color", lbl_color_hover);
@@ -560,7 +560,7 @@ function addAfterLabelsLayer() {
     zoomtobounds("Manhattan");
   });
 
-  afterMap.addLayer(NewNetherlandZoomLabel);
+  // afterMap.addLayer(NewNetherlandZoomLabel);
 
   afterMap.on("mouseenter", "label-new-netherland", function (e) {
     afterMap.setPaintProperty(
@@ -581,7 +581,7 @@ function addAfterLabelsLayer() {
     zoomtobounds("NewNL");
   });
 
-  afterMap.addLayer(NewEnglandZoomLabel);
+  // afterMap.addLayer(NewEnglandZoomLabel);
 
   afterMap.on("mouseenter", "label-new-england", function (e) {
     afterMap.setPaintProperty(
