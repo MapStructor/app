@@ -473,7 +473,6 @@ beforeMap.on("style.load", function () {
   }, 1000);
 
   setTimeout(function () {
-    addBeforeLabelsLayer();
     addCastelloBeforeLayers();
     addCurrentLotsBeforeLayers();
     addManahattaBeforeLayers();
@@ -501,7 +500,6 @@ afterMap.on("style.load", function () {
   }, 1500);
 
   setTimeout(function () {
-    addAfterLabelsLayer();
     addCastelloAfterLayers();
     addManahattaAfterLayers();
     addLongIslandCoastlineAfterLayers();
