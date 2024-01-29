@@ -667,7 +667,7 @@ function addLongIslandNativeGroupsBeforeLayers() {
 ////////////////////////////////
 
 function addBeforeLabelsLayer() {
-  beforeMap.addLayer(LongIslandZoomLabel);
+  // beforeMap.addLayer(LongIslandZoomLabel);
 
   beforeMap.on("mouseenter", "label-long-island", function (e) {
     beforeMap.setPaintProperty(
@@ -688,7 +688,7 @@ function addBeforeLabelsLayer() {
     zoomtobounds("LongIsland");
   });
 
-  beforeMap.addLayer(BrooklynZoomLabel);
+  // beforeMap.addLayer(BrooklynZoomLabel);
 
   beforeMap.on("mouseenter", "label-brooklyn", function (e) {
     beforeMap.setPaintProperty("label-brooklyn", "text-color", lbl_color_hover);
@@ -705,7 +705,7 @@ function addBeforeLabelsLayer() {
     zoomtobounds("Brooklyn");
   });
 
-  beforeMap.addLayer(NewAmsterdamZoomLabel);
+  // beforeMap.addLayer(NewAmsterdamZoomLabel);
 
   beforeMap.on("mouseenter", "label-new-amsterdam", function (e) {
     beforeMap.setPaintProperty(
@@ -726,7 +726,7 @@ function addBeforeLabelsLayer() {
     zoomtocenter("NA");
   });
 
-  beforeMap.addLayer(ManhattanZoomLabel);
+  // beforeMap.addLayer(ManhattanZoomLabel);
 
   beforeMap.on("mouseenter", "label-manhattan", function (e) {
     beforeMap.setPaintProperty(
@@ -747,7 +747,7 @@ function addBeforeLabelsLayer() {
     zoomtobounds("Manhattan");
   });
 
-  beforeMap.addLayer(NewNetherlandZoomLabel);
+  // beforeMap.addLayer(NewNetherlandZoomLabel);
 
   beforeMap.on("mouseenter", "label-new-netherland", function (e) {
     beforeMap.setPaintProperty(
@@ -768,7 +768,7 @@ function addBeforeLabelsLayer() {
     zoomtobounds("NewNL");
   });
 
-  beforeMap.addLayer(NewEnglandZoomLabel);
+  // beforeMap.addLayer(NewEnglandZoomLabel);
 
   beforeMap.on("mouseenter", "label-new-england", function (e) {
     beforeMap.setPaintProperty(

@@ -506,5 +506,21 @@ afterMap.on("style.load", function () {
     addManahattaAfterLayers();
     addLongIslandCoastlineAfterLayers();
     addLongIslandNativeGroupsAfterLayers();
+    /*
+Putting it All Together:
+Loop through the label data to create and add the labels to the map, applying interactivity to each:
+*/
+
+
+labelData.forEach(labelInfo => {
+  const labelObject = createLabel(labelInfo.title, labelInfo.coordinates, labelInfo.minZoom);
+  afterMap.addLayer(labelObject);
+  beforeMap.addLayer(labelObject);
+  addInteractivityToLabel(afterMap, labelObject, labelInfo.title.replace(/\s+/g, ''));
+  addInteractivityToLabel(beforeMap, labelObject, labelInfo.title.replace(/\s+/g, ''));
+});
+
   }, 2500);
 });
+
+
