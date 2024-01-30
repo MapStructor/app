@@ -44,12 +44,12 @@ function createLabel(title, coordinates, minZoom = null) {
     const labelId = labelObject.id;
   
     map.on("mouseenter", labelId, function () {
-      map.setPaintProperty(labelId, "text-color", lbl_color_hover);
+      map.setPaintProperty(labelId, "text-color", "#ff0000");
       map.getCanvas().style.cursor = "pointer";
     });
   
     map.on("mouseleave", labelId, function () {
-      map.setPaintProperty(labelId, "text-color", lbl_color);
+      map.setPaintProperty(labelId, "text-color", "#482525");
       map.getCanvas().style.cursor = "";
     });
   

@@ -451,10 +451,6 @@ function changeDate(unixDate) {
   demoFilterRangeCalc();
 } //end function changeDate
 
-//   ZOOM LABELS
-var lbl_color = "#482525";
-var lbl_color_hover = "#ff0000";
-
 
 //BASEMAP SWITCHING
 beforeMap.on("style.load", function () {
