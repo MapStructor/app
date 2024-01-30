@@ -13,42 +13,60 @@ function testZoom() {
     switch (boundsName) {
       case "LongIsland":
         if (windoWidth <= 637) {
-          beforeMap.fitBounds(LongIslandBounds, { bearing: 0 });
-          afterMap.fitBounds(LongIslandBounds, { bearing: 0 });
+          beforeMap.fitBounds([
+            [-74.0419692, 40.5419011],
+            [-71.8562705, 41.161155],
+          ], { bearing: 0 });
+          afterMap.fitBounds([
+            [-74.0419692, 40.5419011],
+            [-71.8562705, 41.161155],
+          ], { bearing: 0 });
         } else {
-          beforeMap.fitBounds(LongIslandBounds, {
+          beforeMap.fitBounds([
+            [-74.0419692, 40.5419011],
+            [-71.8562705, 41.161155],
+          ], {
             bearing: 0,
             padding: { top: 5, bottom: 5, left: 350, right: 5 },
           });
-          afterMap.fitBounds(LongIslandBounds, {
+          afterMap.fitBounds([
+            [-74.0419692, 40.5419011],
+            [-71.8562705, 41.161155],
+          ], {
             bearing: 0,
             padding: { top: 5, bottom: 5, left: 350, right: 5 },
           });
         }
         break;
       case "Brooklyn":
-        beforeMap.fitBounds(BrooklynBounds, { bearing: 0 });
-        afterMap.fitBounds(BrooklynBounds, { bearing: 0 });
-        break;
-      case "NYC":
-        beforeMap.fitBounds(NYCbounds, { bearing: 0 });
-        afterMap.fitBounds(NYCbounds, { bearing: 0 });
-        break;
-      case "NewNL":
-        beforeMap.fitBounds(NewNLbounds, { bearing: 0 });
-        afterMap.fitBounds(NewNLbounds, { bearing: 0 });
-        break;
-      case "NewEngland":
-        beforeMap.fitBounds(NewEnglandBounds, { bearing: 0 });
-        afterMap.fitBounds(NewEnglandBounds, { bearing: 0 });
+        beforeMap.fitBounds([
+          [-74.04189660705046, 40.56952999398417],
+          [-73.8335592388046, 40.73912795313439],
+        ], { bearing: 0 });
+        afterMap.fitBounds([
+          [-74.04189660705046, 40.56952999398417],
+          [-73.8335592388046, 40.73912795313439],
+        ], { bearing: 0 });
         break;
       case "Manhattan":
-        beforeMap.fitBounds(ManhattanBounds, { bearing: na_bearing });
-        afterMap.fitBounds(ManhattanBounds, { bearing: na_bearing });
+        beforeMap.fitBounds([
+          [-74.04772962697074, 40.682916945445164],
+          [-73.90665099539478, 40.879038046804695],
+        ], { bearing: na_bearing });
+        afterMap.fitBounds([
+          [-74.04772962697074, 40.682916945445164],
+          [-73.90665099539478, 40.879038046804695],
+        ], { bearing: na_bearing });
         break;
       case "World":
-        beforeMap.fitBounds(WorldBounds, { bearing: 0 });
-        afterMap.fitBounds(WorldBounds, { bearing: 0 });
+        beforeMap.fitBounds([
+          [-179, -59], // [west, south]
+          [135, 77], // [east, north]
+        ], { bearing: 0 });
+        afterMap.fitBounds([
+          [-179, -59], // [west, south]
+          [135, 77], // [east, north]
+        ], { bearing: 0 });
         break;
     }
   }
@@ -69,62 +87,6 @@ function testZoom() {
           pitch: 0,
         });
         break;
-      case "Manatus Map":
-        beforeMap.easeTo({
-          center: [-73.9512, 40.4999],
-          zoom: 9,
-          bearing: -89.7,
-          pitch: 0,
-        });
-        afterMap.easeTo({
-          center: [-73.9512, 40.4999],
-          zoom: 9,
-          bearing: -89.7,
-          pitch: 0,
-        });
-        break;
-      case "Original Grants":
-        beforeMap.easeTo({
-          center: [-73.9759, 40.7628],
-          zoom: 12,
-          bearing: -51.3,
-          pitch: 0,
-        });
-        afterMap.easeTo({
-          center: [-73.9759, 40.7628],
-          zoom: 12,
-          bearing: -51.3,
-          pitch: 0,
-        });
-        break;
-      case "NYC plan":
-        beforeMap.easeTo({
-          center: [-74.01046, 40.70713],
-          zoom: 15,
-          bearing: -51.3,
-          pitch: 0,
-        });
-        afterMap.easeTo({
-          center: [-74.01046, 40.70713],
-          zoom: 15,
-          bearing: -51.3,
-          pitch: 0,
-        });
-        break;
-      case "Ratzer Map":
-        beforeMap.easeTo({
-          center: [-74.00282, 40.69929],
-          zoom: 12,
-          bearing: -6.5,
-          pitch: 0,
-        });
-        afterMap.easeTo({
-          center: [-74.00282, 40.69929],
-          zoom: 12,
-          bearing: -6.5,
-          pitch: 0,
-        });
-        break;
       case "Long Island":
         beforeMap.easeTo({
           center: [-73.094, 41.1],
@@ -136,62 +98,6 @@ function testZoom() {
           center: [-73.094, 41.1],
           zoom: 8,
           bearing: 0,
-          pitch: 0,
-        });
-        break;
-      case "NY Bay":
-        beforeMap.easeTo({
-          center: [-73.9998, 40.6662],
-          zoom: 11,
-          bearing: 0,
-          pitch: 0,
-        });
-        afterMap.easeTo({
-          center: [-73.9998, 40.6662],
-          zoom: 11,
-          bearing: 0,
-          pitch: 0,
-        });
-        break;
-      case "Gravesend Map":
-        beforeMap.easeTo({
-          center: [-73.97629, 40.60105],
-          zoom: 13,
-          bearing: 0,
-          pitch: 0,
-        });
-        afterMap.easeTo({
-          center: [-73.97629, 40.60105],
-          zoom: 13,
-          bearing: 0,
-          pitch: 0,
-        });
-        break;
-      case "Long Island 1873":
-        beforeMap.easeTo({
-          center: [-73.2739, 40.876],
-          zoom: 8.6,
-          bearing: 0,
-          pitch: 0,
-        });
-        afterMap.easeTo({
-          center: [-73.2739, 40.876],
-          zoom: 8.6,
-          bearing: 0,
-          pitch: 0,
-        });
-        break;
-      case "Belgii Novi":
-        beforeMap.easeTo({
-          center: [-74.39, 40.911],
-          zoom: 5.7,
-          bearing: -7.2,
-          pitch: 0,
-        });
-        afterMap.easeTo({
-          center: [-74.39, 40.911],
-          zoom: 5.7,
-          bearing: -7.2,
           pitch: 0,
         });
         break;
@@ -212,39 +118,23 @@ function testZoom() {
     }
   }
   
+  
+
   function zoomLabels(sel_opt) {
     if (sel_opt == "show") {
-      beforeMap.setLayoutProperty("label-long-island", "visibility", "visible");
-      afterMap.setLayoutProperty("label-long-island", "visibility", "visible");
-      beforeMap.setLayoutProperty("label-brooklyn", "visibility", "visible");
-      afterMap.setLayoutProperty("label-brooklyn", "visibility", "visible");
-      beforeMap.setLayoutProperty("label-manhattan", "visibility", "visible");
-      afterMap.setLayoutProperty("label-manhattan", "visibility", "visible");
-      beforeMap.setLayoutProperty("label-new-amsterdam", "visibility", "visible");
-      afterMap.setLayoutProperty("label-new-amsterdam", "visibility", "visible");
-      beforeMap.setLayoutProperty(
-        "label-new-netherland",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty("label-new-netherland", "visibility", "visible");
-      beforeMap.setLayoutProperty("label-new-england", "visibility", "visible");
-      afterMap.setLayoutProperty("label-new-england", "visibility", "visible");
+      labelData.forEach(({title}) => {
+        const id = `label-${title.toLowerCase().split(" ").join('-')}`
+        afterMap.setLayoutProperty(id, "visibility", "visible")
+        beforeMap.setLayoutProperty(id, "visibility", "visible")
+      })
       document.getElementById("show-zoom-label").style.display = "inline-block";
       document.getElementById("hide-zoom-label").style.display = "none";
     } else {
-      beforeMap.setLayoutProperty("label-long-island", "visibility", "none");
-      afterMap.setLayoutProperty("label-long-island", "visibility", "none");
-      beforeMap.setLayoutProperty("label-brooklyn", "visibility", "none");
-      afterMap.setLayoutProperty("label-brooklyn", "visibility", "none");
-      beforeMap.setLayoutProperty("label-manhattan", "visibility", "none");
-      afterMap.setLayoutProperty("label-manhattan", "visibility", "none");
-      beforeMap.setLayoutProperty("label-new-amsterdam", "visibility", "none");
-      afterMap.setLayoutProperty("label-new-amsterdam", "visibility", "none");
-      beforeMap.setLayoutProperty("label-new-netherland", "visibility", "none");
-      afterMap.setLayoutProperty("label-new-netherland", "visibility", "none");
-      beforeMap.setLayoutProperty("label-new-england", "visibility", "none");
-      afterMap.setLayoutProperty("label-new-england", "visibility", "none");
+      labelData.forEach(({title}) => {
+        const id = `label-${title.toLowerCase().split(" ").join('-')}`
+        afterMap.setLayoutProperty(id, "visibility", "none")
+        beforeMap.setLayoutProperty(id, "visibility", "none")
+      })
       document.getElementById("hide-zoom-label").style.display = "inline-block";
       document.getElementById("show-zoom-label").style.display = "none";
     }

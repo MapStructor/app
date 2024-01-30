@@ -15,49 +15,6 @@ $("#demoLayerInfo").slideUp();
 $("#infoLayerCastello").slideUp();
 $("#infoLayerNativeGroups").slideUp();
 
-// world bounds
-const WorldBounds = [
-  [-179, -59], // [west, south]
-  [135, 77], // [east, north]
-];
-
-// area bounds
-var LongIslandBounds = [
-    [-74.0419692, 40.5419011],
-    [-71.8562705, 41.161155],
-  ],
-  ManhattanBounds = [
-    [-74.04772962697074, 40.682916945445164],
-    [-73.90665099539478, 40.879038046804695],
-  ],
-  NYCbounds = [
-    [-74.25559136315213, 40.496133987611834],
-    [-73.7000090638712, 40.91553277650267],
-  ],
-  BronxBounds = [
-    [-73.93360592036706, 40.785356620508495],
-    [-73.76533243995276, 40.91553277650267],
-  ],
-  BrooklynBounds = [
-    [-74.04189660705046, 40.56952999398417],
-    [-73.8335592388046, 40.73912795313439],
-  ],
-  QueensBounds = [
-    [-73.96262015898652, 40.54183396045311],
-    [-73.7000090638712, 40.80101146781903],
-  ],
-  StatenIslandBounds = [
-    [-74.25559136315213, 40.496133987611834],
-    [-74.04923629842045, 40.648925552276076],
-  ],
-  NewNLbounds = [
-    [-75.5588888888889, 39.5483333333333],
-    [-71.6483333333333, 42.64485],
-  ],
-  NewEnglandBounds = [
-    [-73.6468505859375, 41.017210578228436],
-    [-69.708251953125, 43.97700467496408],
-  ];
 
 //ACCESS TOKEN
 
@@ -140,6 +97,12 @@ var castello_click_ev = false,
   demo_taxlot_click_ev = false,
   dutch_grant_click_ev = false,
   native_groups_click_ev = false,
+  farms_click_ev= false,
+  settlements_click_ev = false,
+  karl_click_ev=false,
+  curr_layer_click_ev=false,
+  info_click_ev=false,
+  gravesend_click_ev=false,
   zoom_labels_click_ev = false;
 
 var afterMapPopUp = new mapboxgl.Popup({
