@@ -1,5 +1,26 @@
 //NEW BEFORELAYERS.JS
 
+/* STEPS:
+
+1. Check to see if everything in this file is what we need,
+ and what remains is these sections:
+
+const layerData = [
+const eventLayerData = [
+
+1b. You may want to reduce beforelayers.js - removing what
+ is under "no" below.
+- Make sure you test the map after you'd delete these portions.
+
+2. When finished, in gpt: paste beforelayers.js
+ and this file, and ask "does this replace beforelayer.js"
+
+3. Iterate as necessary
+- Keep pasting the full files.
+
+*/
+
+
 
 /*
 function addBeforeFarmsLayer(date) {
@@ -45,10 +66,6 @@ function addLongIslandNativeGroupsBeforeLayers() {
         addMapLayer(afterMap, getLayer("native-groups-labels-right"))
 */
 
-
-
-
-*/
 
 
 
