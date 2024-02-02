@@ -1,5 +1,4 @@
 
-// get Dutch Grants Lots Info from REST API
 var dutch_grant_lots_info = [],
   farms_grants_info = [],
   settlements_info = [],

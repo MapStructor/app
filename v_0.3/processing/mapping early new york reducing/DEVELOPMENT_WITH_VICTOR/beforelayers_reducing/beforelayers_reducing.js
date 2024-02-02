@@ -2,7 +2,7 @@
 
 /* STEPS:
 
-1. Check to see if everything in this file is what we need,
+1. Check to see if everything in this file is what we need, {Missing some things, most of the layerdata in the addLayer functions. Need to implement getPopUpByName}
  and what remains is these sections:
 
 const layerData = [
@@ -38,11 +38,7 @@ function addManahattaBeforeLayers() {
 
 //THESE ARE WHAT WE NEED:
 
-//NO:
-function addBeforeFarmsLayer(date) {
-function addManahattaBeforeLayers() {
-function addCurrentLotsBeforeLayers() {
-function addIndianPathsBeforeLayers() {
+
 
 
 //YES:
@@ -171,13 +167,6 @@ function generatePopupContent(feature, infoProperty) {
   return "<div>" + feature.properties[infoProperty] + "</div>";
 }
 
-
-function addBeforeFarmsLayer(map, date) {
-  removeMapLayers(map, beforeFarmsLayerData);
-  addMapLayers(map, beforeFarmsLayerData, date);
-  setupLayerEvents(map, beforeFarmsEventLayerData);
-}
-
 function addBeforeLayers(map, date) {
   removeMapLayers(map, beforeLayerData);
   addMapLayers(map, beforeLayerData, date);
@@ -190,11 +179,7 @@ function addCastelloBeforeLayers(map) {
   setupLayerEvents(map, castelloEventLayerData);
 }
 
-function addCurrentLotsBeforeLayers(map) {
-  removeMapLayers(map, currentLotsLayerData);
-  addMapLayers(map, currentLotsLayerData);
-  setupLayerEvents(map, currentLotsEventLayerData);
-}
+
 
 function addGrantLotsBeforeLayers(map, date) {
   removeMapLayers(map, grantLotsLayerData);
@@ -206,12 +191,6 @@ function addGrantLotsLinesBeforeLayers(map, date) {
   removeMapLayers(map, grantLotsLinesLayerData);
   addMapLayers(map, grantLotsLinesLayerData, date);
   setupLayerEvents(map, grantLotsLinesEventLayerData);
-}
-
-function addIndianPathsBeforeLayers(map) {
-  removeMapLayers(map, indianPathsLayerData);
-  addMapLayers(map, indianPathsLayerData);
-  setupLayerEvents(map, indianPathsEventLayerData);
 }
 
 function addInfoBeforeLayers(map, date) {
@@ -236,10 +215,4 @@ function addLongIslandNativeGroupsBeforeLayers(map) {
   removeMapLayers(map, longIslandNativeGroupsLayerData);
   addMapLayers(map, longIslandNativeGroupsLayerData);
   setupLayerEvents(map, longIslandNativeGroupsEventLayerData);
-}
-
-function addManahattaBeforeLayers(map) {
-  removeMapLayers(map, manahattaLayerData);
-  addMapLayers(map, manahattaLayerData);
-  setupLayerEvents(map, manahattaEventLayerData);
 }

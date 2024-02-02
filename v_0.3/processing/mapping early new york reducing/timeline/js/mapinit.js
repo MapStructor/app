@@ -515,18 +515,13 @@ beforeMap.on("style.load", function () {
   addInfoLabelsBeforeLayers(date);
 
   setTimeout(function () {
-    addGrantLotsBeforeLayers(date);
     addGrantLotsLinesBeforeLayers(date);
     addBeforeLayers(yr, date);
-    addBeforeFarmsLayer(date);
   }, 1000);
 
   setTimeout(function () {
     addCastelloBeforeLayers();
-    addCurrentLotsBeforeLayers();
-    addManahattaBeforeLayers();
     addLongIslandCoastlineBeforeLayers();
-    addIndianPathsBeforeLayers();
     addLongIslandNativeGroupsBeforeLayers();
   }, 2000);
 });
