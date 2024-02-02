@@ -52,6 +52,11 @@ var afterMap = new mapboxgl.Map({
   attributionControl: false,
 });
 
+var init_bearing, init_center, init_zoom;
+
+var na_bearing = -51.3,
+  na_center = [-74.01255, 40.704882],
+  na_zoom = 16.34
 
 // #endregion
 
@@ -102,14 +107,6 @@ afterMap.addControl(nav, "bottom-right");
 
 // #endregion
 
-
-// #region Map Initialization - MERGE THIS WITH REGION OF SAME NAME ABOVE?
-var init_bearing, init_center, init_zoom;
-
-var na_bearing = -51.3,
-  na_center = [-74.01255, 40.704882],
-  na_zoom = 16.34;
-// #endregion
 
 
 // #region Layer Switching
@@ -163,7 +160,16 @@ var castello_click_ev = false,
 // #endregion
 
 
-// #region Popups Initialization - CONTAINS SUBREGION - MOVE ABOVE THIS?
+// #region Popup Content Variables
+// Initialize variables to hold HTML content for various popups. These variables will likely be updated dynamically based on user interactions or data queries.
+
+var info_popup_html = "",
+  places_popup_html = "",
+  settlements_popup_html = "";
+
+// #endregion
+
+// #region Popups Initialization
 // Initialize popups for displaying information on the maps. These popups are configured to not close on click, indicating they may be used for persistent display of information.
 
 var afterMapPopUp = new mapboxgl.Popup({
@@ -174,16 +180,6 @@ var afterMapPopUp = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false,
   });
-
-// #region Popup Content Variables
-//SHOULD THIS BE MOVED BEFORE THE Popups Initialization?
-// Initialize variables to hold HTML content for various popups. These variables will likely be updated dynamically based on user interactions or data queries.
-
-var info_popup_html = "",
-  places_popup_html = "",
-  settlements_popup_html = "";
-
-// #endregion
 
 var afterMapPlacesPopUp = new mapboxgl.Popup({
     closeButton: false,
