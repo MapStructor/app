@@ -80,8 +80,8 @@ function setupLayerEvents(map, layers) {
 }
 
 function generatePopupContent(id, features) {
+  var PopUpHTML = "";
   if (id === "dutch_grants-5ehfqe-left") {
-    var PopUpHTML = "";
     if (
       typeof dutch_grant_lots_info[features[0].properties.Lot] == "undefined"
     ) {
@@ -116,7 +116,6 @@ function generatePopupContent(id, features) {
       "</div>"
     );
   } else if (id === "native-groups-area-left"){
-    var PopUpHTML = "";
       if (
         typeof taxlot_event_entities_info[features[0].properties.nid] ==
           "undefined" ||
