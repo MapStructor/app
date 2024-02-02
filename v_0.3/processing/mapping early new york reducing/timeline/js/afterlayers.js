@@ -1,483 +1,271 @@
-function addAfterLayers(_, date) {
-  removeTaxPoints(afterMap, [
-    {type: "layer", id: "lot_events-bf43eb-right"},
-    {type: "source", id: "lot_events-bf43eb"},
-    {type: "layer", id: "dutch_grants-5ehfqe-right"},
-    {type: "source", id: "dutch_grants-5ehfqe"}
-  ]) 
+function setupLayerEvents(map, layers) {
+  layers.forEach((layer) => {
+    let hoveredId = null; // Variable to store the id of the hovered feature
 
-  addMapLayer(afterMap, getLayer("dutch_grants-5ehfqe-right-highlighted"), date);
-  addMapLayer(afterMap, getLayer("dutch_grants-5ehfqe-right"), date);
+    if (layer.id !== "places-right")
+      map.on("mouseenter", layer.id, (e) => {
+        map.getCanvas().style.cursor = "pointer";
 
-    afterMap.on("mouseenter", "dutch_grants-5ehfqe-right", function (e) {
-      afterMap.getCanvas().style.cursor = "pointer";
-      afterMapDutchGrantPopUp.setLngLat(e.lngLat).addTo(afterMap);
-    });
+        // Optionally, you might want to show a popup when hovering
+        // This depends on how you've structured your popups
+        const popup = getPopupByName(layer.popup);
+        if (popup) {
+          popup.setLngLat(e.lngLat).addTo(map);
+        }
+      });
 
-    afterMap.on("mousemove", "dutch_grants-5ehfqe-right", function (e) {
-      if (e.features.length > 0) {
-        if (hoveredDutchGrantIdRight) {
-          afterMap.setFeatureState(
-            {
-              source: "dutch_grants-5ehfqe-right",
-              sourceLayer: "dutch_grants-5ehfqe",
-              id: hoveredDutchGrantIdRight,
-            },
-            { hover: false }
+    map.on(
+      layer.id === "places-right" ? "mouseenter" : "mousemove",
+      layer.id,
+      (e) => {
+        if (e.features.length > 0) {
+          if (hoveredId) {
+            // Reset the previous feature's state
+            map.setFeatureState(
+              { source: layer.id, id: hoveredId, sourceLayer: layer.sourceId },
+              { hover: false }
+            );
+          }
+
+          hoveredId = e.features[0].id;
+
+          // Set the new feature's state
+          map.setFeatureState(
+            { source: layer.id, id: hoveredId, sourceLayer: layer.sourceId },
+            { hover: true }
           );
-        }
-        hoveredDutchGrantIdRight = e.features[0].id;
-        afterMap.setFeatureState(
-          {
-            source: "dutch_grants-5ehfqe-right",
-            sourceLayer: "dutch_grants-5ehfqe",
-            id: hoveredDutchGrantIdRight,
-          },
-          { hover: true }
-        );
+          if (layer.id === "places-right") {
+            var coordinates = e.features[0].geometry.coordinates.slice();
 
-        var PopUpHTML = "";
-        if (
-          typeof dutch_grant_lots_info[e.features[0].properties.Lot] ==
-          "undefined"
-        ) {
-          PopUpHTML =
-            "<div class='infoLayerDutchGrantsPopUp'>" +
-            e.features[0].properties.name +
-            "<br>";
-        } else {
-          PopUpHTML =
-            "<div class='infoLayerDutchGrantsPopUp'>" +
-            (dutch_grant_lots_info[e.features[0].properties.Lot].name_txt
-              .length > 0
-              ? dutch_grant_lots_info[e.features[0].properties.Lot].name_txt
-              : e.features[0].properties.name) +
-            "<br>";
-        }
-        PopUpHTML +=
-          "<b>Dutch Grant Lot: </b>" + e.features[0].properties.Lot + "</div>";
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
 
-        var coordinates = e.features[0].geometry.coordinates.slice();
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            //AFTER MAP POP UP CONTENTS
+            afterMapPlacesPopUp
+              .setLngLat(coordinates)
+              .setHTML(generatePopupContent(layer.id, e.features))
+              .addTo(afterMap);
+          } else {
+            // Update popup content if needed
+            const popup = getPopupByName(layer.popup);
+            if (popup) {
+              const content = generatePopupContent(layer.id, e.features);
+              popup.setLngLat(e.lngLat).setHTML(content);
+            }
+          }
         }
-
-        //AFTER MAP POP UP CONTENTS
-        afterMapDutchGrantPopUp.setLngLat(e.lngLat).setHTML(PopUpHTML);
       }
-    });
+    );
 
-    afterMap.on("mouseleave", "dutch_grants-5ehfqe-right", function () {
-      afterMap.getCanvas().style.cursor = "";
-      if (hoveredDutchGrantIdRight) {
-        afterMap.setFeatureState(
-          {
-            source: "dutch_grants-5ehfqe-right",
-            sourceLayer: "dutch_grants-5ehfqe",
-            id: hoveredDutchGrantIdRight,
-          },
+    map.on("mouseleave", layer.id, () => {
+      map.getCanvas().style.cursor = "";
+
+      if (hoveredId) {
+        // Reset the hovered feature's state when the mouse leaves
+        map.setFeatureState(
+          { source: layer.id, id: hoveredId, sourceLayer: layer.sourceId },
           { hover: false }
         );
+        hoveredId = null;
       }
-      hoveredDutchGrantIdRight = null;
-      if (afterMapDutchGrantPopUp.isOpen()) afterMapDutchGrantPopUp.remove();
+
+      // Close the popup when the mouse leaves
+      const popup = getPopupByName(layer.popup);
+      if (popup && popup.isOpen()) {
+        popup.remove();
+      }
     });
-
-  addMapLayer(afterMap, getLayer("lot_events-bf43eb-right"), date)
-
-    afterMap.on("mouseenter", "lot_events-bf43eb-right", function (e) {
-      afterMap.getCanvas().style.cursor = "pointer";
-
-      if (hoveredStateIdRightCircle) {
-        afterMap.setFeatureState(
-          {
-            source: "lot_events-bf43eb-right",
-            sourceLayer: "lot_events-bf43eb",
-            id: hoveredStateIdRightCircle,
-          },
-          { hover: false }
-        );
-      }
-      hoveredStateIdRightCircle = e.features[0].id;
-      afterMap.setFeatureState(
-        {
-          source: "lot_events-bf43eb-right",
-          sourceLayer: "lot_events-bf43eb",
-          id: hoveredStateIdRightCircle,
-        },
-        { hover: true }
-      );
-
-      var coordinates = e.features[0].geometry.coordinates.slice();
-
-      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-      }
-
-      afterMapPopUp
-        .setLngLat(coordinates)
-        .setHTML(
-          "<div class='demoLayerInfoPopUp'><b><h2>Taxlot: <a href='https://encyclopedia.nahc-mapping.org/taxlot/" +
-            e.features[0].properties.TAXLOT +
-            "' target='_blank'>" +
-            e.features[0].properties.TAXLOT +
-            "</a></h2></b></div>"
-        )
-        .addTo(afterMap);
-    });
-
-    afterMap.on("mouseleave", "lot_events-bf43eb-right", function () {
-      afterMap.getCanvas().style.cursor = "";
-      if (hoveredStateIdRightCircle) {
-        afterMap.setFeatureState(
-          {
-            source: "lot_events-bf43eb-right",
-            sourceLayer: "lot_events-bf43eb",
-            id: hoveredStateIdRightCircle,
-          },
-          { hover: false }
-        );
-      }
-      hoveredStateIdRightCircle = null;
-      if (afterMapPopUp.isOpen()) afterMapPopUp.remove();
-    });
+  });
 }
 
-function addGrantLotsAfterLayers(date) {
-  removeTaxPoints(afterMap, [
-    {type: "layer", id: "grant-lots-right"},
-    {type: "source", id: "demo_divisions_grant_c7-42w8pa"}
-  ])
 
-  addMapLayer(afterMap, getLayer("grant-lots-right"), date)
-
-    afterMap.on("mouseenter", "grant-lots-right", function (e) {
-      afterMap.getCanvas().style.cursor = "pointer";
-      afterMapGrantLotPopUp.setLngLat(e.lngLat).addTo(afterMap);
-    });
-
-    afterMap.on("mousemove", "grant-lots-right", function (e) {
-      if (e.features.length > 0) {
-        if (hoveredGrantLotIdRight) {
-          afterMap.setFeatureState(
-            {
-              source: "grant-lots-right",
-              sourceLayer: "demo_divisions_grant_c7-42w8pa",
-              id: hoveredGrantLotIdRight,
-            },
-            { hover: false }
-          );
-        }
-        hoveredGrantLotIdRight = e.features[0].id;
-        afterMap.setFeatureState(
-          {
-            source: "grant-lots-right",
-            sourceLayer: "demo_divisions_grant_c7-42w8pa",
-            id: hoveredGrantLotIdRight,
-          },
-          { hover: true }
-        );
-
-        var PopUpHTML =
-          "<div class='infoLayerGrantLotsPopUp'>" +
-          e.features[0].properties.name +
-          "<br>" +
-          "<b>Start:</b> " +
-          e.features[0].properties.day1 +
-          ", " +
-          e.features[0].properties.year1 +
-          "<br>" +
-          "<b>End:</b> " +
-          e.features[0].properties.day2 +
-          ", " +
-          e.features[0].properties.year2 +
-          "<br>" +
-          //"<br>" +
-          "<b>Lot Division: </b>" +
-          e.features[0].properties.dutchlot +
-          "</div>";
-
-        var coordinates = e.features[0].geometry.coordinates.slice();
-
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-
-        //AFTER MAP POP UP CONTENTS
-        afterMapGrantLotPopUp.setLngLat(e.lngLat).setHTML(PopUpHTML);
-      }
-    });
-
-    afterMap.on("mouseleave", "grant-lots-right", function () {
-      afterMap.getCanvas().style.cursor = "";
-      if (hoveredGrantLotIdRight) {
-        afterMap.setFeatureState(
-          {
-            source: "grant-lots-right",
-            sourceLayer: "demo_divisions_grant_c7-42w8pa",
-            id: hoveredGrantLotIdRight,
-          },
-          { hover: false }
-        );
-      }
-      hoveredGrantLotIdRight = null;
-      if (afterMapGrantLotPopUp.isOpen()) afterMapGrantLotPopUp.remove();
-    });
-  
-
-}
-
-function addGrantLotsLinesAfterLayers(date) {
-  removeTaxPoints(afterMap, [{
-    type: "layer",
-    id: "grant-lots-lines-right"
-  },
-  {
-    type: "source",
-    id: "dutch_grants_lines-0y4gkx"
-  }
-])
-  addMapLayer(afterMap, getLayer("grant-lots-lines-right"), date)
-}
-
-function addInfoAfterLayers(date) {
-  // Add a layer showing the info.
-  addMapLayer(afterMap, getLayer("info-points-right"), date)
-
-  //ON HOVER
-  afterMap.on("mouseenter", "info-points-right", function (e) {
-    afterMap.getCanvas().style.cursor = "pointer";
-    if (e.features.length > 0) {
-      if (hoveredInfoIdRight) {
-        afterMap.setFeatureState(
-          {
-            source: "info-points-right",
-            sourceLayer: "info_of_interest-17rpk9",
-            id: hoveredInfoIdRight,
-          },
-          { hover: false }
-        );
-      }
-      hoveredInfoIdRight = e.features[0].id;
-      afterMap.setFeatureState(
-        {
-          source: "info-points-right",
-          sourceLayer: "info_of_interest-17rpk9",
-          id: hoveredInfoIdRight,
-        },
-        { hover: true }
-      );
-
-      var coordinates = e.features[0].geometry.coordinates.slice();
-
-      // Ensure that if the map is zoomed out such that multiple
-      // copies of the feature are visible, the popup appears
-      // over the copy being pointed to.
-      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-      }
-
-      //AFTER MAP POP UP CONTENTS
-      afterMapInfoPopUp
-        .setLngLat(coordinates)
-        .setHTML(
-          "<div class='infoLayerInfoPointPopUp'><b>" +
-            e.features[0].properties.Label +
-            "</b><br>" +
-            "</div>"
-        )
-        .addTo(afterMap);
+function generatePopupContent(id, features) {
+  var PopUpHTML = "";
+  if (id === "dutch_grants-5ehfqe-right") {
+    if (
+      typeof dutch_grant_lots_info[features[0].properties.Lot] == "undefined"
+    ) {
+      PopUpHTML =
+        "<div class='infoLayerDutchGrantsPopUp'>" +
+        features[0].properties.name +
+        "<br>";
+    } else {
+      PopUpHTML =
+        "<div class='infoLayerDutchGrantsPopUp'>" +
+        (dutch_grant_lots_info[features[0].properties.Lot].name_txt.length > 0
+          ? dutch_grant_lots_info[features[0].properties.Lot].name_txt
+          : features[0].properties.name) +
+        "<br>";
     }
-  });
+    PopUpHTML +=
+      "<b>Dutch Grant Lot: </b>" + features[0].properties.Lot + "</div>";
 
-  //OFF HOVER
-  afterMap.on("mouseleave", "info-points-right", function () {
-    afterMap.getCanvas().style.cursor = "";
-    if (hoveredInfoIdRight) {
-      afterMap.setFeatureState(
-        {
-          source: "info-points-right",
-          sourceLayer: "info_of_interest-17rpk9",
-          id: hoveredInfoIdRight,
-        },
-        { hover: false }
-      );
-    }
-    hoveredInfoIdRight = null;
-    if (afterMapInfoPopUp.isOpen()) afterMapInfoPopUp.remove();
-  });
-}
-
-// Info Static Layer
-
-function addInfoLabelsAfterLayers(date) {
-  // Add a layer showing the places.
-  addMapLayer(afterMap, getLayer("info-labels-right"), date)
-}
-
-// Castello Static Layer
-
-function addCastelloAfterLayers() {
-  // Add a layer showing the places.
-  addMapLayer(afterMap, getLayer("places-right"))
-
-  //ON HOVER
-  afterMap.on("mouseenter", "places-right", function (e) {
-    afterMap.getCanvas().style.cursor = "pointer";
-    if (e.features.length > 0) {
-      if (hoveredStateIdRight) {
-        afterMap.setFeatureState(
-          {
-            source: "places-right",
-            sourceLayer: "taxlots-cpwvol",
-            id: hoveredStateIdRight,
-          },
-          { hover: false }
-        );
-      }
-      hoveredStateIdRight = e.features[0].id;
-      afterMap.setFeatureState(
-        {
-          source: "places-right",
-          sourceLayer: "taxlots-cpwvol",
-          id: hoveredStateIdRight,
-        },
-        { hover: true }
-      );
-
-      var coordinates = e.features[0].geometry.coordinates.slice();
-      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-      }
-
-      //AFTER MAP POP UP CONTENTS
-      afterMapPlacesPopUp
-        .setLngLat(coordinates)
-        .setHTML(
-          "<div class='infoLayerCastelloPopUp'><b>Taxlot (1660):</b><br>" +
-            e.features[0].properties.LOT2 +
-            "</div>"
-        )
-        .addTo(afterMap);
-    }
-  });
-
-  //OFF HOVER
-  afterMap.on("mouseleave", "places-right", function () {
-    afterMap.getCanvas().style.cursor = "";
-    if (hoveredStateIdRight) {
-      afterMap.setFeatureState(
-        {
-          source: "places-right",
-          sourceLayer: "taxlots-cpwvol",
-          id: hoveredStateIdRight,
-        },
-        { hover: false }
-      );
-    }
-    hoveredStateIdRight = null;
-    if (afterMapPlacesPopUp.isOpen()) afterMapPlacesPopUp.remove();
-  });
-}
-
-
-function addLongIslandCoastlineAfterLayers() {
-  addMapLayer(afterMap, getLayer( "long-island-right"))
-  addMapLayer(afterMap, getLayer("long-island-area-right"))
-}
-
-function addManahattaAfterLayers() {
-  addMapLayer(afterMap, getLayer("lenape-trails-right"))
-  addMapLayer(afterMap, getLayer("manahatta-shoreline-right"))
-  addMapLayer(afterMap, getLayer("streams-right"))
-}
-
-
-
-function addLongIslandNativeGroupsAfterLayers() {
-  addMapLayer(afterMap, getLayer("native-groups-lines-right"))
-  addMapLayer(afterMap, getLayer("native-groups-area-right"))
-  addMapLayer(afterMap, getLayer("native-groups-area-right-highlighted"))
-  addMapLayer(afterMap, getLayer("native-groups-labels-right"))
-
-  //CURSOR ON HOVER
-  //ON HOVER
-  afterMap.on("mouseenter", "native-groups-area-right", function (e) {
-    afterMap.getCanvas().style.cursor = "pointer";
-    afterMapNativeGroupsPopUp.setLngLat(e.lngLat).addTo(afterMap);
-  });
-
-  afterMap.on("mousemove", "native-groups-area-right", function (e) {
-    if (e.features.length > 0) {
-      if (hoveredNativeGroupsIdRight) {
-        afterMap.setFeatureState(
-          {
-            source: "native-groups-area-right",
-            sourceLayer: "indian_areas_long_island-50h2dj",
-            id: hoveredNativeGroupsIdRight,
-          },
-          { hover: false }
-        );
-      }
-      hoveredNativeGroupsIdRight = e.features[0].id;
-      afterMap.setFeatureState(
-        {
-          source: "native-groups-area-right",
-          sourceLayer: "indian_areas_long_island-50h2dj",
-          id: hoveredNativeGroupsIdRight,
-        },
-        { hover: true }
-      );
-
-      var PopUpHTML = "";
+    return PopUpHTML;
+  } else if (id === "lot_events-bf43eb-right") {
+    return (
+      "<div class='demoLayerInfoPopUp'><b><h2>Taxlot: <a href='https://encyclopedia.nahc-mapping.org/taxlot/" +
+      features[0].properties.TAXLOT +
+      "' target='_blank'>" +
+      features[0].properties.TAXLOT +
+      "</a></h2></b></div>"
+    );
+  } else if (id === "places-right") {
+    return (
+      "<div class='infoLayerCastelloPopUp'><b>Taxlot (1660):</b><br>" +
+      features[0].properties.LOT2 +
+      "</div>"
+    );
+  } else if (id === "native-groups-area-right"){
       if (
-        typeof taxlot_event_entities_info[e.features[0].properties.nid] ==
+        typeof taxlot_event_entities_info[features[0].properties.nid] ==
           "undefined" ||
-        e.features[0].properties.nid == ""
+        features[0].properties.nid == ""
       ) {
         PopUpHTML =
           "<div class='infoLayerCastelloPopUp'><b>Name : </b>" +
-          e.features[0].properties.name +
+          features[0].properties.name +
           "</div>";
       } else {
         PopUpHTML =
           "<div class='infoLayerCastelloPopUp'><b>Name : </b>" +
-          (taxlot_event_entities_info[e.features[0].properties.nid].name
+          (taxlot_event_entities_info[features[0].properties.nid].name
             .length > 0
-            ? taxlot_event_entities_info[e.features[0].properties.nid].name
-            : e.features[0].properties.name) +
+            ? taxlot_event_entities_info[features[0].properties.nid].name
+            : features[0].properties.name) +
           "</div>";
       }
+      return PopUpHTML
+  }
+}
 
-      var coordinates = e.features[0].geometry.coordinates.slice();
 
-      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-      }
+function getPopupByName(name) {
+  // Implementation depends on how you're managing your popups
+  // For example:
+  return window[name];
+}
 
-      //AFTER MAP POP UP CONTENTS
-      afterMapNativeGroupsPopUp.setLngLat(e.lngLat).setHTML(PopUpHTML);
-    }
-  });
 
-  //OFF HOVER
-  afterMap.on("mouseleave", "native-groups-area-right", function () {
-    afterMap.getCanvas().style.cursor = "";
-    if (hoveredNativeGroupsIdRight) {
-      afterMap.setFeatureState(
-        {
-          source: "native-groups-area-right",
-          sourceLayer: "indian_areas_long_island-50h2dj",
-          id: hoveredNativeGroupsIdRight,
-        },
-        { hover: false }
-      );
-    }
-    hoveredNativeGroupsIdRight = null;
-    if (afterMapNativeGroupsPopUp.isOpen()) afterMapNativeGroupsPopUp.remove();
+function addMapLayers(map, layers, date) {
+  layers.forEach((layer) => {
+    addMapLayer(map, getLayer(layer.id), date);
   });
 }
 
+
+
+function addAfterLayers(_, date) {
+  removeTaxPoints(afterMap, [
+    {
+      type: "layer",
+      id: "lot_events-bf43eb-right",
+    },
+    {
+      type: "source",
+      id: "lot_events-bf43eb",
+    },
+    {
+      type: "layer",
+      id: "dutch_grants-5ehfqe-right",
+    },
+    {
+      type: "source",
+      id: "dutch_grants-5ehfqe",
+    },
+  ]);
+  addMapLayers(
+    afterMap,
+    [
+      { id: "dutch_grants-5ehfqe-right-highlighted" },
+      { id: "dutch_grants-5ehfqe-right" },
+      { id: "lot_events-bf43eb-right" },
+    ],
+    date
+  );
+  setupLayerEvents(afterMap, [
+    {
+      id: "dutch_grants-5ehfqe-right",
+      popup: "afterMapDutchGrantPopUp",
+      sourceId: "dutch_grants-5ehfqe",
+    },
+    {
+      id: "lot_events-bf43eb-right",
+      popup: "afterMapPopUp",
+      sourceId: "lot_events-bf43eb",
+    },
+  ]);
+}
+
+function addGrantLotsLinesAfterLayers(date) {
+  //REMOVING TAX LOT POINTS IF EXIST
+  removeTaxPoints(afterMap, [
+    {
+      type: "layer",
+      id: "grant-lots-lines-right",
+    },
+    {
+      type: "source",
+      id: "dutch_grants_lines-0y4gkx",
+    },
+  ]);
+
+  // Add a layer showing the places.
+  addMapLayer(afterMap, getLayer("grant-lots-lines-right"), date);
+}
+
+
+function addInfoAfterLayers(date) {
+  // Add a layer showing the info.
+  addMapLayer(afterMap, getLayer("info-points-right"), date);
+
+  setupLayerEvents(afterMap, [
+    {
+      id: "info-points-right",
+      popup: "afterMapInfoPopUp",
+      sourceId: "info_of_interest-17rpk9",
+    },
+  ]);
+}
+
+
+function addInfoLabelsAfterLayers(date) {
+  addMapLayer(afterMap, getLayer("info-labels-right"), date);
+}
+
+
+function addCastelloAfterLayers() {
+  addMapLayer(afterMap, getLayer("places-right"));
+
+  setupLayerEvents(afterMap, [
+    {
+      id: "places-right",
+      popup: "afterMapPlacesPopUp",
+      sourceId: "taxlots-cpwvol",
+    },
+  ]);
+}
+
+
+function addLongIslandCoastlineAfterLayers() {
+  addMapLayer(afterMap, getLayer("long-island-right"));
+  addMapLayer(afterMap, getLayer("long-island-area-right"));
+}
+
+
+function addLongIslandNativeGroupsAfterLayers() {
+  [
+    "native-groups-lines-right",
+    "native-groups-area-right",
+    "native-groups-area-right-highlighted",
+    "native-groups-labels-right",
+  ].forEach((id) => addMapLayer(afterMap, getLayer(id)));
+
+  setupLayerEvents(afterMap, [
+    {
+      id: "native-groups-area-right",
+      popup: "afterMapNativeGroupsPopUp",
+      sourceId: "indian_areas_long_island-50h2dj",
+    },
+  ]); 
+}
