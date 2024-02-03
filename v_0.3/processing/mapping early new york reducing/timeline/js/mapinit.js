@@ -541,7 +541,6 @@ afterMap.on("style.load", function () {
 
   setTimeout(function () {
     addCastelloAfterLayers();
-    addManahattaAfterLayers();
     addLongIslandCoastlineAfterLayers();
     addLongIslandNativeGroupsAfterLayers();
     /*
