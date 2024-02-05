@@ -260,82 +260,6 @@ const layers = [
     },
     minzoom: 1,
   },
-  
-
-
-
-/*
-  {
-    //ID: CHANGE THIS, 1 OF 3
-    id: "lot_events-bf43eb-right",
-    type: "circle",
-    source: {
-      type: "vector",
-      //URL: CHANGE THIS, 2 OF 3
-      url: "mapbox://mapny.9s9s67wu",
-    },
-    layout: {
-      visibility: document.getElementById("circle_point").checked
-        ? "visible"
-        : "none",
-    },
-    "source-layer": "lot_events-bf43eb",
-    paint: {
-      //CIRCLE COLOR
-      "circle-color": {
-        type: "categorical",
-        property: "color",
-        stops: [
-          ["6", "#0000ee"],
-          ["5", "#097911"],
-          ["4", "#0000ee"],
-          ["3", "#097911"],
-          ["2", "#0000ee"],
-          ["1", "#097911"],
-        ],
-        default: "#FF0000",
-      },
-
-      //CIRCLE OPACITY
-      "circle-opacity": [
-        "case",
-        ["boolean", ["feature-state", "hover"], false],
-        0.5,
-        1,
-      ],
-      "circle-stroke-width": 2,
-      "circle-stroke-color": {
-        type: "categorical",
-        property: "color",
-        stops: [
-          ["6", "#0000ee"],
-          ["5", "#097911"],
-          ["4", "#0000ee"],
-          ["3", "#097911"],
-          ["2", "#0000ee"],
-          ["1", "#097911"],
-        ],
-        default: "#FF0000",
-      },
-      "circle-stroke-opacity": [
-        "case",
-        ["boolean", ["feature-state", "hover"], false],
-        1,
-        0,
-      ],
-
-      //CIRCLE RADIUS
-      "circle-radius": {
-        type: "categorical",
-        property: "TAXLOT",
-        stops: [["C7", 9]],
-      },
-    },
-  },
-
-*/
-
-
   {
     id: "native-groups-labels-left",
     type: "symbol",
@@ -544,8 +468,32 @@ const beforeLayers = [
       ],
     },
   },
-  
-  
+  {
+    id: "native-groups-area-left-highlighted",
+    type: "fill",
+    source: {
+      type: "vector",
+      url: "mapbox://mapny.8in6hi37",
+    },
+    layout: {
+      visibility: document.getElementById("native_groups_area").checked
+        ? "visible"
+        : "none",
+    },
+    "source-layer": "indian_areas_long_island-50h2dj",
+    paint: {
+      "fill-color": "#FF1493",
+      "fill-opacity": [
+        "case",
+        ["boolean", ["feature-state", "hover"], false],
+        0.3,
+        0,
+      ],
+      "fill-outline-color": "#FFD700",
+    },
+    toggleElement: "native_groups_area"
+  },
+
   {
     id: "native-groups-lines-left",
     type: "line",
