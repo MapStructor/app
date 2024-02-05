@@ -1,3 +1,5 @@
+let styleLoaded = 0;
+
 // #region Variable Initialization
 // Initialize variables for view IDs and visibility flags for different layers.
 
@@ -20,7 +22,6 @@ $("#infoLayerNativeGroups").slideUp();
 
 // #endregion
 
-
 // #region Mapbox Access Token
 // Set the access token for Mapbox services.
 
@@ -29,7 +30,6 @@ mapboxgl.accessToken =
   "pk.eyJ1IjoibWFwbnkiLCJhIjoiY2xtMG93amk4MnBrZTNnczUzY2VvYjg0ciJ9.MDMHYBlVbG14TJD120t6NQ";
 
 // #endregion
-
 
 // #region Map Initialization
 // Initialize the 'before' and 'after' Mapbox GL maps with specific configurations.
@@ -56,10 +56,9 @@ var init_bearing, init_center, init_zoom;
 
 var na_bearing = -51.3,
   na_center = [-74.01255, 40.704882],
-  na_zoom = 16.34
+  na_zoom = 16.34;
 
 // #endregion
-
 
 // #region Popups Initialization
 // Initialize popups for displaying information on the maps without close buttons.
@@ -77,22 +76,16 @@ var afterHighDemoPopUp = new mapboxgl.Popup({
 // Additional popup initializations omitted for brevity...
 // #endregion
 
-
 // #region Map Comparison Tool
-
-
 
 // Initialize the map comparison tool, allowing users to compare 'before' and 'after' maps.
 var map = new mapboxgl.Compare(beforeMap, afterMap, {
-
-//WERE THESE COMMENTS THERE FROM BEFORE??:
+  //WERE THESE COMMENTS THERE FROM BEFORE??:
   // Set this to enable comparing two maps by mouse movement:
   // mousemove: true
-
 });
 
 // #endregion
-
 
 // #region Navigation Controls
 // Add navigation controls to both maps for zooming and rotating.
@@ -107,8 +100,6 @@ afterMap.addControl(nav, "bottom-right");
 
 // #endregion
 
-
-
 // #region Layer Switching
 // Functions and event listeners for switching layers based on user input.
 
@@ -119,7 +110,6 @@ function switchRightLayer(layer) {
   var rightLayerClass = layer.target.className;
   afterMap.setStyle("mapbox://styles/mapny/" + rightLayerClass);
 }
-
 
 for (var i = 0; i < rightInputs.length; i++) {
   rightInputs[i].onclick = switchRightLayer;
@@ -139,7 +129,6 @@ for (var i = 0; i < leftInputs.length; i++) {
 
 // #endregion
 
-
 // #region URL and Click Event Flags
 // Capture the URL hash for potential use in initializing map states or layers.
 var urlHash = window.location.hash;
@@ -150,15 +139,14 @@ var castello_click_ev = false,
   demo_taxlot_click_ev = false,
   dutch_grant_click_ev = false,
   native_groups_click_ev = false,
-  farms_click_ev= false,
+  farms_click_ev = false,
   settlements_click_ev = false,
-  karl_click_ev=false,
-  curr_layer_click_ev=false,
-  info_click_ev=false,
-  gravesend_click_ev=false,
+  karl_click_ev = false,
+  curr_layer_click_ev = false,
+  info_click_ev = false,
+  gravesend_click_ev = false,
   zoom_labels_click_ev = false;
 // #endregion
-
 
 // #region Popup Content Variables
 // Initialize variables to hold HTML content for various popups. These variables will likely be updated dynamically based on user interactions or data queries.
@@ -266,7 +254,6 @@ var afterHighMapNativeGroupsPopUp = new mapboxgl.Popup({
 
 // #endregion
 
-
 // #region Hovered and Clicked State Management
 // Variables to manage the state of hovered and clicked map features. These are used to track which features are currently under interaction, allowing for dynamic updates to the UI or map based on user actions.
 var hoveredStateIdRight = null,
@@ -292,7 +279,6 @@ var demo_layer_feature_props = null,
   demo_layer_features = null,
   demo_layer_taxlot = "";
 // #endregion
-
 
 // #region Event Handling and Popups
 // Functions to handle click events on map features and display popups with detailed information.
@@ -351,13 +337,10 @@ afterMap.on("error", function (e) {
   if (e && e.error !== "Error") console.log(e);
 });
 
-
 // #endregion
-
 
 // #region Dynamic Filtering and Date Handling
 // Functions for filtering map data dynamically based on user interactions or other criteria.
-
 
 function demoFilterRangeCalc() {
   //A* demo filter range calculator
@@ -495,70 +478,51 @@ function changeDate(unixDate) {
   demoFilterRangeCalc();
 } //end function changeDate
 
-
 // #endregion
-
 
 // #region Basemap Switching and Layer Addition
 // Handle style loading events to add or switch basemaps and layers dynamically.
 
-beforeMap.on("style.load", function () {
+function addLayers(yr, date) {
   var sliderVal = moment($("#date").text()).unix();
   var yr = parseInt(moment.unix(sliderVal).format("YYYY"));
   var date = parseInt(moment.unix(sliderVal).format("YYYYMMDD"));
 
-  addInfoBeforeLayers(date);
-  addInfoLabelsBeforeLayers(date);
+  addAllLayers(yr, date);
 
-  setTimeout(function () {
-    addGrantLotsLinesBeforeLayers(date);
-    addBeforeLayers(yr, date);
-  }, 1000);
+  labelData.forEach((labelInfo) => {
+    const labelObject = createLabel(
+      labelInfo.title,
+      labelInfo.coordinates,
+      labelInfo.minZoom
+    );
+    afterMap.addLayer(labelObject);
+    beforeMap.addLayer(labelObject);
+    addInteractivityToLabel(
+      afterMap,
+      labelObject,
+      labelInfo.title.replace(/\s+/g, "")
+    );
+    addInteractivityToLabel(
+      beforeMap,
+      labelObject,
+      labelInfo.title.replace(/\s+/g, "")
+    );
+  });
+}
 
-  setTimeout(function () {
-    addCastelloBeforeLayers();
-    addLongIslandCoastlineBeforeLayers();
-    addLongIslandNativeGroupsBeforeLayers();
-  }, 2000);
+beforeMap.on("style.load", () => {
+  ++styleLoaded;
+  if (styleLoaded === 2) {
+    setTimeout(addLayers, 3_000);
+  }
 });
 
-//BASEMAP SWITCHING
-afterMap.on("style.load", function () {
-  var sliderVal = moment($("#date").text()).unix();
-  var yr = parseInt(moment.unix(sliderVal).format("YYYY"));
-  var date = parseInt(moment.unix(sliderVal).format("YYYYMMDD"));
-
-  setTimeout(function () {
-    addInfoAfterLayers(date);
-    addInfoLabelsAfterLayers(date);
-  }, 500);
-
-  setTimeout(function () {
-    addGrantLotsAfterLayers(date);
-    addGrantLotsLinesAfterLayers(date);
-    addAfterLayers(yr, date);
-  }, 1500);
-
-  setTimeout(function () {
-    addCastelloAfterLayers();
-    addLongIslandCoastlineAfterLayers();
-    addLongIslandNativeGroupsAfterLayers();
-    /*
-Putting it All Together:
-Loop through the label data to create and add the labels to the map, applying interactivity to each:
-*/
-
-labelData.forEach(labelInfo => {
-  const labelObject = createLabel(labelInfo.title, labelInfo.coordinates, labelInfo.minZoom);
-  afterMap.addLayer(labelObject);
-  beforeMap.addLayer(labelObject);
-  addInteractivityToLabel(afterMap, labelObject, labelInfo.title.replace(/\s+/g, ''));
-  addInteractivityToLabel(beforeMap, labelObject, labelInfo.title.replace(/\s+/g, ''));
-});
-
-  }, 2500);
+afterMap.on("style.load", () => {
+  ++styleLoaded;
+  if (styleLoaded === 2) {
+    setTimeout(addLayers, 3_000);
+  }
 });
 
 // #endregion
-
-
