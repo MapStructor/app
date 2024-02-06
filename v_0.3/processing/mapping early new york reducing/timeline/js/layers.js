@@ -1,60 +1,13 @@
 function generatePopupContent(id, features, map) {
   const position = map === afterMap ? "right" : "left";
-  var PopUpHTML = "";
-  if (id === `dutch_grants-5ehfqe-${position}`) {
-    if (
-      typeof dutch_grant_lots_info[features[0].properties.Lot] == "undefined"
-    ) {
-      PopUpHTML =
-        "<div class='infoLayerDutchGrantsPopUp'>" +
-        features[0].properties.name +
-        "<br>";
-    } else {
-      PopUpHTML =
-        "<div class='infoLayerDutchGrantsPopUp'>" +
-        (dutch_grant_lots_info[features[0].properties.Lot].name_txt.length > 0
-          ? dutch_grant_lots_info[features[0].properties.Lot].name_txt
-          : features[0].properties.name) +
-        "<br>";
-    }
-    PopUpHTML +=
-      "<b>Dutch Grant Lot: </b>" + features[0].properties.Lot + "</div>";
-
-    return PopUpHTML;
-  } else if (id === `lot_events-bf43eb-${position}`) {
-    return (
-      "<div class='demoLayerInfoPopUp'><b><h2>Taxlot: <a href='https://encyclopedia.nahc-mapping.org/taxlot/" +
-      features[0].properties.TAXLOT +
-      "' target='_blank'>" +
-      features[0].properties.TAXLOT +
-      "</a></h2></b></div>"
-    );
-  } else if (id === `places-${position}`) {
-    return (
-      "<div class='infoLayerCastelloPopUp'><b>Taxlot (1660):</b><br>" +
-      features[0].properties.LOT2 +
-      "</div>"
-    );
-  } else if (id === `native-groups-area-${position}`) {
-    if (
-      typeof taxlot_event_entities_info[features[0].properties.nid] ==
-        "undefined" ||
-      features[0].properties.nid == ""
-    ) {
-      PopUpHTML =
-        "<div class='infoLayerCastelloPopUp'><b>Name : </b>" +
-        features[0].properties.name +
-        "</div>";
-    } else {
-      PopUpHTML =
-        "<div class='infoLayerCastelloPopUp'><b>Name : </b>" +
-        (taxlot_event_entities_info[features[0].properties.nid].name.length > 0
-          ? taxlot_event_entities_info[features[0].properties.nid].name
-          : features[0].properties.name) +
-        "</div>";
-    }
-    return PopUpHTML;
-  }
+  if (id === `dutch_grants-5ehfqe-${position}`)
+    return dutchGrantPopUpContent(features);
+  else if (id === `lot_events-bf43eb-${position}`)
+    return lotEventsPopupContent(features);
+  else if (id === `places-${position}`)
+    return castelloEventsPopUpContent(features);
+  else if (id === `native-groups-area-${position}`)
+    return longIslandPopupContent(features);
 }
 
 function getPopupByName(name) {
@@ -170,7 +123,7 @@ function addAllLayers(yr, date) {
         { id: `dutch_grants-5ehfqe-${position}` },
         { id: `lot_events-bf43eb-${position}` },
         { id: `grant-lots-lines-${position}` },
-        {id: `grant-lots-${position}`}
+        { id: `grant-lots-${position}` },
       ],
       date
     );
@@ -184,7 +137,7 @@ function addAllLayers(yr, date) {
         id: `lot_events-bf43eb-${position}`,
         popup: `${popupMap}PopUp`,
         sourceId: "lot_events-bf43eb",
-      }
+      },
     ]);
     // #endregion
 
@@ -203,7 +156,10 @@ function addAllLayers(yr, date) {
     // #region - Long Island Tribes
     addMapLayer(map, retrieveLayer(`native-groups-lines-${position}`));
     addMapLayer(map, retrieveLayer(`native-groups-area-${position}`));
-    addMapLayer(map, retrieveLayer(`native-groups-area-${position}-highlighted`));
+    addMapLayer(
+      map,
+      retrieveLayer(`native-groups-area-${position}-highlighted`)
+    );
     addMapLayer(map, retrieveLayer(`native-groups-labels-${position}`));
 
     setupLayerEvents(map, [
