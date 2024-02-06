@@ -469,9 +469,6 @@ function changeDate(unixDate) {
   beforeMap.setFilter("lot_events-bf43eb-left", dateFilter);
   afterMap.setFilter("lot_events-bf43eb-right", dateFilter);
 
-  beforeMap.setFilter("grant-lots-left", dateFilter);
-  afterMap.setFilter("grant-lots-right", dateFilter);
-
   beforeMap.setFilter("grant-lots-lines-left", dateFilter);
   afterMap.setFilter("grant-lots-lines-right", dateFilter);
 
@@ -483,7 +480,7 @@ function changeDate(unixDate) {
 // #region Basemap Switching and Layer Addition
 // Handle style loading events to add or switch basemaps and layers dynamically.
 
-function addLayers(yr, date) {
+function addLayers() {
   var sliderVal = moment($("#date").text()).unix();
   var yr = parseInt(moment.unix(sliderVal).format("YYYY"));
   var date = parseInt(moment.unix(sliderVal).format("YYYYMMDD"));

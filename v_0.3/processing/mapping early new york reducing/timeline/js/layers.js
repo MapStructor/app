@@ -107,7 +107,7 @@ function setupLayerEvents(map, layers) {
             getPopupByName(layer.popup)
               .setLngLat(coordinates)
               .setHTML(generatePopupContent(layer.id, e.features, map))
-              .addTo(afterMap);
+              .addTo(map);
           } else {
             // Update popup content if needed
             const popup = getPopupByName(layer.popup);
@@ -170,6 +170,7 @@ function addAllLayers(yr, date) {
         { id: `dutch_grants-5ehfqe-${position}` },
         { id: `lot_events-bf43eb-${position}` },
         { id: `grant-lots-lines-${position}` },
+        {id: `grant-lots-${position}`}
       ],
       date
     );
@@ -183,7 +184,7 @@ function addAllLayers(yr, date) {
         id: `lot_events-bf43eb-${position}`,
         popup: `${popupMap}PopUp`,
         sourceId: "lot_events-bf43eb",
-      },
+      }
     ]);
     // #endregion
 

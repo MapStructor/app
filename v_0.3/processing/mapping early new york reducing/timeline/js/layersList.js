@@ -571,5 +571,5 @@ const beforeLayers = [
         ],
       },
     },
-  }
+  },
 ]
