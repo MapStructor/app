@@ -1,3 +1,20 @@
+function generatePopupContent(id, features, map) {
+  const position = map === afterMap ? "right" : "left";
+  if (id === `dutch_grants-5ehfqe-${position}`)
+    return dutchGrantPopUpContent(features);
+  else if (id === `lot_events-bf43eb-${position}`)
+    return lotEventsPopupContent(features);
+  else if (id === `places-${position}`)
+    return castelloEventsPopUpContent(features);
+  else if (id === `native-groups-area-${position}`)
+    return longIslandPopupContent(features);
+}
+
+function getPopupByName(name) {
+  return window[name];
+}
+
+
 function dutchGrantPopUpContent(features){
     let PopUpHTML = ""
     if (

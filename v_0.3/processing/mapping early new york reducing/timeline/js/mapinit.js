@@ -7,13 +7,6 @@ mapboxgl.accessToken =
 
 // #endregion
 
-
-//ADD COMMENT FOR THIS LATER
-let styleLoaded = 0;
-
-
-
-
 // #region Map Initialization
 // Initialize the 'before' and 'after' Mapbox GL maps with specific configurations.
 
@@ -103,9 +96,7 @@ var urlHash = window.location.hash;
 
 // #endregion
 
-
-
-// #region Dynamic Filtering and Date Handling
+// #region Dynamic Filtering
 // Functions for filtering map data dynamically based on user interactions or other criteria.
 
 function demoFilterRangeCalc() {
@@ -217,30 +208,6 @@ function demoFilterRangeCalc() {
   }
 }
 
-//TIME LAYER FILTERING. NOT SURE HOW WORKS.
-
-function changeDate(unixDate) {
-  var date = parseInt(moment.unix(unixDate).format("YYYYMMDD"));
-  var dateFilter = ["all", ["<=", "DayStart", date], [">=", "DayEnd", date]];
-
-  //LAYERS FOR FILTERING
-
-  //NAHC
-  beforeMap.setFilter("dutch_grants-5ehfqe-left", dateFilter);
-  afterMap.setFilter("dutch_grants-5ehfqe-right", dateFilter);
-
-  beforeMap.setFilter("dutch_grants-5ehfqe-left-highlighted", dateFilter);
-  afterMap.setFilter("dutch_grants-5ehfqe-right-highlighted", dateFilter);
-
-  beforeMap.setFilter("lot_events-bf43eb-left", dateFilter);
-  afterMap.setFilter("lot_events-bf43eb-right", dateFilter);
-
-  beforeMap.setFilter("grant-lots-lines-left", dateFilter);
-  afterMap.setFilter("grant-lots-lines-right", dateFilter);
-
-  demoFilterRangeCalc();
-} //end function changeDate
-
 // #endregion
 
 // #region Basemap Switching and Layer Addition
@@ -274,6 +241,8 @@ function addLayers() {
   });
 }
 
+let styleLoaded = 0;
+
 beforeMap.on("style.load", () => {
   ++styleLoaded;
   if (styleLoaded === 2) {
@@ -287,36 +256,5 @@ afterMap.on("style.load", () => {
     setTimeout(addLayers, 3_000);
   }
 });
-
-// #endregion
-
-
-
-
-
-
-///////////////////////////
-// STUFF FOR SPECIFIC LAYERS
-///////////////////////////
-
-// #region Variable Initialization
-// Initialize variables for view IDs and visibility flags for different layers.
-
-var grant_lots_view_id = null,
-  dgrants_layer_view_id = null,
-  native_group_layer_view_id = null,
-  grant_lots_view_flag = false,
-  demo_layer_view_flag = false,
-  castello_layer_view_flag = false,
-  settlements_layer_view_flag = false,
-  info_layer_view_flag = false,
-  dgrants_layer_view_flag = false,
-  native_group_layer_view_flag = false;
-
-$("#infoLayerGrantLots").slideUp();
-$("#infoLayerDutchGrants").slideUp();
-$("#demoLayerInfo").slideUp();
-$("#infoLayerCastello").slideUp();
-$("#infoLayerNativeGroups").slideUp();
 
 // #endregion

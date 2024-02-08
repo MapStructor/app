@@ -165,62 +165,63 @@ demo_layer_taxlot = "";
 // #endregion
 
 
-// #region Event Handling and Popups
+// #region COME BACK TO THIS - COULD NOT MOVE YET TO PopupDisplayFunctions bc popups didn't stick > Event Handling and Popups
 // Functions to handle click events on map features and display popups with detailed information.
 
 beforeMap.on("load", function () {
-init_zoom = beforeMap.getZoom();
-init_bearing = beforeMap.getBearing();
-init_center = beforeMap.getCenter();
-
-beforeMap
-  .on("click", "lot_events-bf43eb-left", function (e) {
-    DemoClickHandle(e);
-  })
-  .on("click", "places-left", function (e) {
-    CastelloClickHandle(e);
-  })
-
-  .on("click", "dutch_grants-5ehfqe-left", function (e) {
-    DutchGrantsClickHandle(e);
-  })
-
-  .on("click", "native-groups-area-left", function (e) {
-    NativeGroupsClickHandle(e);
-  })
-  .on("click", function () {
-    DefaultHandle();
+  init_zoom = beforeMap.getZoom();
+  init_bearing = beforeMap.getBearing();
+  init_center = beforeMap.getCenter();
+  
+  beforeMap
+    .on("click", "lot_events-bf43eb-left", function (e) {
+      DemoClickHandle(e);
+    })
+    .on("click", "places-left", function (e) {
+      CastelloClickHandle(e);
+    })
+  
+    .on("click", "dutch_grants-5ehfqe-left", function (e) {
+      DutchGrantsClickHandle(e);
+    })
+  
+    .on("click", "native-groups-area-left", function (e) {
+      NativeGroupsClickHandle(e);
+    })
+    .on("click", function () {
+      DefaultHandle();
+    });
   });
-});
-
-afterMap.on("load", function () {
-afterMap
-  .on("click", "lot_events-bf43eb-right", function (e) {
-    DemoClickHandle(e);
-  })
-  .on("click", "places-right", function (e) {
-    CastelloClickHandle(e);
-  })
-  .on("click", "dutch_grants-5ehfqe-right", function (e) {
-    DutchGrantsClickHandle(e);
-  })
-  .on("click", "native-groups-area-right", function (e) {
-    NativeGroupsClickHandle(e);
-  })
-  .on("click", function () {
-    DefaultHandle();
+  
+  afterMap.on("load", function () {
+  afterMap
+    .on("click", "lot_events-bf43eb-right", function (e) {
+      DemoClickHandle(e);
+    })
+    .on("click", "places-right", function (e) {
+      CastelloClickHandle(e);
+    })
+    .on("click", "dutch_grants-5ehfqe-right", function (e) {
+      DutchGrantsClickHandle(e);
+    })
+    .on("click", "native-groups-area-right", function (e) {
+      NativeGroupsClickHandle(e);
+    })
+    .on("click", function () {
+      DefaultHandle();
+    });
   });
-});
-
-beforeMap.on("error", function (e) {
-// Hide those annoying non-error errors
-if (e && e.error !== "Error") console.log(e);
-});
-
-afterMap.on("error", function (e) {
-// Hide those annoying non-error errors
-if (e && e.error !== "Error") console.log(e);
-});
-
-// #endregion
-
+  
+  beforeMap.on("error", function (e) {
+  // Hide those annoying non-error errors
+  if (e && e.error !== "Error") console.log(e);
+  });
+  
+  afterMap.on("error", function (e) {
+  // Hide those annoying non-error errors
+  if (e && e.error !== "Error") console.log(e);
+  });
+  
+  // #endregion
+  
+  

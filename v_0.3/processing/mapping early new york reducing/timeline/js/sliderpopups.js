@@ -1,6 +1,16 @@
+
+//Default slider position
+$("#infoLayerGrantLots").slideUp();
+$("#infoLayerDutchGrants").slideUp();
+$("#demoLayerInfo").slideUp();
+$("#infoLayerCastello").slideUp();
+$("#infoLayerNativeGroups").slideUp();
+
+
 function extractTextFromHTML(htmlString) {
   return $("<div>").html(htmlString).text();
 }
+
 
 function addFieldToPopup(
   fieldContent,
