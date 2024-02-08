@@ -1,5 +1,6 @@
-// #region Contents of popupContent.js before merge
-
+//#region Main Popup Content Generation
+// This function dynamically generates popup content based on the given ID and features from the map.
+// It identifies the map layer and selects the appropriate content generation function for the popup.
 function generatePopupContent(id, features, map) {
   const position = map === afterMap ? "right" : "left";
   if (id === `dutch_grants-5ehfqe-${position}`)
@@ -12,11 +13,46 @@ function generatePopupContent(id, features, map) {
     return longIslandPopupContent(features);
 }
 
+
+
+/* POSSIBLE REFACTOR:
+
+function generatePopupContent(id, features, map) {
+  const position = map === afterMap ? "right" : "left";
+  const contentGenerators = {
+    [`dutch_grants-5ehfqe-${position}`]: dutchGrantPopUpContent,
+    [`lot_events-bf43eb-${position}`]: lotEventsPopupContent,
+    [`places-${position}`]: castelloEventsPopUpContent,
+    [`native-groups-area-${position}`]: longIslandPopupContent
+  };
+
+  return contentGenerators[id] ? contentGenerators[id](features) : null;
+}
+
+//END POSSIBLE REFACTOR
+*/
+
+
+
+//#endregion
+
+
+//#region Utility Function
+// Retrieves a globally defined function by its name, allowing for dynamic function execution.
+// Useful for invoking specific popup content functions based on string identifiers.
+
 function getPopupByName(name) {
   return window[name];
 }
+//#endregion
 
 
+//#region Popup Content Functions
+// Each function within this region is responsible for generating the HTML content
+// for a different type of map layer popup. Functions are customized for Dutch Grants,
+// Lot Events, Castello Events, and Long Island features, providing tailored content for each.
+
+// Generates popup content for Dutch Grants, including name and lot details.
 function dutchGrantPopUpContent(features){
     let PopUpHTML = ""
     if (
@@ -39,6 +75,7 @@ function dutchGrantPopUpContent(features){
     return PopUpHTML;
 }
 
+// Generates popup content for Lot Events, displaying taxlot information with a hyperlink.
 function lotEventsPopupContent(features) {
     return "<div class='demoLayerInfoPopUp'><b><h2>Taxlot: <a href='https://encyclopedia.nahc-mapping.org/taxlot/" +
     features[0].properties.TAXLOT +
@@ -47,12 +84,14 @@ function lotEventsPopupContent(features) {
     "</a></h2></b></div>"
 }
 
+// Generates popup content for Castello Events, showing taxlot information from 1660.
 function castelloEventsPopUpContent(features) {
     return "<div class='infoLayerCastelloPopUp'><b>Taxlot (1660):</b><br>" +
     features[0].properties.LOT2 +
     "</div>"
 }
 
+// Generates popup content for Long Island, displaying names and handling undefined properties.
 function longIslandPopupContent(features){
     var PopUpHTML = ""
     if (
@@ -221,8 +260,8 @@ beforeMap.on("load", function () {
   // #endregion
   
   
-// #region clickHandlers.js WAS COPIED HERE:
 
+//#region Utility Handlers
 
 function DefaultHandle() {
   if (
@@ -251,6 +290,11 @@ function DefaultHandle() {
   native_groups_click_ev = false;
   zoom_labels_click_ev = false;
 }
+
+//#endregion
+
+
+//#region Close Info and ClickHandle Functions
 
 function closeCastelloInfo() {
   $("#infoLayerCastello").slideUp();
@@ -408,6 +452,30 @@ function DemoClickHandle(event) {
   demo_taxlot_click_ev = true;
 }
 
+
+function closeDutchGrantsInfo() {
+  $("#infoLayerDutchGrants").slideUp();
+  dgrants_layer_view_flag = false;
+  afterMap.setFeatureState(
+    {
+      source: "dutch_grants-5ehfqe-right-highlighted",
+      sourceLayer: "dutch_grants-5ehfqe",
+      id: dgrants_layer_view_id,
+    },
+    { hover: false }
+  );
+  beforeMap.setFeatureState(
+    {
+      source: "dutch_grants-5ehfqe-left-highlighted",
+      sourceLayer: "dutch_grants-5ehfqe",
+      id: dgrants_layer_view_id,
+    },
+    { hover: false }
+  );
+  if (afterHighMapGrantLotPopUp.isOpen()) afterHighMapGrantLotPopUp.remove();
+  if (beforeHighMapGrantLotPopUp.isOpen()) beforeHighMapGrantLotPopUp.remove();
+}
+
 function DutchGrantsClickHandle(event) {
   var highPopUpHTML = "";
   if (
@@ -522,6 +590,32 @@ function DutchGrantsClickHandle(event) {
   }
   dgrants_layer_view_id = event.features[0].id;
   dutch_grant_click_ev = true;
+}
+
+
+function closeNativeGroupsInfo() {
+  $("#infoLayerNativeGroups").slideUp();
+  native_group_layer_view_flag = false;
+  afterMap.setFeatureState(
+    {
+      source: "native-groups-area-right-highlighted",
+      sourceLayer: "indian_areas_long_island-50h2dj",
+      id: native_group_layer_view_id,
+    },
+    { hover: false }
+  );
+  beforeMap.setFeatureState(
+    {
+      source: "native-groups-area-left-highlighted",
+      sourceLayer: "indian_areas_long_island-50h2dj",
+      id: native_group_layer_view_id,
+    },
+    { hover: false }
+  );
+  if (afterHighMapNativeGroupsPopUp.isOpen())
+    afterHighMapNativeGroupsPopUp.remove();
+  if (beforeHighMapNativeGroupsPopUp.isOpen())
+    beforeHighMapNativeGroupsPopUp.remove();
 }
 
 function NativeGroupsClickHandle(event) {
@@ -653,55 +747,6 @@ function closeGrantLotsInfo() {
   if (afterHighGrantLotsPopUp.isOpen()) afterHighGrantLotsPopUp.remove();
   if (beforeHighGrantLotsPopUp.isOpen()) beforeHighGrantLotsPopUp.remove();
 }
-
-function closeDutchGrantsInfo() {
-  $("#infoLayerDutchGrants").slideUp();
-  dgrants_layer_view_flag = false;
-  afterMap.setFeatureState(
-    {
-      source: "dutch_grants-5ehfqe-right-highlighted",
-      sourceLayer: "dutch_grants-5ehfqe",
-      id: dgrants_layer_view_id,
-    },
-    { hover: false }
-  );
-  beforeMap.setFeatureState(
-    {
-      source: "dutch_grants-5ehfqe-left-highlighted",
-      sourceLayer: "dutch_grants-5ehfqe",
-      id: dgrants_layer_view_id,
-    },
-    { hover: false }
-  );
-  if (afterHighMapGrantLotPopUp.isOpen()) afterHighMapGrantLotPopUp.remove();
-  if (beforeHighMapGrantLotPopUp.isOpen()) beforeHighMapGrantLotPopUp.remove();
-}
-
-function closeNativeGroupsInfo() {
-  $("#infoLayerNativeGroups").slideUp();
-  native_group_layer_view_flag = false;
-  afterMap.setFeatureState(
-    {
-      source: "native-groups-area-right-highlighted",
-      sourceLayer: "indian_areas_long_island-50h2dj",
-      id: native_group_layer_view_id,
-    },
-    { hover: false }
-  );
-  beforeMap.setFeatureState(
-    {
-      source: "native-groups-area-left-highlighted",
-      sourceLayer: "indian_areas_long_island-50h2dj",
-      id: native_group_layer_view_id,
-    },
-    { hover: false }
-  );
-  if (afterHighMapNativeGroupsPopUp.isOpen())
-    afterHighMapNativeGroupsPopUp.remove();
-  if (beforeHighMapNativeGroupsPopUp.isOpen())
-    beforeHighMapNativeGroupsPopUp.remove();
-}
-
 
 
 // #endregion
