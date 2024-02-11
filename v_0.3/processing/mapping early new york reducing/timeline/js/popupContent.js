@@ -5,12 +5,12 @@
 
 
 function generatePopupContent(id, features, map) {
-  const position = map === afterMap ? "" : "-left";
+  // const position = map === afterMap ? "" : "-left";
   const contentGenerators = {
-    [`dutch_grants-5ehfqe${position}`]: dutchGrantPopUpContent,
-    [id === "lot_events-bf43eb-right"? "lot_events-bf43eb-right" :`lot_events-bf43eb${position}`]: lotEventsPopupContent,
-    [`places${position}`]: castelloEventsPopUpContent,
-    [`native-groups-area${position}`]: longIslandPopupContent
+    [`dutch_grants-5ehfqe`]: dutchGrantPopUpContent,
+    [id === "lot_events-bf43eb-right"? "lot_events-bf43eb-right" :`lot_events-bf43eb-left`]: lotEventsPopupContent,
+    [`places`]: castelloEventsPopUpContent,
+    [`native-groups-area`]: longIslandPopupContent
   };
 
   return contentGenerators[id] ? contentGenerators[id](features) : null;
@@ -177,18 +177,18 @@ var demo_layer_feature_props = null,
   }
   map.on("load", function (e) {
     map
-      .on("click", `lot_events-bf43eb${id === 0? position : "-right"}`, function (e) {
+      .on("click", `lot_events-bf43eb${id === 0? "-left" : "-right"}`, function (e) {
         DemoClickHandle(e);
       })
-      .on("click", `places${position}`, function (e) {
+      .on("click", `places`, function (e) {
         CastelloClickHandle(e);
       })
 
-      .on("click", `dutch_grants-5ehfqe${position}`, function (e) {
+      .on("click", `dutch_grants-5ehfqe`, function (e) {
         DutchGrantsClickHandle(e);
       })
 
-      .on("click", `native-groups-area${position}`, function (e) {
+      .on("click", `native-groups-area`, function (e) {
         NativeGroupsClickHandle(e);
       })
       .on("click", function () {
@@ -397,7 +397,7 @@ function closeDutchGrantsInfo() {
   );
   beforeMap.setFeatureState(
     {
-      source: "dutch_grants-5ehfqe-left-highlighted",
+      source: "dutch_grants-5ehfqe-highlighted",
       sourceLayer: "dutch_grants-5ehfqe",
       id: dgrants_layer_view_id,
     },
@@ -459,7 +459,7 @@ function DutchGrantsClickHandle(event) {
       );
       beforeMap.setFeatureState(
         {
-          source: "dutch_grants-5ehfqe-left-highlighted",
+          source: "dutch_grants-5ehfqe-highlighted",
           sourceLayer: "dutch_grants-5ehfqe",
           id: dgrants_layer_view_id,
         },
@@ -499,7 +499,7 @@ function DutchGrantsClickHandle(event) {
     );
     beforeMap.setFeatureState(
       {
-        source: "dutch_grants-5ehfqe-left-highlighted",
+        source: "dutch_grants-5ehfqe-highlighted",
         sourceLayer: "dutch_grants-5ehfqe",
         id: dgrants_layer_view_id,
       },
@@ -507,7 +507,7 @@ function DutchGrantsClickHandle(event) {
     );
     beforeMap.setFeatureState(
       {
-        source: "dutch_grants-5ehfqe-left-highlighted",
+        source: "dutch_grants-5ehfqe-highlighted",
         sourceLayer: "dutch_grants-5ehfqe",
         id: event.features[0].id,
       },
@@ -536,7 +536,7 @@ function closeNativeGroupsInfo() {
   );
   beforeMap.setFeatureState(
     {
-      source: "native-groups-area-left-highlighted",
+      source: "native-groups-area-highlighted",
       sourceLayer: "indian_areas_long_island-50h2dj",
       id: native_group_layer_view_id,
     },
@@ -599,7 +599,7 @@ function NativeGroupsClickHandle(event) {
       );
       beforeMap.setFeatureState(
         {
-          source: "native-groups-area-left-highlighted",
+          source: "native-groups-area-highlighted",
           sourceLayer: "indian_areas_long_island-50h2dj",
           id: native_group_layer_view_id,
         },
@@ -639,7 +639,7 @@ function NativeGroupsClickHandle(event) {
     );
     beforeMap.setFeatureState(
       {
-        source: "native-groups-area-left-highlighted",
+        source: "native-groups-area-highlighted",
         sourceLayer: "indian_areas_long_island-50h2dj",
         id: native_group_layer_view_id,
       },
@@ -647,7 +647,7 @@ function NativeGroupsClickHandle(event) {
     );
     beforeMap.setFeatureState(
       {
-        source: "native-groups-area-left-highlighted",
+        source: "native-groups-area-highlighted",
         sourceLayer: "indian_areas_long_island-50h2dj",
         id: event.features[0].id,
       },

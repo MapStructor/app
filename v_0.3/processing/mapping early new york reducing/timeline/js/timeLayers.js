@@ -7,16 +7,16 @@ function changeDate(unixDate) {
   //LAYERS FOR FILTERING
 
   //NAHC
-  beforeMap.setFilter("dutch_grants-5ehfqe-left", dateFilter);
+  beforeMap.setFilter("dutch_grants-5ehfqe", dateFilter);
   afterMap.setFilter("dutch_grants-5ehfqe", dateFilter);
 
-  beforeMap.setFilter("dutch_grants-5ehfqe-left-highlighted", dateFilter);
+  beforeMap.setFilter("dutch_grants-5ehfqe-highlighted", dateFilter);
   afterMap.setFilter("dutch_grants-5ehfqe-highlighted", dateFilter);
 
   beforeMap.setFilter("lot_events-bf43eb-left", dateFilter);
   afterMap.setFilter("lot_events-bf43eb-right", dateFilter);
 
-  beforeMap.setFilter("grant-lots-lines-left", dateFilter);
+  beforeMap.setFilter("grant-lots-lines", dateFilter);
   afterMap.setFilter("grant-lots-lines", dateFilter);
 
   demoFilterRangeCalc();

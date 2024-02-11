@@ -1,37 +1,36 @@
 function addAllLayers(yr, date) {
-  ["-left", ""].forEach((position,index) => {
-    const map = position === "-left" ? beforeMap : afterMap;
-    const popupMap = position === "-left" ? "beforeMap" : "afterMap";
-    const retrieveLayer = position === "-left" ? getBeforeLayer : getLayer;
+  ["", ""].forEach((position,index) => {
+    const map = index === 0 ? beforeMap : afterMap;
+    const popupMap = index === 0 ? "beforeMap" : "afterMap";
 
     //#region - Lot events and dutch grants
     removeTaxPoints(map, [
-      { type: "layer", id: `lot_events-bf43eb${index !== 1 ? position : "-right"}` },
+      { type: "layer", id: `lot_events-bf43eb${index !== 1 ? "-left" : "-right"}` },
       { type: "source", id: "lot_events-bf43eb" },
-      { type: "layer", id: `dutch_grants-5ehfqe${position}` },
+      { type: "layer", id: `dutch_grants-5ehfqe` },
       { type: "source", id: "dutch_grants-5ehfqe" },
-      { type: "layer", id: `grant-lots-lines${position}` },
+      { type: "layer", id: `grant-lots-lines` },
       { type: "source", id: "dutch_grants_lines-0y4gkx" },
     ]);
     addMapLayers(
       map,
       [
-        { id: `dutch_grants-5ehfqe${position}-highlighted` },
-        { id: `dutch_grants-5ehfqe${position}` },
-        { id: `lot_events-bf43eb${index !== 1 ? position : "-right"}` },
-        { id: `grant-lots-lines${position}` },
-        { id: `grant-lots${position}` },
+        { id: `dutch_grants-5ehfqe-highlighted` },
+        { id: `dutch_grants-5ehfqe` },
+        { id: `lot_events-bf43eb${index !== 1 ? "-left" : "-right"}` },
+        { id: `grant-lots-lines` },
+        { id: `grant-lots` },
       ],
       date
     );
     setupLayerEvents(map, [
       {
-        id: `dutch_grants-5ehfqe${position}`,
+        id: `dutch_grants-5ehfqe`,
         popup: `${popupMap}DutchGrantPopUp`,
         sourceId: "dutch_grants-5ehfqe",
       },
       {
-        id: `lot_events-bf43eb${index !== 1 ? position : "-right"}`,
+        id: `lot_events-bf43eb${index !== 1 ? "-left" : "-right"}`,
         popup: `${popupMap}PopUp`,
         sourceId: "lot_events-bf43eb",
       },
@@ -39,11 +38,11 @@ function addAllLayers(yr, date) {
     // #endregion
 
     // #region - Castello Tax Lots
-    addMapLayer(map, retrieveLayer(`places${position}`));
+    addMapLayer(map, getLayer(`places`));
 
     setupLayerEvents(map, [
       {
-        id: `places${position}`,
+        id: `places`,
         popup: `${popupMap}PlacesPopUp`,
         sourceId: "taxlots-cpwvol",
       },
@@ -51,17 +50,17 @@ function addAllLayers(yr, date) {
     //#endregion
 
     // #region - Long Island Tribes
-    addMapLayer(map, retrieveLayer(`native-groups-lines${position}`));
-    addMapLayer(map, retrieveLayer(`native-groups-area${position}`));
+    addMapLayer(map, getLayer(`native-groups-lines`));
+    addMapLayer(map, getLayer(`native-groups-area`));
     addMapLayer(
       map,
-      retrieveLayer(`native-groups-area${position}-highlighted`)
+      getLayer(`native-groups-area-highlighted`)
     );
-    addMapLayer(map, retrieveLayer(`native-groups-labels${position}`));
+    addMapLayer(map, getLayer(`native-groups-labels`));
 
     setupLayerEvents(map, [
       {
-        id: `native-groups-area${position}`,
+        id: `native-groups-area`,
         popup: `${popupMap}NativeGroupsPopUp`,
         sourceId: "indian_areas_long_island-50h2dj",
       },

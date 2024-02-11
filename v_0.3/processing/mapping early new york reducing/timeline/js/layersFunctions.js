@@ -80,7 +80,7 @@ function setupLayerEvents(map, layers) {
 
 function addMapLayers(map, layers, date) {
   layers.forEach((layer) => {
-    if (map === beforeMap) addMapLayer(map, getBeforeLayer(layer.id), date);
+    if (map === beforeMap) addMapLayer(map, getLayer(layer.id), date);
     else addMapLayer(map, getLayer(layer.id), date);
   });
 }
