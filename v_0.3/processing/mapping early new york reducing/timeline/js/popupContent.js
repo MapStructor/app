@@ -1,21 +1,8 @@
 //#region Main Popup Content Generation
 // This function dynamically generates popup content based on the given ID and features from the map.
 // It identifies the map layer and selects the appropriate content generation function for the popup.
-function generatePopupContent(id, features, map) {
-  const position = map === afterMap ? "right" : "left";
-  if (id === `dutch_grants-5ehfqe-${position}`)
-    return dutchGrantPopUpContent(features);
-  else if (id === `lot_events-bf43eb-${position}`)
-    return lotEventsPopupContent(features);
-  else if (id === `places-${position}`)
-    return castelloEventsPopUpContent(features);
-  else if (id === `native-groups-area-${position}`)
-    return longIslandPopupContent(features);
-}
 
 
-
-/* POSSIBLE REFACTOR:
 
 function generatePopupContent(id, features, map) {
   const position = map === afterMap ? "right" : "left";
@@ -29,23 +16,17 @@ function generatePopupContent(id, features, map) {
   return contentGenerators[id] ? contentGenerators[id](features) : null;
 }
 
-//END POSSIBLE REFACTOR
-*/
-
-
 
 //#endregion
-
 
 //#region Utility Function
 // Retrieves a globally defined function by its name, allowing for dynamic function execution.
 // Useful for invoking specific popup content functions based on string identifiers.
 
 function getPopupByName(name) {
-  return window[name];
+  return popupsObject[name];
 }
 //#endregion
-
 
 //#region Popup Content Functions
 // Each function within this region is responsible for generating the HTML content
@@ -53,69 +34,70 @@ function getPopupByName(name) {
 // Lot Events, Castello Events, and Long Island features, providing tailored content for each.
 
 // Generates popup content for Dutch Grants, including name and lot details.
-function dutchGrantPopUpContent(features){
-    let PopUpHTML = ""
-    if (
-        typeof dutch_grant_lots_info[features[0].properties.Lot] == "undefined"
-      ) {
-        PopUpHTML =
-          "<div class='infoLayerDutchGrantsPopUp'>" +
-          features[0].properties.name +
-          "<br>";
-      } else {
-        PopUpHTML =
-          "<div class='infoLayerDutchGrantsPopUp'>" +
-          (dutch_grant_lots_info[features[0].properties.Lot].name_txt.length > 0
-            ? dutch_grant_lots_info[features[0].properties.Lot].name_txt
-            : features[0].properties.name) +
-          "<br>";
-      }
-      PopUpHTML +=
-        "<b>Dutch Grant Lot: </b>" + features[0].properties.Lot + "</div>";
-    return PopUpHTML;
+function dutchGrantPopUpContent(features) {
+  let PopUpHTML = "";
+  if (typeof dutch_grant_lots_info[features[0].properties.Lot] == "undefined") {
+    PopUpHTML =
+      "<div class='infoLayerDutchGrantsPopUp'>" +
+      features[0].properties.name +
+      "<br>";
+  } else {
+    PopUpHTML =
+      "<div class='infoLayerDutchGrantsPopUp'>" +
+      (dutch_grant_lots_info[features[0].properties.Lot].name_txt.length > 0
+        ? dutch_grant_lots_info[features[0].properties.Lot].name_txt
+        : features[0].properties.name) +
+      "<br>";
+  }
+  PopUpHTML +=
+    "<b>Dutch Grant Lot: </b>" + features[0].properties.Lot + "</div>";
+  return PopUpHTML;
 }
 
 // Generates popup content for Lot Events, displaying taxlot information with a hyperlink.
 function lotEventsPopupContent(features) {
-    return "<div class='demoLayerInfoPopUp'><b><h2>Taxlot: <a href='https://encyclopedia.nahc-mapping.org/taxlot/" +
+  return (
+    "<div class='demoLayerInfoPopUp'><b><h2>Taxlot: <a href='https://encyclopedia.nahc-mapping.org/taxlot/" +
     features[0].properties.TAXLOT +
     "' target='_blank'>" +
     features[0].properties.TAXLOT +
     "</a></h2></b></div>"
+  );
 }
 
 // Generates popup content for Castello Events, showing taxlot information from 1660.
 function castelloEventsPopUpContent(features) {
-    return "<div class='infoLayerCastelloPopUp'><b>Taxlot (1660):</b><br>" +
+  return (
+    "<div class='infoLayerCastelloPopUp'><b>Taxlot (1660):</b><br>" +
     features[0].properties.LOT2 +
     "</div>"
+  );
 }
 
 // Generates popup content for Long Island, displaying names and handling undefined properties.
-function longIslandPopupContent(features){
-    var PopUpHTML = ""
-    if (
-        typeof taxlot_event_entities_info[features[0].properties.nid] ==
-          "undefined" ||
-        features[0].properties.nid == ""
-      ) {
-        PopUpHTML =
-          "<div class='infoLayerCastelloPopUp'><b>Name : </b>" +
-          features[0].properties.name +
-          "</div>";
-      } else {
-        PopUpHTML =
-          "<div class='infoLayerCastelloPopUp'><b>Name : </b>" +
-          (taxlot_event_entities_info[features[0].properties.nid].name.length > 0
-            ? taxlot_event_entities_info[features[0].properties.nid].name
-            : features[0].properties.name) +
-          "</div>";
-      }
-      return PopUpHTML
+function longIslandPopupContent(features) {
+  var PopUpHTML = "";
+  if (
+    typeof taxlot_event_entities_info[features[0].properties.nid] ==
+      "undefined" ||
+    features[0].properties.nid == ""
+  ) {
+    PopUpHTML =
+      "<div class='infoLayerCastelloPopUp'><b>Name : </b>" +
+      features[0].properties.name +
+      "</div>";
+  } else {
+    PopUpHTML =
+      "<div class='infoLayerCastelloPopUp'><b>Name : </b>" +
+      (taxlot_event_entities_info[features[0].properties.nid].name.length > 0
+        ? taxlot_event_entities_info[features[0].properties.nid].name
+        : features[0].properties.name) +
+      "</div>";
+  }
+  return PopUpHTML;
 }
 
 // #endregion
-
 
 // #region Click events flags
 
@@ -135,8 +117,6 @@ var castello_click_ev = false,
 
 // #endregion
 
-
-
 // #region Popups Initialization
 // Initialize popups for displaying information on the maps. These popups are configured to not close on click, indicating they may be used for persistent display of information.
 
@@ -145,121 +125,81 @@ function createPopup(offset = 0) {
   return new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false,
-    offset: offset
+    offset: offset,
   });
 }
 
 // Initialize popups for displaying information on the maps
-var afterMapPopUp = createPopup(),
-    beforeMapPopUp = createPopup(),
-    afterMapPlacesPopUp = createPopup(),
-    beforeMapPlacesPopUp = createPopup(),
-    afterHighCastelloPopUp = createPopup(),
-    beforeHighCastelloPopUp = createPopup(),
-    afterHighGrantLotsPopUp = createPopup(5),
-    beforeHighGrantLotsPopUp = createPopup(5),
-    afterMapGrantLotPopUp = createPopup(5),
-    beforeMapGrantLotPopUp = createPopup(5),
-    afterHighMapGrantLotPopUp = createPopup(5),
-    beforeHighMapGrantLotPopUp = createPopup(5),
-    afterMapDutchGrantPopUp = createPopup(5),
-    beforeMapDutchGrantPopUp = createPopup(5),
-    afterMapNativeGroupsPopUp = createPopup(5),
-    beforeMapNativeGroupsPopUp = createPopup(5),
-    afterHighMapNativeGroupsPopUp = createPopup(5),
-    beforeHighMapNativeGroupsPopUp = createPopup(5);
+const popupConfig = [
+  { name: 'MapPopUp', count: undefined },
+  { name: 'MapPlacesPopUp', count: undefined },
+  { name: 'HighCastelloPopUp', count: undefined },
+  { name: 'HighGrantLotsPopUp', count: 5 },
+  { name: 'MapGrantLotPopUp', count: 5 },
+  { name: 'HighMapGrantLotPopUp', count: 5 },
+  { name: 'MapDutchGrantPopUp', count: 5 },
+  { name: 'MapNativeGroupsPopUp', count: 5 },
+  { name: 'HighMapNativeGroupsPopUp', count: 5 }
+];
 
+const createPopups = () => {
+  const popupsObj = {};
+  popupConfig.forEach((config) => {
+    popupsObj[`after${config.name}`] = createPopup(config.count);
+    popupsObj[`before${config.name}`] = createPopup(config.count);
+  });
+  return popupsObj;
+};
+
+const popupsObject = createPopups();
 
 // #endregion
-
 
 // #region Hovered and Clicked State Management
 // Variables to manage the state of hovered and clicked map features. These are used to track which features are currently under interaction, allowing for dynamic updates to the UI or map based on user actions.
-var hoveredStateIdRight = null,
-hoveredStateIdLeft = null,
-hoveredStateIdRightCircle = null,
-hoveredStateIdLeftCircle = null,
-hoveredGrantStateIdRight = null,
-hoveredGrantStateIdLeft = null,
-hoveredGrantLotIdRight = null,
-hoveredGrantLotIdLeft = null,
-hoveredDutchGrantIdRight = null,
-hoveredDutchGrantIdLeft = null,
-/* REPLACE THIS */
-hoveredNativeGroupsIdRight = null,
-hoveredNativeGroupsIdLeft = null;
-(hoveredInfoIdRight = null), (hoveredInfoIdLeft = null);
 
-var clickedInfoId = null,
-clickedStateId = null,
-clickedSettlementsId = null;
+
+var clickedStateId = null;
 
 var demo_layer_feature_props = null,
-demo_layer_features = null,
-demo_layer_taxlot = "";
+  demo_layer_features = null,
+  demo_layer_taxlot = "";
 // #endregion
-
 
 // #region Event Handling and Popups
 // Functions to handle click events on map features and display popups with detailed information.
+[beforeMap, afterMap].forEach((map, id) => {
+  const position = id === 0 ? "left" : "right";
+  if (id === 0) {
+    init_zoom = map.getZoom();
+    init_bearing = map.getBearing();
+    init_center = map.getCenter();
+  }
+  map.on("load", function (e) {
+    map
+      .on("click", `lot_events-bf43eb-${position}`, function (e) {
+        DemoClickHandle(e);
+      })
+      .on("click", `places-${position}`, function (e) {
+        CastelloClickHandle(e);
+      })
 
-beforeMap.on("load", function () {
-  init_zoom = beforeMap.getZoom();
-  init_bearing = beforeMap.getBearing();
-  init_center = beforeMap.getCenter();
-  
-  beforeMap
-    .on("click", "lot_events-bf43eb-left", function (e) {
-      DemoClickHandle(e);
-    })
-    .on("click", "places-left", function (e) {
-      CastelloClickHandle(e);
-    })
-  
-    .on("click", "dutch_grants-5ehfqe-left", function (e) {
-      DutchGrantsClickHandle(e);
-    })
-  
-    .on("click", "native-groups-area-left", function (e) {
-      NativeGroupsClickHandle(e);
-    })
-    .on("click", function () {
-      DefaultHandle();
-    });
+      .on("click", `dutch_grants-5ehfqe-${position}`, function (e) {
+        DutchGrantsClickHandle(e);
+      })
+
+      .on("click", `native-groups-area-${position}`, function (e) {
+        NativeGroupsClickHandle(e);
+      })
+      .on("click", function () {
+        DefaultHandle();
+      });
   });
-  
-  afterMap.on("load", function () {
-  afterMap
-    .on("click", "lot_events-bf43eb-right", function (e) {
-      DemoClickHandle(e);
-    })
-    .on("click", "places-right", function (e) {
-      CastelloClickHandle(e);
-    })
-    .on("click", "dutch_grants-5ehfqe-right", function (e) {
-      DutchGrantsClickHandle(e);
-    })
-    .on("click", "native-groups-area-right", function (e) {
-      NativeGroupsClickHandle(e);
-    })
-    .on("click", function () {
-      DefaultHandle();
-    });
-  });
-  
-  beforeMap.on("error", function (e) {
-  // Hide those annoying non-error errors
-  if (e && e.error !== "Error") console.log(e);
-  });
-  
-  afterMap.on("error", function (e) {
-  // Hide those annoying non-error errors
-  if (e && e.error !== "Error") console.log(e);
-  });
-  
-  // #endregion
-  
-  
+
+  map.on("error", console.log);
+});
+
+// #endregion
 
 //#region Utility Handlers
 
@@ -293,14 +233,14 @@ function DefaultHandle() {
 
 //#endregion
 
-
 //#region Close Info and ClickHandle Functions
 
 function closeCastelloInfo() {
   $("#infoLayerCastello").slideUp();
   castello_layer_view_flag = false;
-  if (afterHighCastelloPopUp.isOpen()) afterHighCastelloPopUp.remove();
-  if (beforeHighCastelloPopUp.isOpen()) beforeHighCastelloPopUp.remove();
+  ["after", "before"].forEach(position => {
+  if(popupsObject[`${position}HighCastelloPopUp`].isOpen()) popupsObject[`${position}HighCastelloPopUp`].remove();
+  })
 }
 
 function CastelloClickHandle(event) {
@@ -351,25 +291,17 @@ function CastelloClickHandle(event) {
       coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    beforeHighCastelloPopUp
-      .setLngLat(coordinates)
+    ["before", "after"].forEach(position => {
+      popupsObject[`${position}HighCastelloPopUp`].setLngLat(coordinates)
       .setHTML(
         "<div class='infoLayerCastelloPopUp'><b>Taxlot (1660):</b><br>" +
           event.features[0].properties.LOT2 +
           "</div>"
       );
-    if (!beforeHighCastelloPopUp.isOpen())
-      beforeHighCastelloPopUp.addTo(beforeMap);
 
-    afterHighCastelloPopUp
-      .setLngLat(coordinates)
-      .setHTML(
-        "<div class='infoLayerCastelloPopUp'><b>Taxlot (1660):</b><br>" +
-          event.features[0].properties.LOT2 +
-          "</div>"
-      );
-    if (!afterHighCastelloPopUp.isOpen())
-      afterHighCastelloPopUp.addTo(afterMap);
+      if(!popupsObject[`${position}HighCastelloPopUp`].isOpen()) popupsObject["beforeHighCastelloPopUp"].addTo(beforeMap);
+    })
+
     if ($(".infoLayerElem").first().attr("id") != "infoLayerCastello")
       $("#infoLayerCastello").insertBefore($(".infoLayerElem").first());
     $("#infoLayerCastello").html(places_popup_html).slideDown();
@@ -452,7 +384,6 @@ function DemoClickHandle(event) {
   demo_taxlot_click_ev = true;
 }
 
-
 function closeDutchGrantsInfo() {
   $("#infoLayerDutchGrants").slideUp();
   dgrants_layer_view_flag = false;
@@ -472,8 +403,9 @@ function closeDutchGrantsInfo() {
     },
     { hover: false }
   );
-  if (afterHighMapGrantLotPopUp.isOpen()) afterHighMapGrantLotPopUp.remove();
-  if (beforeHighMapGrantLotPopUp.isOpen()) beforeHighMapGrantLotPopUp.remove();
+  ["before", "after"].forEach(position => {
+    if (popupsObject[`${position}HighMapGrantLotPopUp`].isOpen()) popupsObject[`${position}HighMapGrantLotPopUp`].remove();
+  })
 }
 
 function DutchGrantsClickHandle(event) {
@@ -533,12 +465,12 @@ function DutchGrantsClickHandle(event) {
         },
         { hover: true }
       );
-      afterHighMapGrantLotPopUp.setLngLat(event.lngLat).setHTML(highPopUpHTML);
-      if (!afterHighMapGrantLotPopUp.isOpen())
-        afterHighMapGrantLotPopUp.addTo(afterMap);
-      beforeHighMapGrantLotPopUp.setLngLat(event.lngLat).setHTML(highPopUpHTML);
-      if (!beforeHighMapGrantLotPopUp.isOpen())
-        beforeHighMapGrantLotPopUp.addTo(beforeMap);
+      ["after", "before"].forEach(position => {
+        const map = position === "after"? afterMap : beforeMap
+        popupsObject[`${position}HighMapGrantLotPopUp`].setLngLat(event.lngLat).setHTML(highPopUpHTML);
+        if(!popupsObject[`${position}HighMapGrantLotPopUp`].isOpen()) popupsObject[`${position}HighMapGrantLotPopUp`].addTo(map);
+      })
+      
     }
   } else {
     buildDutchGrantPopUpInfo(event.features[0].properties);
@@ -581,17 +513,15 @@ function DutchGrantsClickHandle(event) {
       },
       { hover: true }
     );
-    afterHighMapGrantLotPopUp.setLngLat(event.lngLat).setHTML(highPopUpHTML);
-    if (!afterHighMapGrantLotPopUp.isOpen())
-      afterHighMapGrantLotPopUp.addTo(afterMap);
-    beforeHighMapGrantLotPopUp.setLngLat(event.lngLat).setHTML(highPopUpHTML);
-    if (!beforeHighMapGrantLotPopUp.isOpen())
-      beforeHighMapGrantLotPopUp.addTo(beforeMap);
+    ["after", "before"].forEach(position => {
+        const map = position === "after"? afterMap : beforeMap
+        popupsObject[`${position}HighMapGrantLotPopUp`].setLngLat(event.lngLat).setHTML(highPopUpHTML);
+        if(!popupsObject[`${position}HighMapGrantLotPopUp`].isOpen()) popupsObject[`${position}HighMapGrantLotPopUp`].addTo(map);
+      })
   }
   dgrants_layer_view_id = event.features[0].id;
   dutch_grant_click_ev = true;
 }
-
 
 function closeNativeGroupsInfo() {
   $("#infoLayerNativeGroups").slideUp();
@@ -612,10 +542,10 @@ function closeNativeGroupsInfo() {
     },
     { hover: false }
   );
-  if (afterHighMapNativeGroupsPopUp.isOpen())
-    afterHighMapNativeGroupsPopUp.remove();
-  if (beforeHighMapNativeGroupsPopUp.isOpen())
-    beforeHighMapNativeGroupsPopUp.remove();
+  ["after", "before"].forEach(position => {
+    if (popupsObject[`${position}HighMapNativeGroupsPopUp`].isOpen())
+    popupsObject[`${position}HighMapNativeGroupsPopUp`].remove();
+  })
 }
 
 function NativeGroupsClickHandle(event) {
@@ -675,16 +605,13 @@ function NativeGroupsClickHandle(event) {
         },
         { hover: true }
       );
-      afterHighMapNativeGroupsPopUp
-        .setLngLat(event.lngLat)
+      ["after", "before"].forEach(position => {
+        const map = position === "after" ? afterMap : beforeMap;
+        popupsObject[`${position}HighMapNativeGroupsPopUp`].setLngLat(event.lngLat)
         .setHTML(highPopUpHTML);
-      if (!afterHighMapNativeGroupsPopUp.isOpen())
-        afterHighMapNativeGroupsPopUp.addTo(afterMap);
-      beforeHighMapNativeGroupsPopUp
-        .setLngLat(event.lngLat)
-        .setHTML(highPopUpHTML);
-      if (!beforeHighMapNativeGroupsPopUp.isOpen())
-        beforeHighMapNativeGroupsPopUp.addTo(beforeMap);
+        if (!popupsObject[`${position}HighMapNativeGroupsPopUp`].isOpen())
+        popupsObject[`${position}HighMapNativeGroupsPopUp`].addTo(map);
+      })
     }
   } else {
     buildNativeGroupPopUpInfo(event.features[0].properties);
@@ -726,16 +653,11 @@ function NativeGroupsClickHandle(event) {
       },
       { hover: true }
     );
-    afterHighMapNativeGroupsPopUp
-      .setLngLat(event.lngLat)
-      .setHTML(highPopUpHTML);
-    if (!afterHighMapNativeGroupsPopUp.isOpen())
-      afterHighMapNativeGroupsPopUp.addTo(afterMap);
-    beforeHighMapNativeGroupsPopUp
-      .setLngLat(event.lngLat)
-      .setHTML(highPopUpHTML);
-    if (!beforeHighMapNativeGroupsPopUp.isOpen())
-      beforeHighMapNativeGroupsPopUp.addTo(beforeMap);
+    ["after", "before"].forEach(position => {
+      const map = position === "after"? afterMap : beforeMap
+      popupsObject[`${position}HighMapNativeGroupsPopUp`].setLngLat(event.lngLat).setHTML(highPopUpHTML);
+      if(!popupsObject[`${position}HighMapNativeGroupsPopUp`].isOpen()) popupsObject[`${position}HighMapNativeGroupsPopUp`].addTo(map);
+    })
   }
   native_group_layer_view_id = event.features[0].id;
   native_groups_click_ev = true;
@@ -744,9 +666,9 @@ function NativeGroupsClickHandle(event) {
 function closeGrantLotsInfo() {
   $("#infoLayerGrantLots").slideUp();
   grant_lots_view_flag = false;
-  if (afterHighGrantLotsPopUp.isOpen()) afterHighGrantLotsPopUp.remove();
-  if (beforeHighGrantLotsPopUp.isOpen()) beforeHighGrantLotsPopUp.remove();
+  ["after", "before"].forEach(position =>{ 
+    if(popupsObject[`${position}HighGrantLotsPopUp`].isOpen()) popupsObject[`${position}HighGrantLotsPopUp`].remove()
+})
 }
-
 
 // #endregion
