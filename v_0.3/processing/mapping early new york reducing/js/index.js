@@ -150,82 +150,6 @@ $(document).ready(function () {
     $("#footnotediv").toggle("slide");
   });
 
-
-  $(".long_island").change(function () {
-    if ($(".long_island:checked").length == $(".long_island").length) {
-      $("#longisland_items").prop("checked", "checked");
-    } else {
-      $("#longisland_items").prop("checked", false);
-    }
-  });
-
-  $("#longisland_coastline").click(function () {
-    if ($(this).prop("checked")) {
-      beforeMap.setLayoutProperty("long-island-left", "visibility", "visible");
-      afterMap.setLayoutProperty("long-island-right", "visibility", "visible");
-    } else {
-      beforeMap.setLayoutProperty("long-island-left", "visibility", "none");
-      afterMap.setLayoutProperty("long-island-right", "visibility", "none");
-    }
-  });
-
-  $("#longisland_area").click(function () {
-    if ($(this).prop("checked")) {
-      beforeMap.setLayoutProperty(
-        "long-island-area-left",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty(
-        "long-island-area-right",
-        "visibility",
-        "visible"
-      );
-    } else {
-      beforeMap.setLayoutProperty(
-        "long-island-area-left",
-        "visibility",
-        "none"
-      );
-      afterMap.setLayoutProperty(
-        "long-island-area-right",
-        "visibility",
-        "none"
-      );
-    }
-  });
-
-  $("#longisland_items").change(function () {
-    $(".long_island").prop("checked", this.checked);
-    if ($(this).prop("checked")) {
-      beforeMap.setLayoutProperty("long-island-left", "visibility", "visible");
-      afterMap.setLayoutProperty("long-island-right", "visibility", "visible");
-      beforeMap.setLayoutProperty(
-        "long-island-area-left",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty(
-        "long-island-area-right",
-        "visibility",
-        "visible"
-      );
-    } else {
-      beforeMap.setLayoutProperty("long-island-left", "visibility", "none");
-      afterMap.setLayoutProperty("long-island-right", "visibility", "none");
-      beforeMap.setLayoutProperty(
-        "long-island-area-left",
-        "visibility",
-        "none"
-      );
-      afterMap.setLayoutProperty(
-        "long-island-area-right",
-        "visibility",
-        "none"
-      );
-    }
-  });
-
   $("#castello_points").click(function () {
     if ($(this).prop("checked")) {
       beforeMap.setLayoutProperty("places", "visibility", "visible");
@@ -246,69 +170,15 @@ $(document).ready(function () {
       if (lots_info_length == 0) {
         getLotsInfo();
       }
-      beforeMap.setLayoutProperty(
-        "dutch_grants-5ehfqe",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty(
-        "dutch_grants-5ehfqe",
-        "visibility",
-        "visible"
-      );
-      beforeMap.setLayoutProperty(
-        "dutch_grants-5ehfqe-highlighted",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty(
-        "dutch_grants-5ehfqe-highlighted",
-        "visibility",
-        "visible"
-      );
-
-      beforeMap.setLayoutProperty(
-        "grant-lots-lines",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty(
-        "grant-lots-lines",
-        "visibility",
-        "visible"
-      );
+      ["dutch_grants-5ehfqe", "dutch_grants-5ehfqe-highlighted", "grant-lots-lines"].forEach(id => {
+        beforeMap.setLayoutProperty(id, "visibility", "visible");
+        afterMap.setLayoutProperty(id, "visibility", "visible");
+      })
     } else {
-      beforeMap.setLayoutProperty(
-        "dutch_grants-5ehfqe",
-        "visibility",
-        "none"
-      );
-      afterMap.setLayoutProperty(
-        "dutch_grants-5ehfqe",
-        "visibility",
-        "none"
-      );
-      beforeMap.setLayoutProperty(
-        "dutch_grants-5ehfqe-highlighted",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty(
-        "dutch_grants-5ehfqe-highlighted",
-        "visibility",
-        "none"
-      );
-
-      beforeMap.setLayoutProperty(
-        "grant-lots-lines",
-        "visibility",
-        "none"
-      );
-      afterMap.setLayoutProperty(
-        "grant-lots-lines",
-        "visibility",
-        "none"
-      );
+      ["dutch_grants-5ehfqe", "dutch_grants-5ehfqe-highlighted", "grant-lots-lines"].forEach(id => {
+        beforeMap.setLayoutProperty(id, "visibility", "none");
+        afterMap.setLayoutProperty(id, "visibility", "none");
+      })
 
       if (dgrants_layer_view_flag) {
         closeDutchGrantsInfo();
@@ -409,90 +279,16 @@ $(document).ready(function () {
       if (taxlot_entities_info_length == 0) {
         getTaxlotEventEntitiesDescrInfo();
       }
-      beforeMap.setLayoutProperty(
-        "native-groups-area",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty(
-        "native-groups-area",
-        "visibility",
-        "visible"
-      );
-      beforeMap.setLayoutProperty(
-        "native-groups-area-highlighted",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty(
-        "native-groups-area-highlighted",
-        "visibility",
-        "visible"
-      );
-
-      beforeMap.setLayoutProperty(
-        "native-groups-lines",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty(
-        "native-groups-lines",
-        "visibility",
-        "visible"
-      );
-      beforeMap.setLayoutProperty(
-        "native-groups-labels",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty(
-        "native-groups-labels",
-        "visibility",
-        "visible"
-      );
+      ["native-groups-area", "native-groups-area-highlighted", "native-groups-lines", "native-groups-labels"].forEach(id => {
+        beforeMap.setLayoutProperty(id, "visibility", "visible")
+        afterMap.setLayoutProperty(id, "visibility", "visible")
+      })
+      
     } else {
-      beforeMap.setLayoutProperty(
-        "native-groups-area",
-        "visibility",
-        "none"
-      );
-      afterMap.setLayoutProperty(
-        "native-groups-area",
-        "visibility",
-        "none"
-      );
-      beforeMap.setLayoutProperty(
-        "native-groups-area-highlighted",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty(
-        "native-groups-area-highlighted",
-        "visibility",
-        "none"
-      );
-
-      beforeMap.setLayoutProperty(
-        "native-groups-lines",
-        "visibility",
-        "none"
-      );
-      afterMap.setLayoutProperty(
-        "native-groups-lines",
-        "visibility",
-        "none"
-      );
-      beforeMap.setLayoutProperty(
-        "native-groups-labels",
-        "visibility",
-        "none"
-      );
-      afterMap.setLayoutProperty(
-        "native-groups-labels",
-        "visibility",
-        "none"
-      );
-
+      ["native-groups-area", "native-groups-area-highlighted", "native-groups-lines", "native-groups-labels"].forEach(id => {
+        beforeMap.setLayoutProperty(id, "visibility", "none")
+        afterMap.setLayoutProperty(id, "visibility", "none")
+      })
       if (native_group_layer_view_flag) {
         closeNativeGroupsInfo();
       }
@@ -515,48 +311,16 @@ $(document).ready(function () {
       if (taxlot_entities_info_length == 0) {
         getTaxlotEventEntitiesDescrInfo();
       }
-      beforeMap.setLayoutProperty(
-        "native-groups-area",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty(
-        "native-groups-area",
-        "visibility",
-        "visible"
-      );
-      beforeMap.setLayoutProperty(
-        "native-groups-area-highlighted",
-        "visibility",
-        "visible"
-      );
-      afterMap.setLayoutProperty(
-        "native-groups-area-highlighted",
-        "visibility",
-        "visible"
-      );
+      ["native-groups-area", "native-groups-area-highlighted"].forEach(id => {
+        beforeMap.setLayoutProperty(id, "visibility", "visible")
+        afterMap.setLayoutProperty(id, "visibility", "visible")
+      })
+      
     } else {
-      beforeMap.setLayoutProperty(
-        "native-groups-area",
-        "visibility",
-        "none"
-      );
-      afterMap.setLayoutProperty(
-        "native-groups-area",
-        "visibility",
-        "none"
-      );
-      beforeMap.setLayoutProperty(
-        "native-groups-area-highlighted",
-        "visibility",
-        "none"
-      );
-      afterMap.setLayoutProperty(
-        "native-groups-area-highlighted",
-        "visibility",
-        "none"
-      );
-
+      ["native-groups-area", "native-groups-area-highlighted", ].forEach(id => {
+        beforeMap.setLayoutProperty(id, "visibility", "none")
+      })
+      
       if (native_group_layer_view_flag) {
         closeNativeGroupsInfo();
       }
@@ -612,20 +376,6 @@ $(document).ready(function () {
         "visibility",
         "none"
       );
-    }
-  });
-
-  $("#grant_lots").click(function () {
-    if ($(this).prop("checked")) {
-      beforeMap.setLayoutProperty("grant-lots-left", "visibility", "visible");
-      afterMap.setLayoutProperty("grant-lots-right", "visibility", "visible");
-    } else {
-      beforeMap.setLayoutProperty("grant-lots-left", "visibility", "none");
-      afterMap.setLayoutProperty("grant-lots-right", "visibility", "none");
-
-      if (grant_lots_view_flag) {
-        closeGrantLotsInfo();
-      }
     }
   });
 

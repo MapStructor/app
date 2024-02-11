@@ -5,19 +5,13 @@ function changeDate(unixDate) {
   var dateFilter = ["all", ["<=", "DayStart", date], [">=", "DayEnd", date]];
 
   //LAYERS FOR FILTERING
-
-  //NAHC
-  beforeMap.setFilter("dutch_grants-5ehfqe", dateFilter);
-  afterMap.setFilter("dutch_grants-5ehfqe", dateFilter);
-
-  beforeMap.setFilter("dutch_grants-5ehfqe-highlighted", dateFilter);
-  afterMap.setFilter("dutch_grants-5ehfqe-highlighted", dateFilter);
+  ["dutch_grants-5ehfqe", "dutch_grants-5ehfqe-highlighted", "grant-lots-lines"].forEach(id => {
+    beforeMap.setFilter(id, dateFilter)
+    afterMap.setFilter(id, dateFilter)
+  })
 
   beforeMap.setFilter("lot_events-bf43eb-left", dateFilter);
   afterMap.setFilter("lot_events-bf43eb-right", dateFilter);
-
-  beforeMap.setFilter("grant-lots-lines", dateFilter);
-  afterMap.setFilter("grant-lots-lines", dateFilter);
 
   demoFilterRangeCalc();
 } //end function changeDate

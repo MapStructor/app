@@ -84,4 +84,3 @@ function addMapLayers(map, layers, date) {
     else addMapLayer(map, getLayer(layer.id), date);
   });
 }
- 
