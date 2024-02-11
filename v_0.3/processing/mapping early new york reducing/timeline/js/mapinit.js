@@ -243,18 +243,14 @@ function addLayers() {
 
 let styleLoaded = 0;
 
-beforeMap.on("style.load", () => {
+function addLayersOnLoad(){
   ++styleLoaded;
   if (styleLoaded === 2) {
     setTimeout(addLayers, 3_000);
   }
-});
+}
 
-afterMap.on("style.load", () => {
-  ++styleLoaded;
-  if (styleLoaded === 2) {
-    setTimeout(addLayers, 3_000);
-  }
-});
+beforeMap.on("style.load", addLayersOnLoad);
+afterMap.on("style.load", addLayersOnLoad);
 
 // #endregion

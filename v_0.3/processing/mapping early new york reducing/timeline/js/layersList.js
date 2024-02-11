@@ -1,7 +1,7 @@
 const layers = [
   {
     //ID: CHANGE THIS, 1 OF 3
-    id: "dutch_grants-5ehfqe-right-highlighted",
+    id: "dutch_grants-5ehfqe-highlighted",
     type: "fill",
     source: {
       type: "vector",
@@ -28,7 +28,7 @@ const layers = [
   },
   {
     //ID: CHANGE THIS, 1 OF 3
-    id: "dutch_grants-5ehfqe-right",
+    id: "dutch_grants-5ehfqe",
     type: "fill",
     source: {
       type: "vector",
@@ -52,9 +52,8 @@ const layers = [
       "fill-outline-color": "#FF0000",
     },
   },
-  
   {
-    id: "grant-lots-lines-right",
+    id: "grant-lots-lines",
     type: "line",
     source: {
       type: "vector",
@@ -72,10 +71,8 @@ const layers = [
       "line-opacity": 0.8,
     },
   },
-  
-  
   {
-    id: "places-right",
+    id: "places",
     type: "circle",
     source: {
       type: "vector",
@@ -106,7 +103,7 @@ const layers = [
     },
   },
   {
-    id: "native-groups-labels-right",
+    id: "native-groups-labels",
     type: "symbol",
     source: {
       type: "vector",
@@ -140,7 +137,7 @@ const layers = [
     },
   },
   {
-    id: "native-groups-lines-right",
+    id: "native-groups-lines",
     type: "line",
     source: {
       type: "vector",
@@ -160,7 +157,7 @@ const layers = [
     },
   },
   {
-    id: "native-groups-area-right",
+    id: "native-groups-area",
     type: "fill",
     source: {
       type: "vector",
@@ -184,7 +181,7 @@ const layers = [
     },
   },
   {
-    id: "native-groups-area-right-highlighted",
+    id: "native-groups-area-highlighted",
     type: "fill",
     source: {
       type: "vector",
@@ -207,9 +204,7 @@ const layers = [
       "fill-outline-color": "#FFD700",
     },
   },
-
-
-
+  // lots event
   {
     id: "lot_events-bf43eb-right",
     type: "symbol",
@@ -261,7 +256,7 @@ const layers = [
     minzoom: 1,
   },
   {
-    id: "native-groups-labels-left",
+    id: "native-groups-labels",
     type: "symbol",
     source: {
       type: "vector",

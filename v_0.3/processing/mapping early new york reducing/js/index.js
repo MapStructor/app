@@ -229,10 +229,10 @@ $(document).ready(function () {
   $("#castello_points").click(function () {
     if ($(this).prop("checked")) {
       beforeMap.setLayoutProperty("places-left", "visibility", "visible");
-      afterMap.setLayoutProperty("places-right", "visibility", "visible");
+      afterMap.setLayoutProperty("places", "visibility", "visible");
     } else {
       beforeMap.setLayoutProperty("places-left", "visibility", "none");
-      afterMap.setLayoutProperty("places-right", "visibility", "none");
+      afterMap.setLayoutProperty("places", "visibility", "none");
 
       if (castello_layer_view_flag) {
         closeCastelloInfo();
@@ -252,7 +252,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "dutch_grants-5ehfqe-right",
+        "dutch_grants-5ehfqe",
         "visibility",
         "visible"
       );
@@ -262,7 +262,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "dutch_grants-5ehfqe-right-highlighted",
+        "dutch_grants-5ehfqe-highlighted",
         "visibility",
         "visible"
       );
@@ -273,7 +273,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "grant-lots-lines-right",
+        "grant-lots-lines",
         "visibility",
         "visible"
       );
@@ -284,7 +284,7 @@ $(document).ready(function () {
         "none"
       );
       afterMap.setLayoutProperty(
-        "dutch_grants-5ehfqe-right",
+        "dutch_grants-5ehfqe",
         "visibility",
         "none"
       );
@@ -294,7 +294,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "dutch_grants-5ehfqe-right-highlighted",
+        "dutch_grants-5ehfqe-highlighted",
         "visibility",
         "none"
       );
@@ -305,7 +305,7 @@ $(document).ready(function () {
         "none"
       );
       afterMap.setLayoutProperty(
-        "grant-lots-lines-right",
+        "grant-lots-lines",
         "visibility",
         "none"
       );
@@ -335,7 +335,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "dutch_grants-5ehfqe-right",
+        "dutch_grants-5ehfqe",
         "visibility",
         "visible"
       );
@@ -345,7 +345,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "dutch_grants-5ehfqe-right-highlighted",
+        "dutch_grants-5ehfqe-highlighted",
         "visibility",
         "visible"
       );
@@ -356,7 +356,7 @@ $(document).ready(function () {
         "none"
       );
       afterMap.setLayoutProperty(
-        "dutch_grants-5ehfqe-right",
+        "dutch_grants-5ehfqe",
         "visibility",
         "none"
       );
@@ -366,7 +366,7 @@ $(document).ready(function () {
         "none"
       );
       afterMap.setLayoutProperty(
-        "dutch_grants-5ehfqe-right-highlighted",
+        "dutch_grants-5ehfqe-highlighted",
         "visibility",
         "none"
       );
@@ -384,7 +384,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "grant-lots-lines-right",
+        "grant-lots-lines",
         "visibility",
         "visible"
       );
@@ -395,7 +395,7 @@ $(document).ready(function () {
         "none"
       );
       afterMap.setLayoutProperty(
-        "grant-lots-lines-right",
+        "grant-lots-lines",
         "visibility",
         "none"
       );
@@ -415,7 +415,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "native-groups-area-right",
+        "native-groups-area",
         "visibility",
         "visible"
       );
@@ -425,7 +425,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "native-groups-area-right-highlighted",
+        "native-groups-area-highlighted",
         "visibility",
         "visible"
       );
@@ -436,7 +436,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "native-groups-lines-right",
+        "native-groups-lines",
         "visibility",
         "visible"
       );
@@ -446,7 +446,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "native-groups-labels-right",
+        "native-groups-labels",
         "visibility",
         "visible"
       );
@@ -457,7 +457,7 @@ $(document).ready(function () {
         "none"
       );
       afterMap.setLayoutProperty(
-        "native-groups-area-right",
+        "native-groups-area",
         "visibility",
         "none"
       );
@@ -467,7 +467,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "native-groups-area-right-highlighted",
+        "native-groups-area-highlighted",
         "visibility",
         "none"
       );
@@ -478,7 +478,7 @@ $(document).ready(function () {
         "none"
       );
       afterMap.setLayoutProperty(
-        "native-groups-lines-right",
+        "native-groups-lines",
         "visibility",
         "none"
       );
@@ -488,7 +488,7 @@ $(document).ready(function () {
         "none"
       );
       afterMap.setLayoutProperty(
-        "native-groups-labels-right",
+        "native-groups-labels",
         "visibility",
         "none"
       );
@@ -521,7 +521,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "native-groups-area-right",
+        "native-groups-area",
         "visibility",
         "visible"
       );
@@ -531,7 +531,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "native-groups-area-right-highlighted",
+        "native-groups-area-highlighted",
         "visibility",
         "visible"
       );
@@ -542,7 +542,7 @@ $(document).ready(function () {
         "none"
       );
       afterMap.setLayoutProperty(
-        "native-groups-area-right",
+        "native-groups-area",
         "visibility",
         "none"
       );
@@ -552,7 +552,7 @@ $(document).ready(function () {
         "none"
       );
       afterMap.setLayoutProperty(
-        "native-groups-area-right-highlighted",
+        "native-groups-area-highlighted",
         "visibility",
         "none"
       );
@@ -571,7 +571,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "native-groups-labels-right",
+        "native-groups-labels",
         "visibility",
         "visible"
       );
@@ -582,7 +582,7 @@ $(document).ready(function () {
         "none"
       );
       afterMap.setLayoutProperty(
-        "native-groups-labels-right",
+        "native-groups-labels",
         "visibility",
         "none"
       );
@@ -597,7 +597,7 @@ $(document).ready(function () {
         "visible"
       );
       afterMap.setLayoutProperty(
-        "native-groups-lines-right",
+        "native-groups-lines",
         "visibility",
         "visible"
       );
@@ -608,7 +608,7 @@ $(document).ready(function () {
         "none"
       );
       afterMap.setLayoutProperty(
-        "native-groups-lines-right",
+        "native-groups-lines",
         "visibility",
         "none"
       );

@@ -5,12 +5,12 @@
 
 
 function generatePopupContent(id, features, map) {
-  const position = map === afterMap ? "right" : "left";
+  const position = map === afterMap ? "" : "-left";
   const contentGenerators = {
-    [`dutch_grants-5ehfqe-${position}`]: dutchGrantPopUpContent,
-    [`lot_events-bf43eb-${position}`]: lotEventsPopupContent,
-    [`places-${position}`]: castelloEventsPopUpContent,
-    [`native-groups-area-${position}`]: longIslandPopupContent
+    [`dutch_grants-5ehfqe${position}`]: dutchGrantPopUpContent,
+    [id === "lot_events-bf43eb-right"? "lot_events-bf43eb-right" :`lot_events-bf43eb${position}`]: lotEventsPopupContent,
+    [`places${position}`]: castelloEventsPopUpContent,
+    [`native-groups-area${position}`]: longIslandPopupContent
   };
 
   return contentGenerators[id] ? contentGenerators[id](features) : null;
@@ -169,7 +169,7 @@ var demo_layer_feature_props = null,
 // #region Event Handling and Popups
 // Functions to handle click events on map features and display popups with detailed information.
 [beforeMap, afterMap].forEach((map, id) => {
-  const position = id === 0 ? "left" : "right";
+  const position = id === 0 ? "-left" : "";
   if (id === 0) {
     init_zoom = map.getZoom();
     init_bearing = map.getBearing();
@@ -177,18 +177,18 @@ var demo_layer_feature_props = null,
   }
   map.on("load", function (e) {
     map
-      .on("click", `lot_events-bf43eb-${position}`, function (e) {
+      .on("click", `lot_events-bf43eb${id === 0? position : "-right"}`, function (e) {
         DemoClickHandle(e);
       })
-      .on("click", `places-${position}`, function (e) {
+      .on("click", `places${position}`, function (e) {
         CastelloClickHandle(e);
       })
 
-      .on("click", `dutch_grants-5ehfqe-${position}`, function (e) {
+      .on("click", `dutch_grants-5ehfqe${position}`, function (e) {
         DutchGrantsClickHandle(e);
       })
 
-      .on("click", `native-groups-area-${position}`, function (e) {
+      .on("click", `native-groups-area${position}`, function (e) {
         NativeGroupsClickHandle(e);
       })
       .on("click", function () {
@@ -389,7 +389,7 @@ function closeDutchGrantsInfo() {
   dgrants_layer_view_flag = false;
   afterMap.setFeatureState(
     {
-      source: "dutch_grants-5ehfqe-right-highlighted",
+      source: "dutch_grants-5ehfqe-highlighted",
       sourceLayer: "dutch_grants-5ehfqe",
       id: dgrants_layer_view_id,
     },
@@ -451,7 +451,7 @@ function DutchGrantsClickHandle(event) {
       dgrants_layer_view_flag = true;
       afterMap.setFeatureState(
         {
-          source: "dutch_grants-5ehfqe-right-highlighted",
+          source: "dutch_grants-5ehfqe-highlighted",
           sourceLayer: "dutch_grants-5ehfqe",
           id: dgrants_layer_view_id,
         },
@@ -483,7 +483,7 @@ function DutchGrantsClickHandle(event) {
     //*A#
     afterMap.setFeatureState(
       {
-        source: "dutch_grants-5ehfqe-right-highlighted",
+        source: "dutch_grants-5ehfqe-highlighted",
         sourceLayer: "dutch_grants-5ehfqe",
         id: dgrants_layer_view_id,
       },
@@ -491,7 +491,7 @@ function DutchGrantsClickHandle(event) {
     );
     afterMap.setFeatureState(
       {
-        source: "dutch_grants-5ehfqe-right-highlighted",
+        source: "dutch_grants-5ehfqe-highlighted",
         sourceLayer: "dutch_grants-5ehfqe",
         id: event.features[0].id,
       },
@@ -528,7 +528,7 @@ function closeNativeGroupsInfo() {
   native_group_layer_view_flag = false;
   afterMap.setFeatureState(
     {
-      source: "native-groups-area-right-highlighted",
+      source: "native-groups-area-highlighted",
       sourceLayer: "indian_areas_long_island-50h2dj",
       id: native_group_layer_view_id,
     },
@@ -591,7 +591,7 @@ function NativeGroupsClickHandle(event) {
       native_group_layer_view_flag = true;
       afterMap.setFeatureState(
         {
-          source: "native-groups-area-right-highlighted",
+          source: "native-groups-area-highlighted",
           sourceLayer: "indian_areas_long_island-50h2dj",
           id: native_group_layer_view_id,
         },
@@ -623,7 +623,7 @@ function NativeGroupsClickHandle(event) {
     native_group_layer_view_flag = true;
     afterMap.setFeatureState(
       {
-        source: "native-groups-area-right-highlighted",
+        source: "native-groups-area-highlighted",
         sourceLayer: "indian_areas_long_island-50h2dj",
         id: native_group_layer_view_id,
       },
@@ -631,7 +631,7 @@ function NativeGroupsClickHandle(event) {
     );
     afterMap.setFeatureState(
       {
-        source: "native-groups-area-right-highlighted",
+        source: "native-groups-area-highlighted",
         sourceLayer: "indian_areas_long_island-50h2dj",
         id: event.features[0].id,
       },

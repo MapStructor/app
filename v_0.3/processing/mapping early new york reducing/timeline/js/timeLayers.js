@@ -8,16 +8,16 @@ function changeDate(unixDate) {
 
   //NAHC
   beforeMap.setFilter("dutch_grants-5ehfqe-left", dateFilter);
-  afterMap.setFilter("dutch_grants-5ehfqe-right", dateFilter);
+  afterMap.setFilter("dutch_grants-5ehfqe", dateFilter);
 
   beforeMap.setFilter("dutch_grants-5ehfqe-left-highlighted", dateFilter);
-  afterMap.setFilter("dutch_grants-5ehfqe-right-highlighted", dateFilter);
+  afterMap.setFilter("dutch_grants-5ehfqe-highlighted", dateFilter);
 
   beforeMap.setFilter("lot_events-bf43eb-left", dateFilter);
   afterMap.setFilter("lot_events-bf43eb-right", dateFilter);
 
   beforeMap.setFilter("grant-lots-lines-left", dateFilter);
-  afterMap.setFilter("grant-lots-lines-right", dateFilter);
+  afterMap.setFilter("grant-lots-lines", dateFilter);
 
   demoFilterRangeCalc();
 } //end function changeDate
