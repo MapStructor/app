@@ -1,4 +1,4 @@
-function removeTaxPoints(map, points) {
+function removeMapSourceLayer(map, points) {
   points.forEach((point) => {
     switch (point.type) {
       case "source":

@@ -4,7 +4,7 @@ function addAllLayers(yr, date) {
     const popupMap = index === 0 ? "beforeMap" : "afterMap";
 
     //#region - Lot events and dutch grants
-    removeTaxPoints(map, [
+    removeMapSourceLayer(map, [
       { type: "layer", id: `lot_events-bf43eb${index !== 1 ? "-left" : "-right"}` },
       { type: "source", id: "lot_events-bf43eb" },
       { type: "layer", id: `dutch_grants-5ehfqe` },
