@@ -1,0 +1,23 @@
+INSTRUCTIONS: Change the directory in command below.
+Powershell: Navigate to folder or click file (breadcrumbs) area and type "powershell".
+Copy-paste command. May want to modify in the future to just do it in a root folder.
+GPT Chat: https://chat.openai.com/share/b13e9f65-59eb-4c56-8f54-17daa344cf17
+
+
+
+
+COMMAND:
+
+
+
+function Get-DirStructure($path, $depth = 0) {
+    $indent = "`t" * $depth
+    Get-ChildItem -Path $path | ForEach-Object {
+        "$indent$($_.Name)"
+        if ($_.PSIsContainer) {
+            Get-DirStructure $_.FullName ($depth + 1)
+        }
+    }
+}
+
+Get-DirStructure "C:\1.github\MapStructor\app\v_0.3\mapping early new york reducing" | Out-File file_structure.txt
