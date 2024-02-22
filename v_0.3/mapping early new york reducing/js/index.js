@@ -1,3 +1,6 @@
+//#region Variable Declarations
+// Arrays to store various types of information
+
 var dutch_grant_lots_info = [],
   farms_grants_info = [],
   settlements_info = [],
@@ -14,10 +17,21 @@ var dutch_grant_lots_info_length = 0,
   taxlot_events_info_length = 0,
   taxlot_entities_info_length = 0;
 
+//#endregion
+
+//#region Layout Visibility Function
+// Sets the visibility of a map layer for both the before and after maps
+
 function setLayoutVisibilityForBothMaps(id, status){
   beforeMap.setLayoutProperty(id, "visibility", status)
   afterMap.setLayoutProperty(id, "visibility", status)
 }
+
+//#endregion
+
+
+//#region Additional Variable Declarations
+// More variables for storing information and flags
 
 var lots_info = new Array();
 var lots_info_length = 0;
@@ -48,14 +62,29 @@ var ruler_step = (sliderEnd - sliderStart) / 10,
   date_ruler4 = sliderStart + ruler_step * 7,
   date_ruler5 = sliderStart + ruler_step * 9;
 
+//#endregion
+
+
+
+//#region Document Ready Function
+// Initializes various UI elements and event handlers when the document is ready
 $(document).ready(function () {
+
+  //#region Browser Compatibility Check
+  // Checks if the browser is Internet Explorer and displays a warning message if it is
   if (jQuery.browser.msie)
     alert(
       "Sorry, this application uses state of the art HTML5 techniques which are not (well) supported by Internet Explorer.\nUse Google Chrome or Mozilla Firefox to experience the full power of HTML5 and this application"
     );
+  //#endregion
 
+  //#region Tooltip Initialization
+  // Initializes tooltips for layer info and zoom icons
   simple_tooltip("i.layer-info, i.zoom-to-layer", "tooltip");
+  //#endregion
 
+  //#region Window Size Adjustment
+  // Adjusts the layout based on the window size
   windoWidth = $(window).width();
   if (windoWidth <= 637) {
     if (layer_view_flag) {
@@ -71,6 +100,10 @@ $(document).ready(function () {
     windoWidth = $(window).width();
   });
 
+  //#endregion
+
+  //#region Layer Visibility Toggles
+  // Toggles the visibility of various map layers
   $(".dutch_grants_layer_item").hide();
   $(".current_lots_layer_item").hide();
   $("#long-island-section-layers").slideUp();
@@ -78,6 +111,10 @@ $(document).ready(function () {
   $("#manahatta-maps-section").slideUp();
   $("#long-island-maps-section").slideUp();
   $("#long-island-maps-section1").slideUp();
+    //#endregion
+
+  //#region Date Display Initialization
+  // Sets the text for date-related UI elements
 
   $("#ruler-date1").text(moment.unix(date_ruler1).format("YYYY"));
   $("#ruler-date2").text(moment.unix(date_ruler2).format("YYYY"));
@@ -89,6 +126,11 @@ $(document).ready(function () {
   );
   $("#ruler-date4").text(moment.unix(date_ruler4).format("YYYY"));
   $("#ruler-date5").text(moment.unix(date_ruler5).format("YYYY"));
+
+//#endregion
+
+  //#region Slider Initialization
+  // Initializes the time slider and its event handlers
 
   $("#slider").slider({
     min: sliderStart,
@@ -149,10 +191,10 @@ $(document).ready(function () {
     moment.unix($("#slider").slider("values", 0)).format("DD MMM YYYY")
   );
 
-  $(".footnote").click(function () {
-    $("#footnotediv").toggle("slide");
-  });
+    //#endregion
 
+  //#region Layer Checkbox Handlers
+  // Event handlers for checkboxes that control layer visibility
   $("#castello_points").click(function () {
     if ($(this).prop("checked")) {
       setLayoutVisibilityForBothMaps("places", "visible")
@@ -300,6 +342,15 @@ $(document).ready(function () {
     }
   });
 
+    //#endregion
+
+  //#region UI Interaction Handlers
+  // Event handlers for various UI interactions
+
+  $(".footnote").click(function () {
+    $("#footnotediv").toggle("slide");
+  });
+  
   $("#view-hide-layer-panel").click(function () {
     if (layer_view_flag) {
       $("#studioMenu").animate({ "margin-left": "-337px" }, 500);
@@ -413,7 +464,15 @@ $(document).ready(function () {
     $("label#close").trigger("click");
   });
 
+  //#endregion
+
+  //#region Loading Screen Timeout
+  // Hides the loading screen after a timeout
+
   setTimeout(function () {
     $("div#loading").css("display", "none");
   }, 5000);
+
+  //#endregion
+
 });
