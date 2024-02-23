@@ -244,6 +244,7 @@ function closeCastelloInfo() {
 }
 
 function CastelloClickHandle(event) {
+  console.log("Castello click handle called")
   if (castello_layer_view_flag && clickedStateId == event.features[0].id) {
     if ($("#view-hide-layer-panel").length > 0)
       if (!layer_view_flag) {
@@ -290,7 +291,7 @@ function CastelloClickHandle(event) {
     while (Math.abs(event.lngLat.lng - coordinates[0]) > 180) {
       coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
     }
-
+    // console.log("setting html for popup")
     ["before", "after"].forEach(position => {
       popupsObject[`${position}HighCastelloPopUp`].setLngLat(coordinates)
       .setHTML(
@@ -299,7 +300,7 @@ function CastelloClickHandle(event) {
           "</div>"
       );
 
-      if(!popupsObject[`${position}HighCastelloPopUp`].isOpen()) popupsObject["beforeHighCastelloPopUp"].addTo(beforeMap);
+      if(!popupsObject[`${position}HighCastelloPopUp`].isOpen()) popupsObject[`${position}HighCastelloPopUp`].addTo(position === "before" ? beforeMap : afterMap);
     })
 
     if ($(".infoLayerElem").first().attr("id") != "infoLayerCastello")
