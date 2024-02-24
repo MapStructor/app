@@ -2,20 +2,19 @@
 // This function dynamically generates popup content based on the given ID and features from the map.
 // It identifies the map layer and selects the appropriate content generation function for the popup.
 
-
-
 function generatePopupContent(id, features, map) {
   // const position = map === afterMap ? "" : "-left";
   const contentGenerators = {
     [`dutch_grants-5ehfqe`]: dutchGrantPopUpContent,
-    [id === "lot_events-bf43eb-right"? "lot_events-bf43eb-right" :`lot_events-bf43eb-left`]: lotEventsPopupContent,
+    [id === "lot_events-bf43eb-right"
+      ? "lot_events-bf43eb-right"
+      : `lot_events-bf43eb-left`]: lotEventsPopupContent,
     [`places`]: castelloEventsPopUpContent,
-    [`native-groups-area`]: longIslandPopupContent
+    [`native-groups-area`]: longIslandPopupContent,
   };
 
   return contentGenerators[id] ? contentGenerators[id](features) : null;
 }
-
 
 //#endregion
 
@@ -131,15 +130,15 @@ function createPopup(offset = 0) {
 
 // Initialize popups for displaying information on the maps
 const popupConfig = [
-  { name: 'MapPopUp', count: undefined },
-  { name: 'MapPlacesPopUp', count: undefined },
-  { name: 'HighCastelloPopUp', count: undefined },
-  { name: 'HighGrantLotsPopUp', count: 5 },
-  { name: 'MapGrantLotPopUp', count: 5 },
-  { name: 'HighMapGrantLotPopUp', count: 5 },
-  { name: 'MapDutchGrantPopUp', count: 5 },
-  { name: 'MapNativeGroupsPopUp', count: 5 },
-  { name: 'HighMapNativeGroupsPopUp', count: 5 }
+  { name: "MapPopUp", count: undefined },
+  { name: "MapPlacesPopUp", count: undefined },
+  { name: "HighCastelloPopUp", count: undefined },
+  { name: "HighGrantLotsPopUp", count: 5 },
+  { name: "MapGrantLotPopUp", count: 5 },
+  { name: "HighMapGrantLotPopUp", count: 5 },
+  { name: "MapDutchGrantPopUp", count: 5 },
+  { name: "MapNativeGroupsPopUp", count: 5 },
+  { name: "HighMapNativeGroupsPopUp", count: 5 },
 ];
 
 const createPopups = () => {
@@ -157,7 +156,6 @@ const popupsObject = createPopups();
 
 // #region Hovered and Clicked State Management
 // Variables to manage the state of hovered and clicked map features. These are used to track which features are currently under interaction, allowing for dynamic updates to the UI or map based on user actions.
-
 
 var clickedStateId = null;
 
@@ -177,9 +175,13 @@ var demo_layer_feature_props = null,
   }
   map.on("load", function (e) {
     map
-      .on("click", `lot_events-bf43eb${id === 0? "-left" : "-right"}`, function (e) {
-        DemoClickHandle(e);
-      })
+      .on(
+        "click",
+        `lot_events-bf43eb${id === 0 ? "-left" : "-right"}`,
+        function (e) {
+          DemoClickHandle(e);
+        }
+      )
       .on("click", `places`, function (e) {
         CastelloClickHandle(e);
       })
@@ -238,13 +240,13 @@ function DefaultHandle() {
 function closeCastelloInfo() {
   $("#infoLayerCastello").slideUp();
   castello_layer_view_flag = false;
-  ["after", "before"].forEach(position => {
-  if(popupsObject[`${position}HighCastelloPopUp`].isOpen()) popupsObject[`${position}HighCastelloPopUp`].remove();
-  })
+  ["after", "before"].forEach((position) => {
+    if (popupsObject[`${position}HighCastelloPopUp`].isOpen())
+      popupsObject[`${position}HighCastelloPopUp`].remove();
+  });
 }
 
 function CastelloClickHandle(event) {
-  console.log("Castello click handle called")
   if (castello_layer_view_flag && clickedStateId == event.features[0].id) {
     if ($("#view-hide-layer-panel").length > 0)
       if (!layer_view_flag) {
@@ -257,31 +259,6 @@ function CastelloClickHandle(event) {
     closeCastelloInfo();
   } else {
     clickedStateId = event.features[0].id;
-
-    places_popup_html =
-      "<h3>Castello Taxlot (1660)</h3><hr>" +
-      "<br>" +
-      "<b>" +
-      "Taxlot: " +
-      "</b>" +
-      event.features[0].properties.LOT2 +
-      "<br>" +
-      "<b>" +
-      "Property Type: " +
-      "</b>" +
-      event.features[0].properties.tax_lots_1 +
-      "<br>" +
-      "<br>" +
-      "<b>" +
-      "Encyclopedia Page: " +
-      "</b>" +
-      "<br>" +
-      '<a href="https://encyclopedia.nahc-mapping.org/lots/taxlot' +
-      event.features[0].properties.LOT2 +
-      '" target="_blank">https://encyclopedia.nahc-mapping.org/lots/taxlot' +
-      event.features[0].properties.LOT2 +
-      "</a>";
-
     var coordinates = [];
     coordinates = event.features[0].geometry.coordinates.slice();
 
@@ -292,20 +269,22 @@ function CastelloClickHandle(event) {
       coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
     }
     // console.log("setting html for popup")
-    ["before", "after"].forEach(position => {
-      popupsObject[`${position}HighCastelloPopUp`].setLngLat(coordinates)
-      .setHTML(
-        "<div class='infoLayerCastelloPopUp'><b>Taxlot (1660):</b><br>" +
-          event.features[0].properties.LOT2 +
-          "</div>"
-      );
+    ["before", "after"].forEach((position) => {
+      popupsObject[`${position}HighCastelloPopUp`]
+        .setLngLat(coordinates)
+        .setHTML(buildCastelloPopUpInfo(event.features[0], "popup"));
 
-      if(!popupsObject[`${position}HighCastelloPopUp`].isOpen()) popupsObject[`${position}HighCastelloPopUp`].addTo(position === "before" ? beforeMap : afterMap);
-    })
+      if (!popupsObject[`${position}HighCastelloPopUp`].isOpen())
+        popupsObject[`${position}HighCastelloPopUp`].addTo(
+          position === "before" ? beforeMap : afterMap
+        );
+    });
 
     if ($(".infoLayerElem").first().attr("id") != "infoLayerCastello")
       $("#infoLayerCastello").insertBefore($(".infoLayerElem").first());
-    $("#infoLayerCastello").html(places_popup_html).slideDown();
+    $("#infoLayerCastello")
+      .html(buildCastelloPopUpInfo(event.features[0]))
+      .slideDown();
 
     if (!layer_view_flag)
       if ($("#view-hide-layer-panel").length > 0)
@@ -404,9 +383,10 @@ function closeDutchGrantsInfo() {
     },
     { hover: false }
   );
-  ["before", "after"].forEach(position => {
-    if (popupsObject[`${position}HighMapGrantLotPopUp`].isOpen()) popupsObject[`${position}HighMapGrantLotPopUp`].remove();
-  })
+  ["before", "after"].forEach((position) => {
+    if (popupsObject[`${position}HighMapGrantLotPopUp`].isOpen())
+      popupsObject[`${position}HighMapGrantLotPopUp`].remove();
+  });
 }
 
 function DutchGrantsClickHandle(event) {
@@ -466,12 +446,14 @@ function DutchGrantsClickHandle(event) {
         },
         { hover: true }
       );
-      ["after", "before"].forEach(position => {
-        const map = position === "after"? afterMap : beforeMap
-        popupsObject[`${position}HighMapGrantLotPopUp`].setLngLat(event.lngLat).setHTML(highPopUpHTML);
-        if(!popupsObject[`${position}HighMapGrantLotPopUp`].isOpen()) popupsObject[`${position}HighMapGrantLotPopUp`].addTo(map);
-      })
-      
+      ["after", "before"].forEach((position) => {
+        const map = position === "after" ? afterMap : beforeMap;
+        popupsObject[`${position}HighMapGrantLotPopUp`]
+          .setLngLat(event.lngLat)
+          .setHTML(highPopUpHTML);
+        if (!popupsObject[`${position}HighMapGrantLotPopUp`].isOpen())
+          popupsObject[`${position}HighMapGrantLotPopUp`].addTo(map);
+      });
     }
   } else {
     buildDutchGrantPopUpInfo(event.features[0].properties);
@@ -514,11 +496,14 @@ function DutchGrantsClickHandle(event) {
       },
       { hover: true }
     );
-    ["after", "before"].forEach(position => {
-        const map = position === "after"? afterMap : beforeMap
-        popupsObject[`${position}HighMapGrantLotPopUp`].setLngLat(event.lngLat).setHTML(highPopUpHTML);
-        if(!popupsObject[`${position}HighMapGrantLotPopUp`].isOpen()) popupsObject[`${position}HighMapGrantLotPopUp`].addTo(map);
-      })
+    ["after", "before"].forEach((position) => {
+      const map = position === "after" ? afterMap : beforeMap;
+      popupsObject[`${position}HighMapGrantLotPopUp`]
+        .setLngLat(event.lngLat)
+        .setHTML(highPopUpHTML);
+      if (!popupsObject[`${position}HighMapGrantLotPopUp`].isOpen())
+        popupsObject[`${position}HighMapGrantLotPopUp`].addTo(map);
+    });
   }
   dgrants_layer_view_id = event.features[0].id;
   dutch_grant_click_ev = true;
@@ -543,10 +528,10 @@ function closeNativeGroupsInfo() {
     },
     { hover: false }
   );
-  ["after", "before"].forEach(position => {
+  ["after", "before"].forEach((position) => {
     if (popupsObject[`${position}HighMapNativeGroupsPopUp`].isOpen())
-    popupsObject[`${position}HighMapNativeGroupsPopUp`].remove();
-  })
+      popupsObject[`${position}HighMapNativeGroupsPopUp`].remove();
+  });
 }
 
 function NativeGroupsClickHandle(event) {
@@ -606,13 +591,14 @@ function NativeGroupsClickHandle(event) {
         },
         { hover: true }
       );
-      ["after", "before"].forEach(position => {
+      ["after", "before"].forEach((position) => {
         const map = position === "after" ? afterMap : beforeMap;
-        popupsObject[`${position}HighMapNativeGroupsPopUp`].setLngLat(event.lngLat)
-        .setHTML(highPopUpHTML);
+        popupsObject[`${position}HighMapNativeGroupsPopUp`]
+          .setLngLat(event.lngLat)
+          .setHTML(highPopUpHTML);
         if (!popupsObject[`${position}HighMapNativeGroupsPopUp`].isOpen())
-        popupsObject[`${position}HighMapNativeGroupsPopUp`].addTo(map);
-      })
+          popupsObject[`${position}HighMapNativeGroupsPopUp`].addTo(map);
+      });
     }
   } else {
     buildNativeGroupPopUpInfo(event.features[0].properties);
@@ -654,11 +640,14 @@ function NativeGroupsClickHandle(event) {
       },
       { hover: true }
     );
-    ["after", "before"].forEach(position => {
-      const map = position === "after"? afterMap : beforeMap
-      popupsObject[`${position}HighMapNativeGroupsPopUp`].setLngLat(event.lngLat).setHTML(highPopUpHTML);
-      if(!popupsObject[`${position}HighMapNativeGroupsPopUp`].isOpen()) popupsObject[`${position}HighMapNativeGroupsPopUp`].addTo(map);
-    })
+    ["after", "before"].forEach((position) => {
+      const map = position === "after" ? afterMap : beforeMap;
+      popupsObject[`${position}HighMapNativeGroupsPopUp`]
+        .setLngLat(event.lngLat)
+        .setHTML(highPopUpHTML);
+      if (!popupsObject[`${position}HighMapNativeGroupsPopUp`].isOpen())
+        popupsObject[`${position}HighMapNativeGroupsPopUp`].addTo(map);
+    });
   }
   native_group_layer_view_id = event.features[0].id;
   native_groups_click_ev = true;
@@ -667,9 +656,10 @@ function NativeGroupsClickHandle(event) {
 function closeGrantLotsInfo() {
   $("#infoLayerGrantLots").slideUp();
   grant_lots_view_flag = false;
-  ["after", "before"].forEach(position =>{ 
-    if(popupsObject[`${position}HighGrantLotsPopUp`].isOpen()) popupsObject[`${position}HighGrantLotsPopUp`].remove()
-})
+  ["after", "before"].forEach((position) => {
+    if (popupsObject[`${position}HighGrantLotsPopUp`].isOpen())
+      popupsObject[`${position}HighGrantLotsPopUp`].remove();
+  });
 }
 
 // #endregion

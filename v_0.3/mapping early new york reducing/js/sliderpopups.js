@@ -1,4 +1,3 @@
-
 //Default slider position
 $("#infoLayerGrantLots").slideUp();
 $("#infoLayerDutchGrants").slideUp();
@@ -6,11 +5,9 @@ $("#demoLayerInfo").slideUp();
 $("#infoLayerCastello").slideUp();
 $("#infoLayerNativeGroups").slideUp();
 
-
 function extractTextFromHTML(htmlString) {
   return $("<div>").html(htmlString).text();
 }
-
 
 function addFieldToPopup(
   fieldContent,
@@ -123,8 +120,6 @@ function buildPopUpInfo(props) {
   $("#demoLayerInfo").html(popup_html);
 }
 
-
-
 function buildDutchGrantPopUpInfo(props) {
   var popup_html = "";
   if (typeof lots_info[props.Lot] == "undefined") {
@@ -217,7 +212,6 @@ function buildDutchGrantPopUpInfo(props) {
   $("#infoLayerDutchGrants").html(popup_html);
 }
 
-
 function buildNativeGroupPopUpInfo(props) {
   var popup_html = "<h3>Long Island Tribes</h3><hr>";
 
@@ -245,3 +239,36 @@ function buildNativeGroupPopUpInfo(props) {
   $("#infoLayerNativeGroups").html(popup_html);
 }
 
+function buildCastelloPopUpInfo(feature, type = "info-panel") {
+  if (type === "info-panel")
+    return (places_popup_html =
+      "<h3>Castello Taxlot (1660)</h3><hr>" +
+      "<br>" +
+      "<b>" +
+      "Taxlot: " +
+      "</b>" +
+      feature.properties.LOT2 +
+      "<br>" +
+      "<b>" +
+      "Property Type: " +
+      "</b>" +
+      feature.properties.tax_lots_1 +
+      "<br>" +
+      "<br>" +
+      "<b>" +
+      "Encyclopedia Page: " +
+      "</b>" +
+      "<br>" +
+      '<a href="https://encyclopedia.nahc-mapping.org/lots/taxlot' +
+      feature.properties.LOT2 +
+      '" target="_blank">https://encyclopedia.nahc-mapping.org/lots/taxlot' +
+      feature.properties.LOT2 +
+      "</a>");
+
+  if (type === "popup")
+    return (
+      "<div class='infoLayerCastelloPopUp'><b>Taxlot (1660):</b><br>" +
+      feature.properties.LOT2 +
+      "</div>"
+    );
+}

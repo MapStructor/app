@@ -13,13 +13,4 @@ beforeHighDemoPopUp = new mapboxgl.Popup({
 // #endregion
 
 
-// #region Popup Content Variables
-// Initialize variables to hold HTML content for various popups. These variables will likely be updated dynamically based on user interactions or data queries.
-
-var places_popup_html = "";
-
-// #endregion
-
-
-
 
