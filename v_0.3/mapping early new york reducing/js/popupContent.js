@@ -3,7 +3,6 @@
 // It identifies the map layer and selects the appropriate content generation function for the popup.
 
 function generatePopupContent(id, features, map) {
-  // const position = map === afterMap ? "" : "-left";
   const contentGenerators = {
     [`dutch_grants-5ehfqe`]: dutchGrantPopUpContent,
     [id === "lot_events-bf43eb-right"
