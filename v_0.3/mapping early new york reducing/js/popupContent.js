@@ -97,23 +97,6 @@ function longIslandPopupContent(features) {
 
 // #endregion
 
-// #region Click events flags
-
-// Initialize flags for tracking click events on various map features.
-var castello_click_ev = false,
-  grant_lots_click_ev = false,
-  demo_taxlot_click_ev = false,
-  dutch_grant_click_ev = false,
-  native_groups_click_ev = false,
-  farms_click_ev = false,
-  settlements_click_ev = false,
-  karl_click_ev = false,
-  curr_layer_click_ev = false,
-  info_click_ev = false,
-  gravesend_click_ev = false,
-  zoom_labels_click_ev = false;
-
-// #endregion
 
 // #region Popups Initialization
 // Initialize popups for displaying information on the maps. These popups are configured to not close on click, indicating they may be used for persistent display of information.
