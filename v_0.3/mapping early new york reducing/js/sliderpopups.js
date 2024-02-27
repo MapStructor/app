@@ -23,124 +23,21 @@ const addFieldToPopup = (
 
 const buildPopUpInfo = (props) => {
   const prop_nid = `${props.nid}`;
-  let popup_html = `<b><h2>Lot:<br>${addFieldToPopup(
-    taxlot_events_info[prop_nid].taxlot,
-    true
-  )}</h2></b>`;
-  popup_html +=
-    addFieldToPopup(taxlot_events_info[prop_nid].property_type, "unlinked") +
-    "<hr>";
-  popup_html += `<b>DATE: </b>${addFieldToPopup(
-    taxlot_events_info[prop_nid].start,
-    "unlinked",
-    "",
-    "Unknown"
-  )}<hr>`;
-  popup_html += "<b>OWNERSHIP: </b><br>";
-  popup_html +=
-    addFieldToPopup(
-      taxlot_events_info[prop_nid].to_party_1_role,
-      "unlinked",
-      "",
-      "Unknown"
-    ) +
-    addFieldToPopup(taxlot_events_info[prop_nid].to_party_1_text) +
-    addFieldToPopup(taxlot_events_info[prop_nid].to_party) +
-    addFieldToPopup(taxlot_events_info[prop_nid].to_party_1_entity, "unlinked");
-  popup_html +=
-    addFieldToPopup(
-      taxlot_events_info[prop_nid].to_party_2_role,
-      "unlinked",
-      "break"
-    ) +
-    addFieldToPopup(taxlot_events_info[prop_nid].to_party_2_text) +
-    addFieldToPopup(taxlot_events_info[prop_nid].to_party2) +
-    addFieldToPopup(
-      taxlot_events_info[prop_nid].to_party_2_entity,
-      "unlinked"
-    ) +
-    (taxlot_events_info[prop_nid].taxlotevent
-      ? `<br><b>LOT EVENT: </b><br>${addFieldToPopup(
-          taxlot_events_info[prop_nid].taxlotevent
-        )}`
-      : "") +
-    "<hr><b>FROM: </b><br>" +
-    addFieldToPopup(
-      taxlot_events_info[prop_nid].from_party_1_role,
-      "unlinked"
-    ) +
-    addFieldToPopup(taxlot_events_info[prop_nid].from_party_1_text) +
-    addFieldToPopup(taxlot_events_info[prop_nid].from_party) +
-    addFieldToPopup(
-      taxlot_events_info[prop_nid].from_party_1_entity,
-      "unlinked"
-    ) +
-    addFieldToPopup(
-      taxlot_events_info[prop_nid].from_party_2_role,
-      "unlinked",
-      "break"
-    ) +
-    addFieldToPopup(taxlot_events_info[prop_nid].from_party_2_text) +
-    addFieldToPopup(taxlot_events_info[prop_nid].from_party2) +
-    addFieldToPopup(
-      taxlot_events_info[prop_nid].from_party_2_entity,
-      "unlinked"
-    ) +
-    "<hr><b>Lot Event ID:</b><br>" +
-    addFieldToPopup(taxlot_events_info[prop_nid].title);
-  $("#demoLayerInfo").html(popup_html);
+  // console.log("buildPopupInfo", prop_nid, props)
+  fetch(`https://encyclopedia.nahc-mapping.org/rendered-export-single?nid=${prop_nid}`).then(buffer => buffer.json()).then(res => {
+    console.log(res[0].rendered_entity)
+    $("#demoLayerInfo").html(res[0].rendered_entity);
+  })
 };
 
 const buildDutchGrantPopUpInfo = (props) => {
-  let popup_html = "";
-  if (typeof lots_info[props.Lot] === "undefined") {
-    popup_html = `<h3>Dutch Grant</h3><hr>${props.name}<br><b>Dutch Grant Lot:</b> <a href='https://encyclopedia.nahc-mapping.org/grantlot/${props.Lot}' target='_blank'>${props.Lot}</a><br><br><b>Start:</b> <i>${props.day1} ${props.year1}</i><br><b>End:</b> <i>${props.day2} ${props.year2}</i><br><br><b>Description (partial):</b><br>${props.descriptio}<br><br>`;
-  } else {
-    let builds_imgs = "";
-    if (lots_info[props.Lot].builds.length > 0) {
-      for (let i = 0; i < lots_info[props.Lot].builds.length; i++) {
-        builds_imgs += `<img src='https://encyclopedia.nahc-mapping.org${
-          lots_info[props.Lot].builds[i]
-        }' width='258' ><br><br>`;
-      }
-    }
-    popup_html = `<h3>Dutch Grant</h3><hr><br><b>Dutch Grant Lot:</b> <a href='https://encyclopedia.nahc-mapping.org/lots/grantlot${props.Lot}' target='_blank'>${props.Lot}</a><br><br>`;
-    if (lots_info[props.Lot].to_party_linked.length > 0) {
-      popup_html += `<b>To Party:</b> <i>${
-        lots_info[props.Lot].to_party_linked
-      }</i><br><br>`;
-    } else if (lots_info[props.Lot].to_party.length > 0) {
-      popup_html += `<b>To Party:</b> <i>${
-        lots_info[props.Lot].to_party
-      }</i><br><br>`;
-    }
-    if (lots_info[props.Lot].from_party_linked.length > 0) {
-      popup_html += `<b>From Party:</b> <i>${
-        lots_info[props.Lot].from_party_linked
-      }</i><br><br>`;
-    } else if (lots_info[props.Lot].from_party.length > 0) {
-      popup_html += `<b>From Party:</b> <i>${
-        lots_info[props.Lot].from_party
-      }</i><br><br>`;
-    }
-    if (lots_info[props.Lot].date_start.length > 0) {
-      popup_html += `<b>Start:</b> <i>${
-        lots_info[props.Lot].date_start
-      }</i><br>`;
-    }
-    if (lots_info[props.Lot].date_end.length > 0) {
-      popup_html += `<b>End:</b> <i>${
-        lots_info[props.Lot].date_end
-      }</i><br><br>`;
-    }
-    if (lots_info[props.Lot].descr.length > 0) {
-      popup_html += `<b>Description:</b><br><i>${
-        lots_info[props.Lot].descr
-      }</i>`;
-    }
-    popup_html += `<br><br>${builds_imgs}`;
-  }
-  $("#infoLayerDutchGrants").html(popup_html);
+  const prop_nid = `${props.nid}`;
+  console.log(props);
+  console.log("buildDutchGrantPopUpInfo", props)
+  fetch(`https://encyclopedia.nahc-mapping.org/rendered-export-single?nid=${prop_nid}`).then(buffer => buffer.json()).then(res => {
+    console.log(res[0].rendered_entity)
+    $("#demoLayerInfo").html(res[0].rendered_entity);
+  })
 };
 
 const buildNativeGroupPopUpInfo = (props) => {

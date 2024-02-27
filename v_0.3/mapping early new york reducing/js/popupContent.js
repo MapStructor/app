@@ -149,7 +149,6 @@ var demo_layer_feature_props = null,
 // #region Event Handling and Popups
 // Functions to handle click events on map features and display popups with detailed information.
 [beforeMap, afterMap].forEach((map, id) => {
-  const position = id === 0 ? "-left" : "";
   if (id === 0) {
     init_zoom = map.getZoom();
     init_bearing = map.getBearing();
@@ -161,14 +160,17 @@ var demo_layer_feature_props = null,
         "click",
         `lot_events-bf43eb${id === 0 ? "-left" : "-right"}`,
         function (e) {
+          console.log(e.features[0].properties.nid)
           DemoClickHandle(e);
         }
       )
       .on("click", `places`, function (e) {
+        console.log("places")
         CastelloClickHandle(e);
       })
 
       .on("click", `dutch_grants-5ehfqe`, function (e) {
+        console.log("Dutch grants", e)
         DutchGrantsClickHandle(e);
       })
 
@@ -372,6 +374,7 @@ function closeDutchGrantsInfo() {
 }
 
 function DutchGrantsClickHandle(event) {
+
   var highPopUpHTML = "";
   if (
     typeof dutch_grant_lots_info[event.features[0].properties.Lot] ==
