@@ -160,22 +160,23 @@ var demo_layer_feature_props = null,
         "click",
         `lot_events-bf43eb${id === 0 ? "-left" : "-right"}`,
         function (e) {
-          console.log(e.features[0].properties.nid)
+          console.log(e.features[0].properties)
           DemoClickHandle(e);
         }
       )
       .on("click", `places`, function (e) {
-        console.log("places")
-        CastelloClickHandle(e);
+          console.log(e.features[0].properties)
+          CastelloClickHandle(e);
       })
 
       .on("click", `dutch_grants-5ehfqe`, function (e) {
-        console.log("Dutch grants", e)
-        DutchGrantsClickHandle(e);
+          console.log(e.features[0].properties)
+          DutchGrantsClickHandle(e);
       })
 
       .on("click", `native-groups-area`, function (e) {
-        NativeGroupsClickHandle(e);
+          console.log(e.features[0].properties)
+          NativeGroupsClickHandle(e);
       })
       .on("click", function () {
         DefaultHandle();
@@ -256,7 +257,7 @@ function CastelloClickHandle(event) {
     ["before", "after"].forEach((position) => {
       popupsObject[`${position}HighCastelloPopUp`]
         .setLngLat(coordinates)
-        .setHTML(buildCastelloPopUpInfo(event.features[0], "popup"));
+        .setHTML(buildPopUpInfo(event.features[0].properties,undefined, "popup"));
 
       if (!popupsObject[`${position}HighCastelloPopUp`].isOpen())
         popupsObject[`${position}HighCastelloPopUp`].addTo(
@@ -267,7 +268,7 @@ function CastelloClickHandle(event) {
     if ($(".infoLayerElem").first().attr("id") != "infoLayerCastello")
       $("#infoLayerCastello").insertBefore($(".infoLayerElem").first());
     $("#infoLayerCastello")
-      .html(buildCastelloPopUpInfo(event.features[0]))
+      .html(buildPopUpInfo(event.features[0].properties, undefined, "info-panel"))
       .slideDown();
 
     if (!layer_view_flag)
@@ -301,8 +302,7 @@ function DemoClickHandle(event) {
     demo_layer_taxlot = event.features[0].properties.TAXLOT;
 
     demoFilterRangeCalc();
-
-    buildPopUpInfo(event.features[0].properties);
+    buildPopUpInfo(event.features[0].properties, "#demoLayerInfo");
     if ($(".infoLayerElem").first().attr("id") != "demoLayerInfo")
       $("#demoLayerInfo").insertBefore($(".infoLayerElem").first());
     $("#demoLayerInfo").slideDown();
@@ -408,7 +408,7 @@ function DutchGrantsClickHandle(event) {
 
       closeDutchGrantsInfo();
     } else {
-      buildDutchGrantPopUpInfo(event.features[0].properties);
+      buildPopUpInfo(event.features[0].properties, "#infoLayerDutchGrants");
       if ($(".infoLayerElem").first().attr("id") != "infoLayerDutchGrants")
         $("#infoLayerDutchGrants").insertBefore($(".infoLayerElem").first());
       $("#infoLayerDutchGrants").slideDown();
@@ -441,7 +441,7 @@ function DutchGrantsClickHandle(event) {
       });
     }
   } else {
-    buildDutchGrantPopUpInfo(event.features[0].properties);
+    buildPopUpInfo(event.features[0].properties, "#infoLayerDutchGrants");
     if ($(".infoLayerElem").first().attr("id") != "infoLayerDutchGrants")
       $("#infoLayerDutchGrants").insertBefore($(".infoLayerElem").first());
     $("#infoLayerDutchGrants").slideDown();
@@ -553,7 +553,7 @@ function NativeGroupsClickHandle(event) {
 
       closeNativeGroupsInfo();
     } else {
-      buildNativeGroupPopUpInfo(event.features[0].properties);
+      buildPopUpInfo(event.features[0].properties, "#infoLayerNativeGroups");
       if ($(".infoLayerElem").first().attr("id") != "infoLayerNativeGroups")
         $("#infoLayerNativeGroups").insertBefore($(".infoLayerElem").first());
       $("#infoLayerNativeGroups").slideDown();
@@ -586,7 +586,7 @@ function NativeGroupsClickHandle(event) {
       });
     }
   } else {
-    buildNativeGroupPopUpInfo(event.features[0].properties);
+    buildPopUpInfo(event.features[0].properties, "#infoLayerNativeGroups");
     if ($(".infoLayerElem").first().attr("id") != "infoLayerNativeGroups")
       $("#infoLayerNativeGroups").insertBefore($(".infoLayerElem").first());
     $("#infoLayerNativeGroups").slideDown();

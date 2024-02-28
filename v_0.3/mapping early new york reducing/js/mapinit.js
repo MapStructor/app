@@ -203,7 +203,7 @@ function demoFilterRangeCalc() {
       sliderStartDrag = sliderStartMin;
       sliderEndDrag = sliderEndMax;
 
-      if (demo_layer_view_flag) buildPopUpInfo(demo_layer_feature_props);
+      if (demo_layer_view_flag) buildPopUpInfo(demo_layer_feature_props, "#demoLayerInfo");
     }
   }
 }
