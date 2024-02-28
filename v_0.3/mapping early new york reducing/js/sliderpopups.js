@@ -47,9 +47,16 @@ const buildPopUpInfo = (props, sliderPopupName, type) => {
 
         // Define the regular expression pattern
         var pattern = /(<a\s+href=")([^"]+)(")/g;
-
+        var modifiedHtmlString = "";
+        const addOnForLongIslandTribes = `
+          <h3>Long Island Tribes</h3>
+          <hr/>
+          `
+          if(sliderPopupName === "#infoLayerNativeGroups"){
+            modifiedHtmlString += addOnForLongIslandTribes;
+          }
         // Replace href attributes with the prefixed version
-        var modifiedHtmlString = html
+        modifiedHtmlString += html
           .replace(pattern, (_, p1, p2, p3) => {
             if (p2.slice(0, 4) === "http") {
               return p1 + p2 + p3;
@@ -59,7 +66,7 @@ const buildPopUpInfo = (props, sliderPopupName, type) => {
           .replace(/(<a\s+[^>]*)(>)/g, (_, p1, p2) => {
             return p1 + ' target="_blank"' + p2;
           });
-
+          
         $(sliderPopupName).html(modifiedHtmlString);
       });
   } else {

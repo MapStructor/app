@@ -1138,3 +1138,7 @@ label#close:active {
     bottom: 77px;
   }
 }
+
+.field__label{
+  font-weight: bold;
+}
