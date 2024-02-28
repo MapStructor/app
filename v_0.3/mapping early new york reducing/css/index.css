@@ -1142,3 +1142,7 @@ label#close:active {
 .field__label{
   font-weight: bold;
 }
+
+#infoLayerNativeGroups .node__title{
+  font-size: 1em;
+}

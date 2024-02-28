@@ -52,9 +52,15 @@ const buildPopUpInfo = (props, sliderPopupName, type) => {
           <h3>Long Island Tribes</h3>
           <hr/>
           `
+          // Uncomment this to see a styling for lots events
+          // const addOnForLotEvents = `<h2>Lot:</h2>`
           if(sliderPopupName === "#infoLayerNativeGroups"){
             modifiedHtmlString += addOnForLongIslandTribes;
           }
+          // Uncomment this to see a styling for lots events
+          /* if(sliderPopupName === "#demoLayerInfo"){
+            modifiedHtmlString += addOnForLotEvents;
+          } */
         // Replace href attributes with the prefixed version
         modifiedHtmlString += html
           .replace(pattern, (_, p1, p2, p3) => {
