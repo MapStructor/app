@@ -1,18 +1,42 @@
+const popupConfigurations = {
+  'dutch_grants-5ehfqe': {
+    template: "<div class='infoLayerDutchGrantsPopUp'><b>Name:</b> {name}<br><b>Dutch Grant Lot:</b> {Lot}</div>"
+  },
+  'lot_events-bf43eb-right': {
+    template: "<div class='demoLayerInfoPopUp'><b><h2>Taxlot: <a href='https://encyclopedia.nahc-mapping.org/taxlot/{TAXLOT}' target='_blank'>{TAXLOT}</a></h2></b></div>"
+  },
+  'lot_events-bf43eb-left': {
+    template: "<div class='demoLayerInfoPopUp'><b><h2>Taxlot: <a href='https://encyclopedia.nahc-mapping.org/taxlot/{TAXLOT}' target='_blank'>{TAXLOT}</a></h2></b></div>"
+  },
+  'places': {
+    template: "<div class='infoLayerCastelloPopUp'><b>Taxlot (1660):</b> <br/> {LOT2}</div>"
+  },
+  'native-groups-area': {
+    template: "<div class='infoLayerCastelloPopUp'><b>Name:</b> {name}</div>"
+  }
+};
+
+
+
+
 //#region Main Popup Content Generation
 // This function dynamically generates popup content based on the given ID and features from the map.
 // It identifies the map layer and selects the appropriate content generation function for the popup.
 
-function generatePopupContent(id, features, map) {
-  const contentGenerators = {
-    [`dutch_grants-5ehfqe`]: dutchGrantPopUpContent,
-    [id === "lot_events-bf43eb-right"
-      ? "lot_events-bf43eb-right"
-      : `lot_events-bf43eb-left`]: lotEventsPopupContent,
-    [`places`]: castelloEventsPopUpContent,
-    [`native-groups-area`]: longIslandPopupContent,
-  };
 
-  return contentGenerators[id] ? contentGenerators[id](features) : null;
+function generatePopupContent(id, features) {
+  const config = popupConfigurations[id];
+  if (!config) return null; // Return null if no configuration exists
+
+  let content = config.template;
+  const properties = features[0].properties;
+
+  // Replace placeholders in the template with actual property values
+  for (const key in properties) {
+    content = content.replace(new RegExp(`{${key}}`, 'g'), properties[key] || 'Not available');
+  }
+
+  return content;
 }
 
 //#endregion
@@ -25,77 +49,6 @@ function getPopupByName(name) {
   return popupsObject[name];
 }
 //#endregion
-
-//#region Popup Content Functions
-// Each function within this region is responsible for generating the HTML content
-// for a different type of map layer popup. Functions are customized for Dutch Grants,
-// Lot Events, Castello Events, and Long Island features, providing tailored content for each.
-
-// Generates popup content for Dutch Grants, including name and lot details.
-function dutchGrantPopUpContent(features) {
-  let PopUpHTML = "";
-  if (typeof dutch_grant_lots_info[features[0].properties.Lot] == "undefined") {
-    PopUpHTML =
-      "<div class='infoLayerDutchGrantsPopUp'>" +
-      features[0].properties.name +
-      "<br>";
-  } else {
-    PopUpHTML =
-      "<div class='infoLayerDutchGrantsPopUp'>" +
-      (dutch_grant_lots_info[features[0].properties.Lot].name_txt.length > 0
-        ? dutch_grant_lots_info[features[0].properties.Lot].name_txt
-        : features[0].properties.name) +
-      "<br>";
-  }
-  PopUpHTML +=
-    "<b>Dutch Grant Lot: </b>" + features[0].properties.Lot + "</div>";
-  return PopUpHTML;
-}
-
-// Generates popup content for Lot Events, displaying taxlot information with a hyperlink.
-function lotEventsPopupContent(features) {
-  return (
-    "<div class='demoLayerInfoPopUp'><b><h2>Taxlot: <a href='https://encyclopedia.nahc-mapping.org/taxlot/" +
-    features[0].properties.TAXLOT +
-    "' target='_blank'>" +
-    features[0].properties.TAXLOT +
-    "</a></h2></b></div>"
-  );
-}
-
-// Generates popup content for Castello Events, showing taxlot information from 1660.
-function castelloEventsPopUpContent(features) {
-  return (
-    "<div class='infoLayerCastelloPopUp'><b>Taxlot (1660):</b><br>" +
-    features[0].properties.LOT2 +
-    "</div>"
-  );
-}
-
-// Generates popup content for Long Island, displaying names and handling undefined properties.
-function longIslandPopupContent(features) {
-  var PopUpHTML = "";
-  if (
-    typeof taxlot_event_entities_info[features[0].properties.nid] ==
-      "undefined" ||
-    features[0].properties.nid == ""
-  ) {
-    PopUpHTML =
-      "<div class='infoLayerCastelloPopUp'><b>Name : </b>" +
-      features[0].properties.name +
-      "</div>";
-  } else {
-    PopUpHTML =
-      "<div class='infoLayerCastelloPopUp'><b>Name : </b>" +
-      (taxlot_event_entities_info[features[0].properties.nid].name.length > 0
-        ? taxlot_event_entities_info[features[0].properties.nid].name
-        : features[0].properties.name) +
-      "</div>";
-  }
-  return PopUpHTML;
-}
-
-// #endregion
 
 
 // #region Popups Initialization

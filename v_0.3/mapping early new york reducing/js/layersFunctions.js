@@ -43,13 +43,13 @@ function setupLayerEvents(map, layers) {
 
             getPopupByName(layer.popup)
               .setLngLat(coordinates)
-              .setHTML(generatePopupContent(layer.id, e.features, map))
+              .setHTML(generatePopupContent(layer.id, e.features))
               .addTo(map);
           } else {
             // Update popup content if needed
             const popup = getPopupByName(layer.popup);
             if (popup) {
-              const content = generatePopupContent(layer.id, e.features, map);
+              const content = generatePopupContent(layer.id, e.features);
               popup.setLngLat(e.lngLat).setHTML(content);
             }
           }
