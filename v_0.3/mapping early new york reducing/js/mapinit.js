@@ -102,7 +102,7 @@ var urlHash = window.location.hash;
 function demoFilterRangeCalc() {
   //A* demo filter range calculator
   demo_layer_features = afterMap.queryRenderedFeatures({
-    layers: ["lot_events-bf43eb-right"],
+    layers: ["lot_events-bf43eb"],
   });
 
   if (demo_layer_features.length > 0) {

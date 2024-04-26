@@ -92,7 +92,7 @@ function addAllLayers(yr, date) {
 
     //#region - Lot events and dutch grants
     removeMapSourceLayer(map, [
-      { type: "layer", id: `lot_events-bf43eb${index !== 1 ? "-left" : "-right"}` },
+      { type: "layer", id: `lot_events-bf43eb` },
       { type: "source", id: "lot_events-bf43eb" },
       { type: "layer", id: `dutch_grants-5ehfqe` },
       { type: "source", id: "dutch_grants-5ehfqe" },
@@ -104,7 +104,7 @@ function addAllLayers(yr, date) {
       [
         { id: `dutch_grants-5ehfqe-highlighted` },
         { id: `dutch_grants-5ehfqe` },
-        { id: `lot_events-bf43eb${index !== 1 ? "-left" : "-right"}` },
+        { id: `lot_events-bf43eb` },
         { id: `grant-lots-lines` },
         { id: `grant-lots` },
       ],
@@ -117,7 +117,7 @@ function addAllLayers(yr, date) {
         sourceId: "dutch_grants-5ehfqe",
       },
       {
-        id: `lot_events-bf43eb${index !== 1 ? "-left" : "-right"}`,
+        id: `lot_events-bf43eb`,
         popup: `${popupMap}PopUp`,
         sourceId: "lot_events-bf43eb",
       },

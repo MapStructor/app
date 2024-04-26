@@ -10,8 +10,8 @@ function changeDate(unixDate) {
     afterMap.setFilter(id, dateFilter)
   })
 
-  beforeMap.setFilter("lot_events-bf43eb-left", dateFilter);
-  afterMap.setFilter("lot_events-bf43eb-right", dateFilter);
+  beforeMap.setFilter("lot_events-bf43eb", dateFilter);
+  afterMap.setFilter("lot_events-bf43eb", dateFilter);
 
   demoFilterRangeCalc();
 } //end function changeDate

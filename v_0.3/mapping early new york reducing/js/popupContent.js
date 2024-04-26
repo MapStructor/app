@@ -2,10 +2,7 @@ const popupConfigurations = {
   'dutch_grants-5ehfqe': {
     template: "<div class='infoLayerDutchGrantsPopUp'><b>Name:</b> {name}<br><b>Dutch Grant Lot:</b> {Lot}</div>"
   },
-  'lot_events-bf43eb-right': {
-    template: "<div class='demoLayerInfoPopUp'><b><h2>Taxlot: <a href='https://encyclopedia.nahc-mapping.org/taxlot/{TAXLOT}' target='_blank'>{TAXLOT}</a></h2></b></div>"
-  },
-  'lot_events-bf43eb-left': {
+  'lot_events-bf43eb': {
     template: "<div class='demoLayerInfoPopUp'><b><h2>Taxlot: <a href='https://encyclopedia.nahc-mapping.org/taxlot/{TAXLOT}' target='_blank'>{TAXLOT}</a></h2></b></div>"
   },
   'places': {
@@ -17,7 +14,53 @@ const popupConfigurations = {
 };
 
 
+const layerConfigurations = {
+  'DutchGrants': {
+    elementId: '#infoLayerDutchGrants',
+    viewFlag: 'dutchGrantsLayerViewFlag',
+    viewId: 'dutchGrantsLayerViewId',
+    closeInfoFunction: 'closeDutchGrantsInfo',
+    clickHandler: 'dutchGrantsClickHandle',
+    template: "<div class='infoLayerDutchGrantsPopUp'><b>Name:</b> {name}<br><b>Dutch Grant Lot:</b> {Lot}</div>"
+  },
+  // Define other layers similarly
+};
 
+function handleClick(event, layerKey) {
+  const config = layerConfigurations[layerKey];
+  const properties = event.features[0].properties;
+  const htmlContent = buildPopUpInfo(properties, config.template);
+
+  if (window[config.viewId] === event.features[0].id) {
+    if (window[config.viewFlag]) {
+      toggleLayerPanel(false);
+      window[config.closeInfoFunction]();
+    } else {
+      $(config.elementId).html(htmlContent).slideDown();
+      updateLayerViewFlag(true, layerKey, event.features[0].id);
+    }
+  } else {
+    $(config.elementId).html(htmlContent).slideDown();
+    toggleLayerPanel(true);
+    updateLayerViewFlag(false, layerKey, window[config.viewId]);
+    updateLayerViewFlag(true, layerKey, event.features[0].id);
+  }
+  window[config.viewId] = event.features[0].id;
+}
+
+function toggleLayerPanel(show) {
+  if ($("#view-hide-layer-panel").length > 0 && !layer_view_flag === show) {
+    $("#rightInfoBar").css("display", show ? "block" : "none");
+    setTimeout(() => { $("#rightInfoBar").slideUp(); }, 500);
+  }
+}
+
+function updateLayerViewFlag(viewFlag, layerKey, featureId) {
+  const sourceKey = layerKey.toLowerCase().replace(' ', '_') + '-highlighted';
+  const sourceConfig = { source: sourceKey, sourceLayer: sourceKey, id: featureId };
+  afterMap.setFeatureState(sourceConfig, { hover: viewFlag });
+  beforeMap.setFeatureState(sourceConfig, { hover: viewFlag });
+}
 
 //#region Main Popup Content Generation
 // This function dynamically generates popup content based on the given ID and features from the map.
@@ -111,7 +154,7 @@ var demo_layer_feature_props = null,
     map
       .on(
         "click",
-        `lot_events-bf43eb${id === 0 ? "-left" : "-right"}`,
+        `lot_events-bf43eb`,
         function (e) {
           console.log(e.features[0].properties)
           DemoClickHandle(e);
