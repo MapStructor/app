@@ -420,32 +420,30 @@ $(document).ready(function () {
         getTaxlotEventsInfo();
       }
       [0, 1].forEach((index) => {
-        const position = index === 0 ? "left" : "right";
         if (index === 0)
           beforeMap.setLayoutProperty(
-            `lot_events-bf43eb-${position}`,
+            `lot_events-bf43eb`,
             "visibility",
             "visible"
           );
         else
           afterMap.setLayoutProperty(
-            `lot_events-bf43eb-${position}`,
+            `lot_events-bf43eb`,
             "visibility",
             "visible"
           );
       });
     } else {
       [0, 1].forEach((index) => {
-        const position = index === 0 ? "left" : "right";
         if (index === 0)
           beforeMap.setLayoutProperty(
-            `lot_events-bf43eb-${position}`,
+            `lot_events-bf43eb`,
             "visibility",
             "none"
           );
         else
           afterMap.setLayoutProperty(
-            `lot_events-bf43eb-${position}`,
+            `lot_events-bf43eb`,
             "visibility",
             "none"
           );
