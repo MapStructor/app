@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Map Structur - Create Static Maps</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.css" type="text/css" />
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+form {
+    position: absolute;
+    left: 20px;
+    top: 2rem;
+    background-color: white;
+    padding: 2rem;
+    z-index: 1000;
+}
+</style>
+</head>
+<body>
+    <form >
+        <div>
+            <label>Name:</label>
+            <input/>
+        </div>
+        <div>
+            <label>Group:</label>
+            <input/>
+        </div>
+        <div>
+            <label>Section:</label>
+            <input/>
+        </div>
+        <div>
+            <label>Icon Color:</label>
+            <input type="color"/>
+        </div>
+        <div>
+            <label>Turned on by default</label>
+            <input type="checkbox"/>
+        </div>
+            <div>
+                <label>Source</label>
+                <select>
+                    <option>Map Box Tileset</option>
+                    <option>Geojsons</option>
+                </select>
+            </div>
+            <div>
+                <label>Source ID</label>
+                <input/>
+            </div>
+            <div>
+                <label>URL</label>
+                <input/>
+            </div>
+            <h3>Data Slider</h3>
+            <div>
+                <label>Start Date</label>
+                <input type="number"/>
+            </div>
+            <div>
+                <label>End Date</label>
+                <input type="number"/>
+            </div>
+            <h3>Hover</h3>
+            <div>
+                <label>Hover Color</label>
+                <input type="color"/>
+            </div>
+            <div>
+                <label>Hover Content</label>
+                <textarea></textarea>
+            </div>
+    </form>
+<div id="map"></div>
+<script>
+    alert("Fetching project with saved session id ")
+    alert("Loading fetched project")
+	// TO MAKE THE MAP APPEAR YOU MUST
+	// ADD YOUR ACCESS TOKEN FROM
+	// https://account.mapbox.com
+	mapboxgl.accessToken = 'pk.eyJ1IjoibWFwbnkiLCJhIjoiY2xtMG93amk4MnBrZTNnczUzY2VvYjg0ciJ9.MDMHYBlVbG14TJD120t6NQ';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v9',
+        projection: 'globe', // Display the map as a globe, since satellite-v9 defaults to Mercator
+        zoom: 1,
+        center: [30, 15]
+    });
+
+    map.addControl(new mapboxgl.NavigationControl());
+    const draw = new MapboxDraw({
+        displayControlsDefault: false,
+        controls: {
+            point: true,
+            line_string: true,
+            polygon: true,
+            trash: true,
+        },
+        // defaultMode: false,
+    });
+
+    map.addControl(draw);
+    // map.scrollZoom.disable();
+
+    map.on('style.load', () => {
+        map.setFog({}); // Set the default atmosphere style
+    });
+
+    // The following values can be changed to control rotation speed:
+
+    // At low zooms, complete a revolution every two minutes.
+    const secondsPerRevolution = 240;
+    // Above zoom level 5, do not rotate.
+    const maxSpinZoom = 5;
+    // Rotate at intermediate speeds between zoom levels 3 and 5.
+    const slowSpinZoom = 3;
+
+    let userInteracting = false;
+    const spinEnabled = true;
+
+    function spinGlobe() {
+        const zoom = map.getZoom();
+        if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
+            let distancePerSecond = 360 / secondsPerRevolution;
+            if (zoom > slowSpinZoom) {
+                // Slow spinning at higher zooms
+                const zoomDif =
+                    (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
+                distancePerSecond *= zoomDif;
+            }
+            const center = map.getCenter();
+            center.lng -= distancePerSecond;
+            // Smoothly animate the map over one second.
+            // When this animation is complete, it calls a 'moveend' event.
+            map.easeTo({ center, duration: 1000, easing: (n) => n });
+        }
+    }
+
+    // Pause spinning on interaction
+    map.on('mousedown', () => {
+        userInteracting = true;
+    });
+    map.on('dragstart', () => {
+        userInteracting = true;
+    });
+
+    // When animation is complete, start spinning if there is no ongoing interaction
+    map.on('moveend', () => {
+        spinGlobe();
+    });
+
+    spinGlobe();
+</script>
+
+</body>
+</html>
