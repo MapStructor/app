@@ -7,157 +7,217 @@
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
 <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.js"></script>
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.css" type="text/css" />
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.css" type="text/css" />
 <style>
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-form {
-    position: absolute;
-    left: 20px;
-    top: 2rem;
-    background-color: white;
-    padding: 2rem;
-    z-index: 1000;
-}
+    body { margin: 0; padding: 0; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    form {
+        position: absolute;
+        left: 7rem;
+        top: 2rem;
+        background-color: white;
+        padding: 2rem;
+        z-index: 1000;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    #button-group{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #modal {
+        position: absolute;
+        background-color: #00000052;
+        z-index: 10;
+        width: 100vw;
+        height: 100vh;
+        place-items: center;
+        display: none;
+    }
+
+    #add-layer-modal{
+        background-color: #fff;
+        padding: 1rem 2rem;
+    }
+
+    #add-layer-modal h2 {
+        margin-bottom: 1rem;
+        color: #333;
+    }
+
+    #add-layer-modal div {
+        margin-bottom: 1rem;
+    }
+
+    #add-layer-modal label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: #555;
+    }
+
+    #add-layer-modal input[type="text"] {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    #add-layer-modal input[type="text"]:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    }
+
+    #add-layer-link-section{
+        display: none;
+    }
+
+    #draw-controls {
+        position: relative;
+        margin-top: 1rem;
+        width: fit-content;
+        margin-left: auto;
+    }
 </style>
 </head>
 <body>
-    <form >
-        <div>
-            <label>Name:</label>
-            <input/>
+    <form>
+        <div id="button-group">
+            <button>Add Group</button>
+            <button onclick="showLayerModal(event)">Add Layer</button>
+            <button>Add Section</button>
         </div>
-        <div>
-            <label>Group:</label>
-            <input/>
-        </div>
-        <div>
-            <label>Section:</label>
-            <input/>
-        </div>
-        <div>
-            <label>Icon Color:</label>
-            <input type="color"/>
-        </div>
-        <div>
-            <label>Turned on by default</label>
-            <input type="checkbox"/>
-        </div>
-            <div>
-                <label>Source</label>
-                <select>
-                    <option>Map Box Tileset</option>
-                    <option>Geojsons</option>
-                </select>
-            </div>
-            <div>
-                <label>Source ID</label>
-                <input/>
-            </div>
-            <div>
-                <label>URL</label>
-                <input/>
-            </div>
-            <h3>Data Slider</h3>
-            <div>
-                <label>Start Date</label>
-                <input type="number"/>
-            </div>
-            <div>
-                <label>End Date</label>
-                <input type="number"/>
-            </div>
-            <h3>Hover</h3>
-            <div>
-                <label>Hover Color</label>
-                <input type="color"/>
-            </div>
-            <div>
-                <label>Hover Content</label>
-                <textarea></textarea>
-            </div>
+        <div id="draw-controls"></div>
     </form>
-<div id="map"></div>
-<script>
-    alert("Fetching project with saved session id ")
-    alert("Loading fetched project")
-	// TO MAKE THE MAP APPEAR YOU MUST
-	// ADD YOUR ACCESS TOKEN FROM
-	// https://account.mapbox.com
-	mapboxgl.accessToken = 'pk.eyJ1IjoibWFwbnkiLCJhIjoiY2xtMG93amk4MnBrZTNnczUzY2VvYjg0ciJ9.MDMHYBlVbG14TJD120t6NQ';
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v9',
-        projection: 'globe', // Display the map as a globe, since satellite-v9 defaults to Mercator
-        zoom: 1,
-        center: [30, 15]
-    });
-
-    map.addControl(new mapboxgl.NavigationControl());
-    const draw = new MapboxDraw({
-        displayControlsDefault: false,
-        controls: {
-            point: true,
-            line_string: true,
-            polygon: true,
-            trash: true,
-        },
-        // defaultMode: false,
-    });
-
-    map.addControl(draw);
-    // map.scrollZoom.disable();
-
-    map.on('style.load', () => {
-        map.setFog({}); // Set the default atmosphere style
-    });
-
-    // The following values can be changed to control rotation speed:
-
-    // At low zooms, complete a revolution every two minutes.
-    const secondsPerRevolution = 240;
-    // Above zoom level 5, do not rotate.
-    const maxSpinZoom = 5;
-    // Rotate at intermediate speeds between zoom levels 3 and 5.
-    const slowSpinZoom = 3;
-
-    let userInteracting = false;
-    const spinEnabled = true;
-
-    function spinGlobe() {
-        const zoom = map.getZoom();
-        if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
-            let distancePerSecond = 360 / secondsPerRevolution;
-            if (zoom > slowSpinZoom) {
-                // Slow spinning at higher zooms
-                const zoomDif =
-                    (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
-                distancePerSecond *= zoomDif;
+    <div id="modal" onclick="hideModalOuterDiv(event)">
+        <div id="add-layer-modal" onclick="hideModalInnerDiv(event)">
+            <h2>Add Layer</h2>
+            <div>
+                <label>Name: </label>
+                <input/>
+            </div>
+            <div>
+                <label>Type: </label>
+                <input/>
+            </div>
+            <button onclick="toggleAddLayerLinkSection(event)">Link</button>
+            <div id="add-layer-link-section">
+                <div>
+                    <label>Source: </label>
+                    <input/>
+                </div>
+                <div>
+                    <label>Source ID: </label>
+                    <input/>
+                </div>
+                <div>
+                    <label>URL: </label>
+                    <input/>
+                </div>
+            </div>
+            <button>Upload</button>
+        </div>
+    </div>
+    <div id="map"></div>
+    <script>
+        function toggleAddLayerLinkSection(e){
+            e.preventDefault()
+            const section = document.getElementById("add-layer-link-section")
+            if(section.style.display === "none"){
+                section.style.display = "block"
+            } else {
+                section.style.display = "none"
             }
-            const center = map.getCenter();
-            center.lng -= distancePerSecond;
-            // Smoothly animate the map over one second.
-            // When this animation is complete, it calls a 'moveend' event.
-            map.easeTo({ center, duration: 1000, easing: (n) => n });
         }
-    }
 
-    // Pause spinning on interaction
-    map.on('mousedown', () => {
-        userInteracting = true;
-    });
-    map.on('dragstart', () => {
-        userInteracting = true;
-    });
+        function hideModalOuterDiv(e){
+            const modal = document.getElementById("modal");
+            if (e.target.id === "modal") {
+                modal.style.display = "none";
+            }
+        }
 
-    // When animation is complete, start spinning if there is no ongoing interaction
-    map.on('moveend', () => {
+        function hideModalInnerDiv(e){
+            e.stopPropagation(); // Prevent event bubbling to the outer div
+        }
+
+        function showLayerModal(e){
+            e.preventDefault();
+            const modal = document.getElementById("modal");
+            modal.style.display = "grid";
+        }
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWFwbnkiLCJhIjoiY2xtMG93amk4MnBrZTNnczUzY2VvYjg0ciJ9.MDMHYBlVbG14TJD120t6NQ';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v9',
+            projection: 'globe',
+            zoom: 1,
+            center: [30, 15]
+        });
+
+        map.addControl(new mapboxgl.NavigationControl());
+
+        const drawControls = new MapboxDraw({
+            displayControlsDefault: false,
+            controls: {
+                point: true,
+                line_string: true,
+                polygon: true,
+                trash: true,
+            },
+        });
+
+        document.getElementById('draw-controls').appendChild(drawControls.onAdd(map));
+        map.on('style.load', () => {
+            map.setFog({});
+        });
+
+        let userInteracting = false;
+        const spinEnabled = true;
+
+        function spinGlobe() {
+            if (spinEnabled && !userInteracting && map.getZoom() < 5) {
+                map.easeTo({
+                    center: [map.getCenter().lng - (360 / 240), map.getCenter().lat],
+                    duration: 1000,
+                    easing: (n) => n
+                });
+            }
+        }
+
+        map.on('mousedown', () => {
+            userInteracting = true;
+        });
+
+        map.on('dragstart', () => {
+            userInteracting = true;
+        });
+
+        map.on('moveend', () => {
+            spinGlobe();
+        });
+
         spinGlobe();
-    });
-
-    spinGlobe();
-</script>
-
+    </script>
 </body>
 </html>

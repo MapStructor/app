@@ -14,14 +14,46 @@
             padding: 2rem 1rem;
         }
     </style>
+    <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore-compat.js"></script>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"; // Import Firestore
+    
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyARV4sRVZMisTI9FE7-CLQSf1GWQ82ZqYg",
+      authDomain: "mapstructor-3a1eb.firebaseapp.com",
+      projectId: "mapstructor-3a1eb",
+      storageBucket: "mapstructor-3a1eb.appspot.com",
+      messagingSenderId: "1093332355668",
+      appId: "1:1093332355668:web:d7b0a4d3da4d7faeda7bc1",
+      measurementId: "G-Y2FVT4V5CC"
+    };
+    
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(); // Initialize Firestore
+    window.projects = collection(db, "projects")
+    window.addDoc = addDoc
+</script>
+
 </head>
 <body>
-    <a href="editor.html" onclick="func()">Make A Map</a>
+    <button onclick="func(event)">Make A Map</button>
     <script>
-        function func(){
-            alert("Sending a signal to firebase to create a new empty project")
-            alert("Received session id, sl392ai23, and saving to the browser")
-            alert("Navigating to editor")
+        function func(event){
+            window.addDoc(window.projects, {
+                name: "Untitled New project"
+            }).then(()=>{
+                console.log("Successfully added")
+                window.location.href = "editor.html"
+            }).catch(console.log)
+            
         }
     </script>
 </body>

@@ -132,22 +132,6 @@ const popupsObject = createPopups();
 
 // #endregion
 
-const layersConfig = [
-  {
-    id: "lot_events-bf43eb",
-  },
-  {
-    id: "places"
-  },
-  {
-    id: "dutch_grants-5ehfqe"
-  },
-  {
-    id: "native-groups-area"
-  }
-]
-
-
 // #region Hovered and Clicked State Management
 // Variables to manage the state of hovered and clicked map features. These are used to track which features are currently under interaction, allowing for dynamic updates to the UI or map based on user actions.
 
@@ -172,18 +156,22 @@ var demo_layer_feature_props = null,
         "click",
         `lot_events-bf43eb`,
         function (e) {
+          console.log(e.features[0].properties)
           DemoClickHandle(e);
         }
       )
       .on("click", `places`, function (e) {
+          console.log(e.features[0].properties)
           CastelloClickHandle(e);
       })
 
       .on("click", `dutch_grants-5ehfqe`, function (e) {
+          console.log(e.features[0].properties)
           DutchGrantsClickHandle(e);
       })
 
       .on("click", `native-groups-area`, function (e) {
+          console.log(e.features[0].properties)
           NativeGroupsClickHandle(e);
       })
       .on("click", function () {
@@ -191,7 +179,7 @@ var demo_layer_feature_props = null,
       });
   });
 
-  map.on("error", console.error);
+  map.on("error", console.log);
 });
 
 // #endregion
@@ -230,6 +218,15 @@ function DefaultHandle() {
 
 //#region Close Info and ClickHandle Functions
 
+function closeCastelloInfo() {
+  $("#infoLayerCastello").slideUp();
+  castello_layer_view_flag = false;
+  ["after", "before"].forEach((position) => {
+    if (popupsObject[`${position}HighCastelloPopUp`].isOpen())
+      popupsObject[`${position}HighCastelloPopUp`].remove();
+  });
+}
+
 function CastelloClickHandle(event) {
   if (castello_layer_view_flag && clickedStateId == event.features[0].id) {
     if ($("#view-hide-layer-panel").length > 0)
@@ -240,7 +237,7 @@ function CastelloClickHandle(event) {
         }, 500);
       }
 
-      closeInfo("#infoLayerCastello", castello_layer_view_flag, "HighCastelloPopUp")
+    closeCastelloInfo();
   } else {
     clickedStateId = event.features[0].id;
     var coordinates = [];
@@ -279,6 +276,13 @@ function CastelloClickHandle(event) {
   castello_click_ev = true;
 }
 
+function closeDemoInfo() {
+  $("#demoLayerInfo").slideUp();
+  demo_layer_view_flag = false;
+  if (afterHighDemoPopUp.isOpen()) afterHighDemoPopUp.remove();
+  if (beforeHighDemoPopUp.isOpen()) beforeHighDemoPopUp.remove();
+}
+
 function DemoClickHandle(event) {
   if (demo_layer_view_flag) {
     if ($("#view-hide-layer-panel").length > 0)
@@ -289,7 +293,7 @@ function DemoClickHandle(event) {
         }, 500);
       }
 
-      closeInfo("#demoLayerInfo", demo_layer_view_flag, "HighDemoPopUp")
+    closeDemoInfo();
   } else {
     demo_layer_taxlot = event.features[0].properties.TAXLOT;
 
@@ -343,7 +347,7 @@ function DemoClickHandle(event) {
 function closeDutchGrantsInfo() {
   $("#infoLayerDutchGrants").slideUp();
   dgrants_layer_view_flag = false;
-/*   afterMap.setFeatureState(
+  afterMap.setFeatureState(
     {
       source: "dutch_grants-5ehfqe-highlighted",
       sourceLayer: "dutch_grants-5ehfqe",
@@ -358,7 +362,7 @@ function closeDutchGrantsInfo() {
       id: dgrants_layer_view_id,
     },
     { hover: false }
-  ); */
+  );
   ["before", "after"].forEach((position) => {
     if (popupsObject[`${position}HighMapGrantLotPopUp`].isOpen())
       popupsObject[`${position}HighMapGrantLotPopUp`].remove();
@@ -397,8 +401,8 @@ function DutchGrantsClickHandle(event) {
             $("#rightInfoBar").slideUp();
           }, 500);
         }
-        closeInfo("#infoLayerDutchGrants", dgrants_layer_view_flag, "HighMapGrantLotPopUp")
-      // closeDutchGrantsInfo();
+
+      closeDutchGrantsInfo();
     } else {
       buildPopUpInfo(event.features[0].properties, "#infoLayerDutchGrants");
       if ($(".infoLayerElem").first().attr("id") != "infoLayerDutchGrants")
@@ -639,32 +643,4 @@ function closeGrantLotsInfo() {
   });
 }
 
-function closeInfo(infoId, flag, popupConfigName){
-  $(infoId).slideUp();
-  flag = false;
-  if (infoId === "#infoLayerDutchGrants"){
-    afterMap.setFeatureState(
-      {
-        source: "dutch_grants-5ehfqe-highlighted",
-        sourceLayer: "dutch_grants-5ehfqe",
-        id: dgrants_layer_view_id,
-      },
-      { hover: false }
-    );
-    beforeMap.setFeatureState(
-      {
-        source: "dutch_grants-5ehfqe-highlighted",
-        sourceLayer: "dutch_grants-5ehfqe",
-        id: dgrants_layer_view_id,
-      },
-      { hover: false }
-    );
-  }
-  ["after", "before"].forEach((position) => {
-    if (popupsObject[position+popupConfigName].isOpen())
-      popupsObject[position+popupConfigName].remove();
-  });
-}
-
 // #endregion
-
