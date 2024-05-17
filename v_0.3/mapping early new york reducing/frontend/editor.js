@@ -4,6 +4,8 @@
 
 const projectId = localStorage.getItem("PROJECT_ID");
 
+let type = ""
+
 function toggleAddLayerLinkSection(e){
     e.preventDefault()
     const section = document.getElementById("add-layer-link-section")
@@ -86,8 +88,20 @@ map.on('moveend', () => {
     spinGlobe();
 });
 
+const typeSelection = document.getElementById("type");
+
+
 map.on("click", e => {
     saveProjectToFirebase()
+    const data = drawControls.getAll() 
+    if(data.features.length === 1){
+        // determine this as the type of the of the layers
+        type = data.features[0].geometry.type
+        typeSelection.value = type
+        typeSelection.disabled = true
+    } else {
+        // remove all featires that are not of the specific type
+    }
 })
 
 spinGlobe();
