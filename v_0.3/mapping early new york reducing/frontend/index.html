@@ -41,20 +41,10 @@
     window.projects = collection(db, "projects")
     window.addDoc = addDoc
 </script>
-
+<script src="./utils/generateRandomString.js"></script>
+<script src="./index.js"></script>
 </head>
 <body>
     <button onclick="func(event)">Make A Map</button>
-    <script>
-        function func(event){
-            window.addDoc(window.projects, {
-                name: "Untitled New project"
-            }).then(()=>{
-                console.log("Successfully added")
-                window.location.href = "editor.html"
-            }).catch(console.log)
-            
-        }
-    </script>
 </body>
 </html>
