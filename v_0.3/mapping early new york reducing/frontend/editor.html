@@ -45,9 +45,11 @@
         <div id="button-group">
             <h3>Project Name</h3>
             <input value="Untitled Project" id="title" onchange="titleOnChange(event)"/>
+            <h3>Project ID</h3>
+            <input value="Example ID" disabled id="project-id"/>
             <button>Add Group</button>
             <button onclick="showLayerModal(event)">Add Layer</button>
-            <button>Add Section</button>
+            <button onclick="showLoadProjectModal(event)">Load project from id</button>
             <h5>Type</h5>
             <select id="type">
                 <option>Not selected</option>
@@ -85,6 +87,14 @@
                 </div>
             </div>
             <button>Upload</button>
+        </div>
+        <div id="load-project-modal" onclick="hideModalInnerDiv(event)">
+            <h2>Load Project</h2>
+            <div>
+                <label>Project ID: </label>
+                <input id="project-id-input" placeholder="paste project id" oninput="validateProjectIdInput(event)"/>
+            </div>
+            <button id="load-project-button" onclick="loadProjectById()" disabled>Load Project</button>
         </div>
     </div>
     <div id="map"></div>

@@ -4,6 +4,10 @@
 
 const projectId = localStorage.getItem("PROJECT_ID");
 
+if(projectId){
+    getProjectById(projectId)
+}
+
 let type = ""
 
 function toggleAddLayerLinkSection(e){
@@ -31,6 +35,16 @@ function showLayerModal(e){
     e.preventDefault();
     const modal = document.getElementById("modal");
     modal.style.display = "grid";
+    document.getElementById("add-layer-modal").style.display = "block";
+    document.getElementById("load-project-modal").style.display = "none";
+}
+
+function showLoadProjectModal(e){
+    e.preventDefault();
+    const modal = document.getElementById("modal");
+    modal.style.display = "grid";
+    document.getElementById("load-project-modal").style.display = "block";
+    document.getElementById("add-layer-modal").style.display = "none";
 }
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwbnkiLCJhIjoiY2xtMG93amk4MnBrZTNnczUzY2VvYjg0ciJ9.MDMHYBlVbG14TJD120t6NQ';
@@ -51,7 +65,8 @@ const drawControls = new MapboxDraw({
         line_string: true,
         polygon: true,
         trash: true,
-    },
+    }
+    
 });
 
 // draw controls
@@ -126,3 +141,29 @@ function titleOnChange(e) {
 window.getDoc(doc(window.db, "projects", projectId)).then(snapshot =>{
     title.value = snapshot.data().name
 })
+
+document.getElementById("project-id").value = projectId
+
+function getProjectById(id){
+    window.getDoc(doc(window.db, "projects", id)).then(snapshot => {
+        const data = snapshot.data();
+        title.value = data.name;
+        const features = JSON.parse(data.features)
+        console.log(features)
+        drawControls.set({features, type: "FeatureCollection"})
+    })
+}
+
+function validateProjectIdInput(e){
+    const input = e.target;
+    const button = document.getElementById("load-project-button");
+    button.disabled = input.value.trim() === "";
+}
+
+function loadProjectById(){
+    const input = document.getElementById("project-id-input").value;
+    if(input.trim() !== ""){
+        getProjectById(input.trim());
+        document.getElementById("modal").style.display = "none";
+    }
+}

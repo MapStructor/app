@@ -40,28 +40,35 @@ body { margin: 0; padding: 0; }
         display: none;
     }
 
-    #add-layer-modal{
+    #add-layer-modal,
+    #load-project-modal {
         background-color: #fff;
         padding: 1rem 2rem;
+        display: none;
     }
 
-    #add-layer-modal h2 {
+    #add-layer-modal h2,
+    #load-project-modal h2 {
         margin-bottom: 1rem;
         color: #333;
     }
 
-    #add-layer-modal div {
+    #add-layer-modal div,
+    #load-project-modal div {
         margin-bottom: 1rem;
     }
 
-    #add-layer-modal label {
+    #add-layer-modal label,
+    #load-project-modal label {
         display: block;
         margin-bottom: 0.5rem;
         font-weight: bold;
         color: #555;
     }
 
-    #add-layer-modal input[type="text"] {
+    #add-layer-modal input[type="text"],
+    #load-project-modal input[type="text"],
+    #load-project-modal input[type="text"] {
         width: 100%;
         padding: 0.5rem;
         border: 1px solid #ccc;
@@ -69,7 +76,8 @@ body { margin: 0; padding: 0; }
         box-sizing: border-box;
     }
 
-    #add-layer-modal input[type="text"]:focus {
+    #add-layer-modal input[type="text"]:focus,
+    #load-project-modal input[type="text"]:focus {
         outline: none;
         border-color: #007bff;
         box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
@@ -82,8 +90,8 @@ body { margin: 0; padding: 0; }
     #draw-controls {
         position: relative;
         margin-top: 1rem;
-        width: fit-content;
-        margin-left: auto;
+        display: grid;
+        place-items: center;
     }
 
     #title {
@@ -92,3 +100,20 @@ body { margin: 0; padding: 0; }
         border: #ccc solid 2px;
         padding: 0.3rem 0.3rem;
       }
+
+      #project-id{
+        display: block;
+        padding: 0.3rem 0.3rem;
+        margin-bottom: 10px;
+      }
+
+      #draw-controls > .mapboxgl-ctrl-group {
+        display: flex;
+        flex-direction: row;
+        margin: auto initial;
+    }
+
+    #draw-controls .mapbox-gl-draw_ctrl-draw-btn{
+        margin-bottom: 0;
+        margin-right: 0;
+    }
