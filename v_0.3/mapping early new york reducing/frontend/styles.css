@@ -1,119 +1,139 @@
-body { margin: 0; padding: 0; }
-    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    form {
-        position: absolute;
-        left: 7rem;
-        top: 2rem;
-        background-color: white;
-        padding: 2rem;
-        z-index: 1000;
-    }
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap");
 
-    button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        display: block;
-        margin-bottom: 10px;
-    }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Archivo", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+form {
+  position: absolute;
+  left: 7rem;
+  top: 2rem;
+  background-color: white;
+  padding: 2rem;
+  z-index: 1000;
+}
 
-    button:hover {
-        background-color: #0056b3;
-    }
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block;
+  margin-bottom: 10px;
+}
 
-    #button-group{
-        display: flex;
-        flex-direction: column;
-    }
+button:hover {
+  background-color: #0056b3;
+}
 
-    #modal {
-        position: absolute;
-        background-color: #00000052;
-        z-index: 10;
-        width: 100vw;
-        height: 100vh;
-        place-items: center;
-        display: none;
-    }
+#button-group {
+  display: flex;
+  flex-direction: column;
+}
 
-    #add-layer-modal,
-    #load-project-modal {
-        background-color: #fff;
-        padding: 1rem 2rem;
-        display: none;
-    }
+#modal {
+  position: absolute;
+  background-color: #00000052;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+  place-items: center;
+  display: none;
+}
 
-    #add-layer-modal h2,
-    #load-project-modal h2 {
-        margin-bottom: 1rem;
-        color: #333;
-    }
+#add-layer-modal,
+#load-project-modal {
+  background-color: #fff;
+  padding: 1rem 2rem;
+  display: none;
+}
 
-    #add-layer-modal div,
-    #load-project-modal div {
-        margin-bottom: 1rem;
-    }
+#add-layer-modal h2,
+#load-project-modal h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
 
-    #add-layer-modal label,
-    #load-project-modal label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: bold;
-        color: #555;
-    }
+#add-layer-modal div,
+#load-project-modal div {
+  margin-bottom: 1rem;
+}
 
-    #add-layer-modal input[type="text"],
-    #load-project-modal input[type="text"],
-    #load-project-modal input[type="text"] {
-        width: 100%;
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
+#add-layer-modal label,
+#load-project-modal label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #555;
+}
 
-    #add-layer-modal input[type="text"]:focus,
-    #load-project-modal input[type="text"]:focus {
-        outline: none;
-        border-color: #007bff;
-        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-    }
+#add-layer-modal input[type="text"],
+#load-project-modal input[type="text"],
+#load-project-modal input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 
-    #add-layer-link-section{
-        display: none;
-    }
+#add-layer-modal input[type="text"]:focus,
+#load-project-modal input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
 
-    #draw-controls {
-        position: relative;
-        margin-top: 1rem;
-        display: grid;
-        place-items: center;
-    }
+#add-layer-link-section {
+  display: none;
+}
 
-    #title {
-        margin-bottom: 10px;
-        display: block;
-        border: #ccc solid 2px;
-        padding: 0.3rem 0.3rem;
-      }
+#draw-controls {
+  position: relative;
+  margin-top: 1rem;
+  display: grid;
+  place-items: center;
+}
 
-      #project-id{
-        display: block;
-        padding: 0.3rem 0.3rem;
-        margin-bottom: 10px;
-      }
+#title {
+  margin-bottom: 10px;
+  display: block;
+  border: #ccc solid 2px;
+  padding: 0.3rem 0.3rem;
+}
 
-      #draw-controls > .mapboxgl-ctrl-group {
-        display: flex;
-        flex-direction: row;
-        margin: auto initial;
-    }
+#project-id {
+  display: block;
+  padding: 0.3rem 0.3rem;
+  margin-bottom: 10px;
+}
 
-    #draw-controls .mapbox-gl-draw_ctrl-draw-btn{
-        margin-bottom: 0;
-        margin-right: 0;
-    }
+#draw-controls > .mapboxgl-ctrl-group {
+  display: flex;
+  flex-direction: row;
+  margin: auto initial;
+}
+
+#draw-controls .mapbox-gl-draw_ctrl-draw-btn {
+  margin-bottom: 0;
+  margin-right: 0;
+}
+
+h5,
+h3 {
+  margin-block-start: 10px;
+  margin-block-end: 10px;
+}

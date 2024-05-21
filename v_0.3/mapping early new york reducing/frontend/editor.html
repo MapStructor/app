@@ -1,103 +1,141 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>Map Structur - Create Static Maps</title>
-<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
-<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
-<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.js"></script>
-<script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
-    import { getFirestore, collection, addDoc, updateDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"; // Import Firestore
-    
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-      apiKey: "AIzaSyARV4sRVZMisTI9FE7-CLQSf1GWQ82ZqYg",
-      authDomain: "mapstructor-3a1eb.firebaseapp.com",
-      projectId: "mapstructor-3a1eb",
-      storageBucket: "mapstructor-3a1eb.appspot.com",
-      messagingSenderId: "1093332355668",
-      appId: "1:1093332355668:web:d7b0a4d3da4d7faeda7bc1",
-      measurementId: "G-Y2FVT4V5CC"
-    };
-    
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const db = getFirestore(); // Initialize Firestore
-    window.projects = collection(db, "projects")
-    window.addDoc = addDoc
-    window.updateDoc = updateDoc
-    window.doc = doc
-    window.db = db
-    window.getDoc = getDoc
-</script>
-<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.css" type="text/css" />
-<link rel="stylesheet" href="./styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Map Structur - Create Static Maps</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.js"></script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+        updateDoc,
+        doc,
+        getDoc,
+      } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"; // Import Firestore
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyARV4sRVZMisTI9FE7-CLQSf1GWQ82ZqYg",
+        authDomain: "mapstructor-3a1eb.firebaseapp.com",
+        projectId: "mapstructor-3a1eb",
+        storageBucket: "mapstructor-3a1eb.appspot.com",
+        messagingSenderId: "1093332355668",
+        appId: "1:1093332355668:web:d7b0a4d3da4d7faeda7bc1",
+        measurementId: "G-Y2FVT4V5CC",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getFirestore(); // Initialize Firestore
+      window.projects = collection(db, "projects");
+      window.addDoc = addDoc;
+      window.updateDoc = updateDoc;
+      window.doc = doc;
+      window.db = db;
+      window.getDoc = getDoc;
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.css"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
     <form>
-        <div id="button-group">
-            <h3>Project Name</h3>
-            <input value="Untitled Project" id="title" onchange="titleOnChange(event)"/>
-            <h3>Project ID</h3>
-            <input value="Example ID" disabled id="project-id"/>
-            <button>Add Group</button>
-            <button onclick="showLayerModal(event)">Add Layer</button>
-            <button onclick="showLoadProjectModal(event)">Load project from id</button>
-            <h5>Type</h5>
-            <select id="type">
-                <option>Not selected</option>
-                <option>Point</option>
-                <option>Polygon</option>
-                <option>Line</option>
-            </select>
+      <div id="button-group">
+        <h3>Project Name</h3>
+        <input
+          value="Untitled Project"
+          id="title"
+          onchange="titleOnChange(event)"
+        />
+        <h3>Project ID</h3>
+        <input value="Example ID" disabled id="project-id" />
+        <button onclick="showLayerModal(event)">Add Layer</button>
+        <button onclick="showLoadProjectModal(event)">
+          Load project from id
+        </button>
+        <div id="layers-container"></div>
         </div>
-        <div id="draw-controls"></div>
+        <h5>Type</h5>
+        <select id="type">
+          <option>Not selected</option>
+          <option>Point</option>
+          <option>Polygon</option>
+          <option>Line</option>
+        </select>
+      </div>
+      <div id="draw-controls"></div>
     </form>
     <div id="modal" onclick="hideModalOuterDiv(event)">
-        <div id="add-layer-modal" onclick="hideModalInnerDiv(event)">
-            <h2>Add Layer</h2>
-            <div>
-                <label>Name: </label>
-                <input/>
-            </div>
-            <div>
-                <label>Type: </label>
-                <input/>
-            </div>
-            <button onclick="toggleAddLayerLinkSection(event)">Link</button>
-            <div id="add-layer-link-section">
-                <div>
-                    <label>Source: </label>
-                    <input/>
-                </div>
-                <div>
-                    <label>Source ID: </label>
-                    <input/>
-                </div>
-                <div>
-                    <label>URL: </label>
-                    <input/>
-                </div>
-            </div>
-            <button>Upload</button>
+      <div id="add-layer-modal" onclick="hideModalInnerDiv(event)">
+        <h2>Add Layer</h2>
+        <div>
+          <label>Name: </label>
+          <input />
         </div>
-        <div id="load-project-modal" onclick="hideModalInnerDiv(event)">
-            <h2>Load Project</h2>
-            <div>
-                <label>Project ID: </label>
-                <input id="project-id-input" placeholder="paste project id" oninput="validateProjectIdInput(event)"/>
-            </div>
-            <button id="load-project-button" onclick="loadProjectById()" disabled>Load Project</button>
+        <div>
+          <label>Type: </label>
+          <input />
         </div>
+        <button onclick="toggleAddLayerLinkSection(event)">Link</button>
+        <div id="add-layer-link-section">
+          <div>
+            <label>Source: </label>
+            <input />
+          </div>
+          <div>
+            <label>Source ID: </label>
+            <input />
+          </div>
+          <div>
+            <label>URL: </label>
+            <input />
+          </div>
+        </div>
+        <button>Upload</button>
+      </div>
+      <div id="load-project-modal" onclick="hideModalInnerDiv(event)">
+        <h2>Load Project</h2>
+        <div>
+          <label>Project ID: </label>
+          <input
+            id="project-id-input"
+            placeholder="paste project id"
+            oninput="validateProjectIdInput(event)"
+          />
+        </div>
+        <button id="load-project-button" onclick="loadProjectById()" disabled>
+          Load Project
+        </button>
+      </div>
     </div>
     <div id="map"></div>
     <script src="./editor.js" defer></script>
-</body>
+  </body>
 </html>

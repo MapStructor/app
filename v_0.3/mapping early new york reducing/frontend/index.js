@@ -3,7 +3,7 @@ function func(){
     window.addDoc(window.projects, {
         name: "Untitled New project",
         date: new Date().toISOString(),
-        features: []
+        layers: []
     }).then((docRef)=>{
         localStorage.setItem("PROJECT_ID", docRef.id)
         window.location.href = "editor.html"
