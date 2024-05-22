@@ -2,6 +2,7 @@
 /// <reference types="mapbox__mapbox-gl-draw" />
 
 const projectId = localStorage.getItem("PROJECT_ID");
+let features = []
 
 if (projectId) {
     getProjectById(projectId)
@@ -107,7 +108,7 @@ map.on("click", e => {
     saveProjectToFirebase();
     const features = drawControls.getAll().features;
 
-    if (features.length === 1) {
+    if (features.length > 1) {
         // Determine the type of the layers
         const points = features.filter(feature => feature.geometry.type === "Point");
         const polygons = features.filter(feature => feature.geometry.type === "Polygon");
@@ -162,7 +163,7 @@ function getProjectById(id) {
     window.getDoc(doc(window.db, "projects", id)).then(snapshot => {
         const data = snapshot.data();
         title.value = data.name;
-        const features = JSON.parse(data.features);
+        features = JSON.parse(data.features);
         console.log(features);
         const points = features.filter(feature => feature.geometry.type === "Point");
         const polygons = features.filter(feature => feature.geometry.type === "Polygon");
@@ -172,8 +173,7 @@ function getProjectById(id) {
         console.log("Polygons === ", polygons);
         console.log("Lines === ", lines);
 
-        // drawControls.set({ features, type: "FeatureCollection" });
-
+        
         if (points.length) {
             addFeaturesToLayer("point-layer", points);
         }
@@ -183,6 +183,7 @@ function getProjectById(id) {
         if (lines.length) {
             addFeaturesToLayer("line-layer", lines);
         }
+        drawControls.set({ features, type: "FeatureCollection" });
     })
 }
 
@@ -264,11 +265,13 @@ function addFeaturesToLayer(layerId, features) {
             }
         });
 
+        console.log("Calling addLayer")
         addLayer({
             type: layerType === "circle" ? "Point" : (layerType === "fill" ? "Polygon" : "Line"),
             name: layerId.replace("-", " ")
         });
     } else {
+        console.log("Other else called")
         const source = map.getSource(layerId);
         const currentData = source._data;
         currentData.features = currentData.features.concat(features);
