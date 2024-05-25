@@ -88,6 +88,7 @@ function addLayer({ type, name, id }) {
                 type="text"
                 value="${name}"
                 class="pl-2 py-1 rounded-tl-lg rounded-bl-lg"
+                id="${id}-name-input"
               />
               <div
                 class="grid items-center p-2 rounded-tr-lg rounded-br-lg type-btn"

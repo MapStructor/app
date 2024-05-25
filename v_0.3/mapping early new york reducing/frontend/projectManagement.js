@@ -27,6 +27,12 @@ function saveProjectToFirebase() {
   }, [])
   const projectPatch = {
     features: JSON.stringify(data.features),
+    layers: layers.map(layer => {
+      return {
+        ...layer,
+        features: JSON.stringify(layer.features)
+      }
+    })
   };
   window.updateDoc(doc(window.db, "projects", projectId), projectPatch);
 }
@@ -36,6 +42,7 @@ function getProjectById(id) {
     const data = snapshot.data();
     title.value = data.name;
     features = JSON.parse(data.features);
+    const projectLayers = data.layers
     const points = features.filter((feature) => feature.geometry.type === "Point");
     const polygons = features.filter((feature) => feature.geometry.type === "Polygon");
     const lines = features.filter((feature) => feature.geometry.type === "LineString");
@@ -55,38 +62,10 @@ function getProjectById(id) {
       currentLayerId = pointId;
       selectedType = "Point"
     }
-
-    if (polygons.length) {
-        const newLayer = {
-            id: polygonId,
-            name: "Untitled Polygon Layer",
-            type: "Polygon",
-            features: polygons
-          }
-      addLayer(newLayer);
-      layers.push(newLayer)
-    }
-    if (lines.length) {
-        const newLayer = {
-            id: linesId,
-            name: "Untitled Line Layer",
-            type: "LineString",
-            features: lines
-          }
-      addLayer(newLayer);
-      layers.push(newLayer)
-    }
-
-    if (points.length) {
-        const newLayer = {
-            id: pointId,
-            name: "Untitled Points Layer",
-            type: "Point",
-            features: points
-          }
-      addLayer(newLayer);
-      layers.push(newLayer)
-    }
+    projectLayers.forEach(layer => {
+      addLayer(layer);
+      layers.push({...layer, features: JSON.parse(layer.features)})
+    })
 
     drawControls.set({ features, type: "FeatureCollection" });
   });
