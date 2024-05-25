@@ -3,7 +3,13 @@ function handleDrawCreate(e) {
   const featureId = e.features[0].id;
   console.log("Feature type == ", featureType, "selectedType === ", selectedType)
   if (featureType === selectedType) {
-    console.log(layers, currentLayerId)
+    if(!document.getElementById(`${currentLayerId}-checkbox`).checked){
+      drawControls.delete(featureId);
+      Swal.fire({
+        title: "Current layer isn't visible",
+        text: "Turn on current layer to add a new "+ (featureType === "Point"?"point":(featureType === "Polygon"? "polygon" : "line")+".")
+      })
+    }else
     layers.find(({ id }) => id === currentLayerId).features.push(e.features[0]);
   } else if (selectedType === "unset") {
     console.log("inside unset")
@@ -69,14 +75,14 @@ function handleDrawCreate(e) {
 
 function addLayer({ type, name, id }) {
   const layersContainer = document.getElementById("layers-container");
-  const layerId = name.split(" ").join("-");
+  // const layerId = name.split(" ").join("-");
   layerIds.push(id)
 
   layersContainer.innerHTML += `
     <div class="flex mb-2 ${
       id === currentLayerId ? "selected" : ""
     }" id="${id}">
-            <input type="checkbox" id="${layerId}-checkbox" checked/>
+            <input type="checkbox" id="${id}-checkbox" checked/>
             <div class="flex ml-2 border items-center rounded-lg">
               <input
                 type="text"
@@ -102,9 +108,26 @@ function addLayer({ type, name, id }) {
 
   setTimeout(() => {
     document
-      .getElementById(`${layerId}-checkbox`)
+      .getElementById(`${id}-checkbox`)
       .addEventListener("change", (e) => {
-        
+        const isChecked = e.target.checked;
+        if(!isChecked){
+          layers.forEach(layer => {
+            if(id === layer.id) {
+              layer.features.forEach(feature => {
+                drawControls.delete(feature.id)
+              })
+            }
+          })
+        } else {
+          layers.forEach(layer => {
+            if(id === layer.id) {
+              layer.features.forEach(feature => {
+                drawControls.add(feature)
+              })
+            }
+          })
+        }
       });
     const changeBtn = document.getElementById(`change-type-btn-${id}`);
     changeBtn.addEventListener("click", (e) => {

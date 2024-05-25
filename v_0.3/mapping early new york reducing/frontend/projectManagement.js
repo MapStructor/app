@@ -1,9 +1,19 @@
 const projectId = localStorage.getItem("PROJECT_ID");
 let features = [];
+/**
+ * @type {{
+*   id: string,
+*   name: string,
+*   type: string,
+*   features: any[]
+* }[]}
+*/
 const layers = [];
 let currentLayerId = "";
 let selectedType = "unset";
-let layerIds = []
+
+let layerIds = [];
+
 
 if (projectId) {
   getProjectById(projectId);
@@ -12,6 +22,9 @@ if (projectId) {
 function saveProjectToFirebase() {
   const data = drawControls.getAll();
   console.log(data);
+  data.features = layers.reduce((prev, curr) => {
+    return prev.concat(curr.features)
+  }, [])
   const projectPatch = {
     features: JSON.stringify(data.features),
   };
