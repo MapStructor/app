@@ -16,10 +16,10 @@ body {
 }
 form {
   position: absolute;
-  left: 7rem;
+  left: 4rem;
   top: 2rem;
   background-color: white;
-  padding: 2rem;
+  padding: .5rem;
   z-index: 1000;
 }
 
@@ -136,4 +136,14 @@ h5,
 h3 {
   margin-block-start: 10px;
   margin-block-end: 10px;
+}
+
+.type-btn:hover{
+  filter: brightness(50%);
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #666;
+  border-radius: 2rem;
 }

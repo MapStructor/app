@@ -22,6 +22,8 @@
       rel="stylesheet"
     />
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module">
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
@@ -64,6 +66,7 @@
       type="text/css"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <script src="./utils/generateRandomString.js"></script>
   </head>
   <body>
     <form>
@@ -82,13 +85,6 @@
         </button>
         <div id="layers-container"></div>
         </div>
-        <h5>Type</h5>
-        <select id="type">
-          <option>Not selected</option>
-          <option>Point</option>
-          <option>Polygon</option>
-          <option>Line</option>
-        </select>
       </div>
       <div id="draw-controls"></div>
     </form>
@@ -136,6 +132,12 @@
       </div>
     </div>
     <div id="map"></div>
-    <script src="./editor.js" defer></script>
+    <script src="utils.js"></script>
+<script src="mapConfig.js" defer></script>
+<script src="eventHandlers.js" defer></script>
+<script src="projectManagement.js" defer></script>
+<script src="uiManipulation.js" defer></script>
+<script src="layerManagement.js" defer></script>
+
   </body>
 </html>
