@@ -52,6 +52,7 @@ function getProjectById(id) {
     })
 
     drawControls.set({ features, type: "FeatureCollection" });
+    features.forEach(createOrUpdateLabel)
     }
     
   });
