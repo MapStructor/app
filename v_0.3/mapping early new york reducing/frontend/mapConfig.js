@@ -1,6 +1,8 @@
 /// <reference types="mapbox-gl" />
 /// <reference types="mapbox__mapbox-gl-draw" />
 
+let featuresSelected = []
+
 mapboxgl.accessToken = "pk.eyJ1IjoibWFwbnkiLCJhIjoiY2xtMG93amk4MnBrZTNnczUzY2VvYjg0ciJ9.MDMHYBlVbG14TJD120t6NQ";
 
 const map = new mapboxgl.Map({
@@ -54,4 +56,27 @@ map.on("moveend", () => {
   spinGlobe();
 });
 
+map.on("draw.selectionchange", (e)=>{
+  featuresSelected = e.features;
+  if(!featuresSelected.length){
+    toggleFeatureEditor(false)
+  }else{
+    const featureId = e.features[0].id
+    const properties = e.features[0].properties
+    // check if the feature id is part of the current layer features
+    const currentLayer = layers.find(({id})=> id === currentLayerId)
+    const selectedFeature = currentLayer.features.find(({id})=> id === featureId)
+if(selectedFeature){
+  toggleFeatureEditor(true, selectedFeature.properties)
+  document.getElementById("feature-label-value").addEventListener("change", handleLabelInputChange)
+  } else {
+    Swal.fire({
+      title: "Can't edit!",
+      text: "Switch to the layer where this feature was created"
+    })
+  }
+  }
+})
+
 spinGlobe();
+

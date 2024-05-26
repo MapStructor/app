@@ -43,30 +43,16 @@ function getProjectById(id) {
     title.value = data.name;
     features = JSON.parse(data.features);
     const projectLayers = data.layers
-    const points = features.filter((feature) => feature.geometry.type === "Point");
-    const polygons = features.filter((feature) => feature.geometry.type === "Polygon");
-    const lines = features.filter((feature) => feature.geometry.type === "LineString");
-
-    let polygonId = generateRandomString(10);
-    let pointId = generateRandomString(10);
-    let linesId = generateRandomString(10);
-    if (polygons.length){
-       currentLayerId = polygonId;
-       selectedType = "Polygon"
-      }
-    if (lines.length) {
-      currentLayerId = linesId;
-      selectedType = "LineString"
-    }
-    if (points.length) {
-      currentLayerId = pointId;
-      selectedType = "Point"
-    }
+    if(projectLayers.length){
+      currentLayerId = projectLayers[projectLayers.length - 1].id
+    selectedType = projectLayers[projectLayers.length - 1].selectedType
     projectLayers.forEach(layer => {
       addLayer(layer);
       layers.push({...layer, features: JSON.parse(layer.features)})
     })
 
     drawControls.set({ features, type: "FeatureCollection" });
+    }
+    
   });
 }

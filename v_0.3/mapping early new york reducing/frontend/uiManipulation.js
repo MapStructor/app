@@ -25,3 +25,11 @@ function loadProjectById() {
     document.getElementById("modal").style.display = "none";
   }
 }
+
+function toggleFeatureEditor(isVisible, properties){
+  document.getElementById("feature-editor").style.display = isVisible ? "block" : "none";
+  // update properties
+  if(properties){
+    document.getElementById("feature-label-value").value = properties.label || ""
+  }
+}

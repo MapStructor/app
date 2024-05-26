@@ -21,6 +21,9 @@ form {
   background-color: white;
   padding: .5rem;
   z-index: 1000;
+  border-color: #666;
+  border-width: 2px;
+  border-radius: .5rem;
 }
 
 button {
@@ -146,4 +149,13 @@ h3 {
 .selected {
   background-color: #666;
   border-radius: 2rem;
+}
+
+#feature-editor{
+  position: absolute;
+  right: 4rem;
+  top: 1rem;
+  background-color: #fff;
+  z-index: 10;
+  display: none;
 }

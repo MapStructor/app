@@ -38,3 +38,12 @@ function showLoadProjectModal(e) {
   document.getElementById("load-project-modal").style.display = "block";
   document.getElementById("add-layer-modal").style.display = "none";
 }
+
+function handleLabelInputChange(e){
+  const newLabel = e.target.value;
+  const featureId = featuresSelected[0].id;
+  const feature = layers.find(({id}) => id === currentLayerId).features.find(({id})=> id === featureId);
+  feature.properties.label = newLabel;
+  drawControls.get(featureId).properties.label = newLabel
+  saveProjectToFirebase()
+}

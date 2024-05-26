@@ -134,6 +134,14 @@ function addLayer({ type, name, id }) {
     changeBtn.addEventListener("click", (e) => {
       setCurrentLayer(id, type)
     });
+    document.getElementById(`${id}-name-input`).addEventListener("change", e => {
+      const newName = e.target.value;
+      if(newName){
+        const layer = layers.find(layer => layer.id === id)
+        layer.name = e.target.value
+        saveProjectToFirebase()
+      }
+    })
   }, 1_000);
 }
 
