@@ -45,17 +45,29 @@ function handleLabelInputChange(e){
   const feature = layers.find(({id}) => id === currentLayerId).features.find(({id})=> id === featureId);
   feature.properties.label = newLabel;
   drawControls.get(featureId).properties.label = newLabel
+  console.log("handleLabelInputChange called, saving label "+ newLabel + " to the map")
   createOrUpdateLabel(feature)
   saveProjectToFirebase()
 }
 
 function createOrUpdateLabel(feature) {
-  const coordinates =
-    feature.geometry.type === "Point"
-      ? feature.geometry.coordinates
-      : feature.geometry.coordinates[0][0];
+  let coordinates;
   const label = feature.properties.label;
   const id = generateRandomString(10)
+  
+  // Determine the coordinates based on the geometry type
+  if (feature.geometry.type === "Point") {
+    coordinates = feature.geometry.coordinates;
+  } else if (feature.geometry.type === "LineString") {
+    // Use the midpoint of the LineString for the label position
+    const lineCoordinates = feature.geometry.coordinates;
+    const midpointIndex = Math.floor(lineCoordinates.length / 2);
+    coordinates = lineCoordinates[midpointIndex];
+  } else {
+    // Calculate the centroid of the polygon for the label position
+    const polygonCoordinates = feature.geometry.coordinates[0];
+    coordinates = calculatePolygonCentroid(polygonCoordinates);
+  }
 
   var labelLayerSource = {
     id,
@@ -99,4 +111,27 @@ function createOrUpdateLabel(feature) {
   } else {
     map.addLayer(labelLayerSource);
   }
+}
+
+function calculatePolygonCentroid(coordinates) {
+  let x = 0, y = 0, area = 0, factor;
+  const numPoints = coordinates.length;
+
+  for (let i = 0; i < numPoints - 1; i++) {
+    const x1 = coordinates[i][0];
+    const y1 = coordinates[i][1];
+    const x2 = coordinates[i + 1][0];
+    const y2 = coordinates[i + 1][1];
+
+    factor = (x1 * y2 - x2 * y1);
+    x += (x1 + x2) * factor;
+    y += (y1 + y2) * factor;
+    area += factor;
+  }
+
+  area /= 2;
+  x /= (6 * area);
+  y /= (6 * area);
+
+  return [x, y];
 }

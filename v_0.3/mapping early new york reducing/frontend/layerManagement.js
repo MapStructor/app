@@ -1,7 +1,6 @@
 function handleDrawCreate(e) {
   const featureType = e.features[0].geometry.type;
   const featureId = e.features[0].id;
-  console.log("Feature type == ", featureType, "selectedType === ", selectedType)
   if (featureType === selectedType) {
     if(!document.getElementById(`${currentLayerId}-checkbox`).checked){
       drawControls.delete(featureId);
@@ -12,7 +11,6 @@ function handleDrawCreate(e) {
     }else
     layers.find(({ id }) => id === currentLayerId).features.push(e.features[0]);
   } else if (selectedType === "unset") {
-    console.log("inside unset")
     if (!layers.some((layer) => layer.type === featureType)) {
       console.log("Inside if (!layers.some((layer) => layer.type === featureType)) {")
       selectedType = featureType;
@@ -38,6 +36,7 @@ function handleDrawCreate(e) {
       setCurrentLayer(currentLayerId, featureType)
     }
   } else {
+    console.log("!layers.some((layer) => layer.type === featureType) === ", !layers.some((layer) => layer.type === featureType))
     if (!layers.some((layer) => layer.type === featureType)) {
       selectedType = featureType;
       currentLayerId = generateRandomString(10);
@@ -66,7 +65,7 @@ function handleDrawCreate(e) {
       Swal.fire({
         title: "Wrong Layer!",
         text: `"${currentLayerName}" is the current selected layer, switch to a ${featureType === "Point"? "point's": (featureType === "Polygon")? "polygon's": "line's"} layer to add a ${featureType === "Point"? "point": (featureType === "Polygon")? "polygon": "line"}`,
-        icon: "Error"
+        icon: "error"
       });
     }
   }
@@ -75,75 +74,85 @@ function handleDrawCreate(e) {
 
 function addLayer({ type, name, id }) {
   const layersContainer = document.getElementById("layers-container");
-  // const layerId = name.split(" ").join("-");
-  layerIds.push(id)
+  layerIds.push(id);
 
-  layersContainer.innerHTML += `
-    <div class="flex mb-2 ${
-      id === currentLayerId ? "selected" : ""
-    }" id="${id}">
-            <input type="checkbox" id="${id}-checkbox" checked/>
-            <div class="flex ml-2 border items-center rounded-lg">
-              <input
-                type="text"
-                value="${name}"
-                class="pl-2 py-1 rounded-tl-lg rounded-bl-lg"
-                id="${id}-name-input"
-              />
-              <div
-                class="grid items-center p-2 rounded-tr-lg rounded-br-lg type-btn"
-                style="background-color: #12abac"
-                id="change-type-btn-${id}"
-              >
-              ${
-                type === "Polygon"
-                  ? '<i class="fa-solid fa-vector-square"></i>'
-                  : type === "Point"
-                  ? '<i class="fa-solid fa-location-pin"></i>'
-                  : '<i class="fa-solid fa-bezier-curve"></i>'
-              }
-              </div>
-            </div>
-    </div>
-    `;
+  // Create the new layer element
+  const layerDiv = document.createElement("div");
+  layerDiv.className = `flex mb-2 ${id === currentLayerId ? "selected" : ""}`;
+  layerDiv.id = id;
 
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.id = `${id}-checkbox`;
+  checkbox.checked = true;
+
+  const innerDiv = document.createElement("div");
+  innerDiv.className = "flex ml-2 border items-center rounded-lg";
+
+  const nameInput = document.createElement("input");
+  nameInput.type = "text";
+  nameInput.value = name;
+  nameInput.className = "pl-2 py-1 rounded-tl-lg rounded-bl-lg";
+  nameInput.id = `${id}-name-input`;
+
+  const changeTypeBtn = document.createElement("div");
+  changeTypeBtn.className = "grid items-center p-2 rounded-tr-lg rounded-br-lg type-btn";
+  changeTypeBtn.style.backgroundColor = "#12abac";
+  changeTypeBtn.id = `change-type-btn-${id}`;
+  
+  const icon = document.createElement("i");
+  icon.className = `fa-solid ${
+    type === "Polygon" ? "fa-vector-square" :
+    type === "Point" ? "fa-location-pin" :
+    "fa-bezier-curve"
+  }`;
+  changeTypeBtn.appendChild(icon);
+
+  // Append elements
+  innerDiv.appendChild(nameInput);
+  innerDiv.appendChild(changeTypeBtn);
+  layerDiv.appendChild(checkbox);
+  layerDiv.appendChild(innerDiv);
+  layersContainer.appendChild(layerDiv);
+
+  // Add event listeners
   setTimeout(() => {
-    document
-      .getElementById(`${id}-checkbox`)
-      .addEventListener("change", (e) => {
-        const isChecked = e.target.checked;
-        if(!isChecked){
-          layers.forEach(layer => {
-            if(id === layer.id) {
-              layer.features.forEach(feature => {
-                drawControls.delete(feature.id)
-              })
-            }
-          })
-        } else {
-          layers.forEach(layer => {
-            if(id === layer.id) {
-              layer.features.forEach(feature => {
-                drawControls.add(feature)
-              })
-            }
-          })
-        }
-      });
-    const changeBtn = document.getElementById(`change-type-btn-${id}`);
-    changeBtn.addEventListener("click", (e) => {
-      setCurrentLayer(id, type)
+    checkbox.addEventListener("change", (e) => {
+      const isChecked = e.target.checked;
+      if(!isChecked){
+        layers.forEach(layer => {
+          if(id === layer.id) {
+            layer.features.forEach(feature => {
+              drawControls.delete(feature.id);
+            });
+          }
+        });
+      } else {
+        layers.forEach(layer => {
+          if(id === layer.id) {
+            layer.features.forEach(feature => {
+              drawControls.add(feature);
+            });
+          }
+        });
+      }
     });
-    document.getElementById(`${id}-name-input`).addEventListener("change", e => {
+
+    changeTypeBtn.addEventListener("click", (e) => {
+      setCurrentLayer(id, type);
+    });
+
+    nameInput.addEventListener("change", (e) => {
       const newName = e.target.value;
       if(newName){
-        const layer = layers.find(layer => layer.id === id)
-        layer.name = e.target.value
-        saveProjectToFirebase()
+        const layer = layers.find(layer => layer.id === id);
+        layer.name = e.target.value;
+        saveProjectToFirebase();
       }
-    })
+    });
   }, 1_000);
 }
+
 
 function setCurrentLayer(value, type){
   selectedType = type;

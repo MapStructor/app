@@ -88,33 +88,26 @@
       <div id="draw-controls"></div>
     </form>
     <div id="modal" onclick="hideModalOuterDiv(event)">
-      <div id="add-layer-modal" onclick="hideModalInnerDiv(event)">
-        <h2>Add Layer</h2>
-        <div>
-          <label>Name: </label>
-          <input />
-        </div>
-        <div>
-          <label>Type: </label>
-          <input />
-        </div>
-        <button onclick="toggleAddLayerLinkSection(event)">Link</button>
-        <div id="add-layer-link-section">
-          <div>
-            <label>Source: </label>
-            <input />
+      <div id="add-layer-modal" onclick="hideModalInnerDiv(event)" class="inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+          <h2 class="text-xl font-semibold mb-4">Add Layer</h2>
+          <div class="mb-4">
+            <label class="block text-gray-700">Name:</label>
+            <input id="layer-name" type="text" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200">
           </div>
-          <div>
-            <label>Source ID: </label>
-            <input />
+          <div class="mb-4">
+            <label class="block text-gray-700">Type:</label>
+            <select id="layer-type" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200">
+              <option value="default">Type</option>
+              <option>Point</option>
+              <option>LineString</option>
+              <option>Polygon</option>
+            </select>
           </div>
-          <div>
-            <label>URL: </label>
-            <input />
-          </div>
+          <button id="add-layer-button" class="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 mx-auto">Add Layer</button>
         </div>
-        <button>Upload</button>
       </div>
+      
       <div id="load-project-modal" onclick="hideModalInnerDiv(event)">
         <h2>Load Project</h2>
         <div>

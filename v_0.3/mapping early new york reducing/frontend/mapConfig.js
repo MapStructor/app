@@ -62,7 +62,6 @@ map.on("draw.selectionchange", (e)=>{
     toggleFeatureEditor(false)
   }else{
     const featureId = e.features[0].id
-    const properties = e.features[0].properties
     // check if the feature id is part of the current layer features
     const currentLayer = layers.find(({id})=> id === currentLayerId)
     const selectedFeature = currentLayer.features.find(({id})=> id === featureId)
