@@ -8,7 +8,7 @@ mapboxgl.accessToken = "pk.eyJ1IjoibWFwbnkiLCJhIjoiY2xtMG93amk4MnBrZTNnczUzY2VvY
 const map = new mapboxgl.Map({
   container: "map",
   style: "mapbox://styles/mapbox/streets-v9",
-  projection: "globe",
+  projection: "mercator", // use "globe" to switch to globes
   zoom: 1,
   center: [30, 15],
 });
