@@ -17,13 +17,15 @@ body {
 form {
   position: absolute;
   left: 4rem;
-  top: 2rem;
+  top: 1rem;
   background-color: white;
   padding: .5rem;
   z-index: 1000;
   border-color: #666;
   border-width: 2px;
   border-radius: .5rem;
+  max-height: 90%;
+  overflow-y: auto;
 }
 
 button {
@@ -164,4 +166,31 @@ h3 {
   background-color: #cbd5e0; /* Tailwind's bg-gray-300 */
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+#data-table td, #data-table th,#data-table td {
+  border-width: 1px;
+  border-style: solid;
+  border-color: currentColor;
+  padding: .5rem;
+}
+
+.feature-tray td, .feature-tray th {
+  border-width: 1px;
+  border-style: solid;
+  border-color: currentColor;
+  padding: .1rem;
+
+}
+
+#data-table{
+  max-height: 30rem;
+  overflow-y: auto;
+  display: none;
+}
+
+.features-container{
+  background-color: aqua;
+  max-height: 80px;
+  overflow-y: auto;
 }

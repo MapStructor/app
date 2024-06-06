@@ -74,3 +74,42 @@ addLayerButton.addEventListener("click", function (e) {
 });
 
 updateButtonState()
+
+function populateDataTable(){
+  const recordsContainer = document.getElementById("data-table-entries");
+  recordsContainer.innerHTML = ""
+  layers.reduce((prev, curr)=> {
+    return prev.concat(curr.features)
+  }, []).forEach((feature)=>{
+    const parentLayer = layers.find((layer)=>{
+      return layer.features.some((layerFeature)=>{
+        return layerFeature.id === feature.id
+      })
+    });
+    const type = parentLayer.type === "LineString"? "Line": parentLayer.type
+    const record = `<tr class="cursor-pointer">
+      <td>${feature.id}</td>
+      <td>${feature.properties.label || ""}</td>
+      <td>${type}</td>
+      <td>${parentLayer.name}</td>
+    </tr>`;
+    recordsContainer.innerHTML += record
+  })
+}
+
+function populateIdsTrayUnderLayers(){
+  layers.forEach(layer => {
+    const featuresTray = document.getElementById(layer.id + "-features");
+    featuresTray.innerHTML = ``
+    layer.features.forEach(feature => {
+      const trELem = document.createElement("tr");
+      const idCell = document.createElement("td");
+      idCell.innerText = feature.id
+      trELem.appendChild(idCell)
+      
+      featuresTray.appendChild(trELem)
+    })
+  })
+}
+
+setInterval(populateIdsTrayUnderLayers, 1_000)

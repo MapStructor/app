@@ -8,11 +8,15 @@ function handleDrawCreate(e) {
         title: "Current layer isn't visible",
         text: "Turn on current layer to add a new "+ (featureType === "Point"?"point":(featureType === "Polygon"? "polygon" : "line")+".")
       })
-    }else
-    layers.find(({ id }) => id === currentLayerId).features.push(e.features[0]);
+    }else{
+    layers.find(({ id }) => id === currentLayerId).features.push({
+      ...e.features[0],
+      properties: {...e.features[0].properties, createdAt: new Date().getTime()}
+    });
+  console.log("createdAt field has been added ", layers)
+  }
   } else if (selectedType === "unset") {
     if (!layers.some((layer) => layer.type === featureType)) {
-      console.log("Inside if (!layers.some((layer) => layer.type === featureType)) {")
       selectedType = featureType;
       currentLayerId = generateRandomString(10);
       const layerName = `Untitled ${
@@ -25,9 +29,13 @@ function handleDrawCreate(e) {
       layers.push({
         name: layerName,
         type: featureType,
-        features: [e.features[0]],
+        features: [{
+          ...e.features[0],
+          properties: {...e.features[0].properties, createdAt: new Date().getTime()}
+        }],
         id: currentLayerId,
       });
+      console.log("createdAt field has been added ", layers)
       addLayer({
         type: selectedType,
         name: layerName,
@@ -36,7 +44,6 @@ function handleDrawCreate(e) {
       setCurrentLayer(currentLayerId, featureType)
     }
   } else {
-    console.log("!layers.some((layer) => layer.type === featureType) === ", !layers.some((layer) => layer.type === featureType))
     if (!layers.some((layer) => layer.type === featureType)) {
       selectedType = featureType;
       currentLayerId = generateRandomString(10);
@@ -50,7 +57,10 @@ function handleDrawCreate(e) {
       layers.push({
         name: layerName,
         type: featureType,
-        features: [e.features[0]],
+        features: [{
+          ...e.features[0],
+          properties: {...e.features[0].properties, createdAt: new Date().getTime()}
+        }],
         id: currentLayerId,
       });
       addLayer({
@@ -70,6 +80,7 @@ function handleDrawCreate(e) {
     }
   }
   saveProjectToFirebase();
+  console.log(layers)
 }
 
 function addLayer({ type, name, id }) {
@@ -106,6 +117,12 @@ function addLayer({ type, name, id }) {
     type === "Point" ? "fa-location-pin" :
     "fa-bezier-curve"
   }`;
+  const featuresContainer = document.createElement("div")
+  featuresContainer.className = "features-container";
+  const features = document.createElement("table")
+  features.id = id+"-features"
+  features.className = "feature-tray"
+  featuresContainer.appendChild(features)
   changeTypeBtn.appendChild(icon);
 
   // Append elements
@@ -114,6 +131,7 @@ function addLayer({ type, name, id }) {
   layerDiv.appendChild(checkbox);
   layerDiv.appendChild(innerDiv);
   layersContainer.appendChild(layerDiv);
+  layersContainer.appendChild(featuresContainer);
 
   // Add event listeners
   setTimeout(() => {

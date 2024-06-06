@@ -45,7 +45,6 @@ function handleLabelInputChange(e){
   const feature = layers.find(({id}) => id === currentLayerId).features.find(({id})=> id === featureId);
   feature.properties.label = newLabel;
   drawControls.get(featureId).properties.label = newLabel
-  console.log("handleLabelInputChange called, saving label "+ newLabel + " to the map")
   createOrUpdateLabel(feature)
   saveProjectToFirebase()
 }
@@ -135,3 +134,13 @@ function calculatePolygonCentroid(coordinates) {
 
   return [x, y];
 }
+
+document.getElementById("data-table-checkbox").addEventListener("change", e => {
+  const dataTable = document.getElementById("data-table")
+  if(e.target.checked){
+    populateDataTable()
+    dataTable.style.display = "block";
+  } else {
+    dataTable.style.display = "none";
+  }
+})

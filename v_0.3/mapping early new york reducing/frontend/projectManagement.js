@@ -49,6 +49,7 @@ function getProjectById(id) {
       projectLayers.forEach((layer) => {
         addLayer(layer);
         layers.push({ ...layer, features: JSON.parse(layer.features) });
+        populateDataTable()
       });
 
       drawControls.set({ features, type: "FeatureCollection" });
