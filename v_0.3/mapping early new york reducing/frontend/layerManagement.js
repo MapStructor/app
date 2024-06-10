@@ -107,23 +107,34 @@ function addLayer({ type, name, id }) {
   nameInput.id = `${id}-name-input`;
 
   const changeTypeBtn = document.createElement("div");
-  changeTypeBtn.className = "grid items-center p-2 rounded-tr-lg rounded-br-lg type-btn";
+  changeTypeBtn.className = "flex rounded-tr-lg rounded-br-lg";
   changeTypeBtn.style.backgroundColor = "#12abac";
-  changeTypeBtn.id = `change-type-btn-${id}`;
   
+  const iconContainer = document.createElement("div");
+  iconContainer.className = "type-btn grid items-center"
+
   const icon = document.createElement("i");
-  icon.className = `fa-solid ${
+  icon.className = `fa-solid p-2 ${
     type === "Polygon" ? "fa-vector-square" :
     type === "Point" ? "fa-location-pin" :
     "fa-bezier-curve"
   }`;
+  icon.id = `change-type-btn-${id}`;
+  const viewDataTableIconContainer = document.createElement("div");
+  viewDataTableIconContainer.className = "viewDataTableIcon p-2"
+  const viewDataTableIcon = document.createElement("i")
+  viewDataTableIcon.className = "fa fa-table";
+  
+  viewDataTableIconContainer.appendChild(viewDataTableIcon);
   const featuresContainer = document.createElement("div")
   featuresContainer.className = "features-container";
-  const features = document.createElement("table")
+  const features = document.createElement("table");
   features.id = id+"-features"
-  features.className = "feature-tray"
+  features.className = "feature-tray w-full"
   featuresContainer.appendChild(features)
-  changeTypeBtn.appendChild(icon);
+  iconContainer.appendChild(icon)
+  changeTypeBtn.appendChild(iconContainer);
+  changeTypeBtn.appendChild(viewDataTableIconContainer)
 
   // Append elements
   innerDiv.appendChild(nameInput);
@@ -156,7 +167,18 @@ function addLayer({ type, name, id }) {
       }
     });
 
-    changeTypeBtn.addEventListener("click", (e) => {
+    viewDataTableIconContainer.addEventListener("click", () => {
+      const clickedLayer = layers.find(layer => layer.id === id);
+      if(selectedDataTableLayer === id){
+        populateDataTable(clickedLayer, false)
+        selectedDataTableLayer = ""
+      }else {
+        selectedDataTableLayer = id;
+        populateDataTable(clickedLayer, true)
+      }
+    })
+
+    icon.addEventListener("click", (e) => {
       setCurrentLayer(id, type);
     });
 

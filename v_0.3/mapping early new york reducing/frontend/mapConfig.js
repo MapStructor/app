@@ -25,6 +25,8 @@ const drawControls = new MapboxDraw({
   },
 });
 
+let selectedDataTableLayer = ""
+
 document.getElementById("draw-controls").appendChild(drawControls.onAdd(map));
 
 map.on("style.load", () => {

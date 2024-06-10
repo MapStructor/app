@@ -143,9 +143,12 @@ h3 {
   margin-block-end: 10px;
 }
 
-.type-btn:hover{
-  filter: brightness(50%);
+.type-btn{
   cursor: pointer;
+}
+
+.type-btn:hover{
+  background-color: #666;
 }
 
 .selected {
@@ -180,7 +183,6 @@ h3 {
   border-style: solid;
   border-color: currentColor;
   padding: .1rem;
-
 }
 
 #data-table{
@@ -193,4 +195,8 @@ h3 {
   background-color: aqua;
   max-height: 80px;
   overflow-y: auto;
+}
+
+.viewDataTableIcon{
+  background-color: burlywood;
 }

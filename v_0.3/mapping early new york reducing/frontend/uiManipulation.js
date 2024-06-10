@@ -75,23 +75,18 @@ addLayerButton.addEventListener("click", function (e) {
 
 updateButtonState()
 
-function populateDataTable(){
+function populateDataTable(layer, isVisible){
   const recordsContainer = document.getElementById("data-table-entries");
+  if(!isVisible) {
+    document.getElementById("data-table").style.display = "none"
+    return 
+  }
   recordsContainer.innerHTML = ""
-  layers.reduce((prev, curr)=> {
-    return prev.concat(curr.features)
-  }, []).forEach((feature)=>{
-    const parentLayer = layers.find((layer)=>{
-      return layer.features.some((layerFeature)=>{
-        return layerFeature.id === feature.id
-      })
-    });
-    const type = parentLayer.type === "LineString"? "Line": parentLayer.type
+  document.getElementById("data-table").style.display = "block"
+  layer.features.forEach((feature)=>{
+    
     const record = `<tr class="cursor-pointer">
-      <td>${feature.id}</td>
       <td>${feature.properties.label || ""}</td>
-      <td>${type}</td>
-      <td>${parentLayer.name}</td>
     </tr>`;
     recordsContainer.innerHTML += record
   })
@@ -103,9 +98,9 @@ function populateIdsTrayUnderLayers(){
     featuresTray.innerHTML = ``
     layer.features.forEach(feature => {
       const trELem = document.createElement("tr");
-      const idCell = document.createElement("td");
-      idCell.innerText = feature.id
-      trELem.appendChild(idCell)
+      const nameCell = document.createElement("td");
+      nameCell.innerText = feature.properties.label || "No Label";
+      trELem.appendChild(nameCell)
       
       featuresTray.appendChild(trELem)
     })

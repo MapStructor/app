@@ -135,7 +135,7 @@ function calculatePolygonCentroid(coordinates) {
   return [x, y];
 }
 
-document.getElementById("data-table-checkbox").addEventListener("change", e => {
+/* document.getElementById("data-table-checkbox").addEventListener("change", e => {
   const dataTable = document.getElementById("data-table")
   if(e.target.checked){
     populateDataTable()
@@ -143,4 +143,4 @@ document.getElementById("data-table-checkbox").addEventListener("change", e => {
   } else {
     dataTable.style.display = "none";
   }
-})
+}) */
