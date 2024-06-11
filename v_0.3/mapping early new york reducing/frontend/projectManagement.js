@@ -20,7 +20,6 @@ if (projectId) {
 
 function saveProjectToFirebase() {
   const data = drawControls.getAll();
-  console.log(data);
   data.features = layers.reduce((prev, curr) => {
     return prev.concat(curr.features);
   }, []);

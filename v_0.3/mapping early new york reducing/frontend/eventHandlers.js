@@ -2,9 +2,27 @@ map.on("draw.create", (e) => {
   handleDrawCreate(e);
 });
 
-map.on("draw.delete", () => {
-  saveProjectToFirebase();
-});
+map.on("draw.delete", (e) => {
+  const feature = e.features[0];
+  const id = feature.id;
+  var mapLayers = map.getStyle().layers;
+
+  // Optional: Display layer names on the map
+  const layer = mapLayers.find(layer => {
+    return layer.id.includes(id)
+  })
+  if(layer){
+    map.removeLayer(layer.id)
+  }
+  const parentLayer = layers.find(layer => {
+    return !!layer.features.find(feature => feature.id === id)
+  })
+
+  const index = parentLayer.features.findIndex(feature => feature.id === id);
+  console.log("index", index)
+  parentLayer.features = parentLayer.features.slice(0, index).concat(parentLayer.features.slice(index+1))
+  saveProjectToFirebase()
+})
 
 function toggleAddLayerLinkSection(e) {
   e.preventDefault();
@@ -52,7 +70,8 @@ function handleLabelInputChange(e){
 function createOrUpdateLabel(feature) {
   let coordinates;
   const label = feature.properties.label;
-  const id = generateRandomString(10)
+  const id = generateRandomString(10)+"+--+"+feature.id
+  console.log(id);
   
   // Determine the coordinates based on the geometry type
   if (feature.geometry.type === "Point") {

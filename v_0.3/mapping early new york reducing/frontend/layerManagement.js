@@ -13,7 +13,6 @@ function handleDrawCreate(e) {
       ...e.features[0],
       properties: {...e.features[0].properties, createdAt: new Date().getTime()}
     });
-  console.log("createdAt field has been added ", layers)
   }
   } else if (selectedType === "unset") {
     if (!layers.some((layer) => layer.type === featureType)) {
@@ -80,7 +79,6 @@ function handleDrawCreate(e) {
     }
   }
   saveProjectToFirebase();
-  console.log(layers)
 }
 
 function addLayer({ type, name, id }) {
