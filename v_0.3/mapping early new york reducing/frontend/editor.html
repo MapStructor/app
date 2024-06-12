@@ -127,7 +127,12 @@
     <div id="feature-editor" class="p-4">
       <div>
         <label class="font-bold">Label</label>
-        <input type="text" class="block border px-2 py-1" id="feature-label-value" onchnage="handleLabelInputChange(event)"/>
+        <input type="text" class="block border px-2 py-1" id="feature-label-value" onchange="handleLabelInputChange(event)"/>
+      </div>
+
+      <div>
+        <label class="font-bold">Info</label>
+        <textarea type="text" class="block border px-2 py-1" id="feature-info-value" onchange="handleInfoInputChange(event)"></textarea>
       </div>
     </div>
     <div id="data-table" class="absolute right-20 top-10 z-10 bg-white p-4 border">
@@ -135,6 +140,7 @@
         <thead>
           <tr>
             <th>Label</th>
+            <th>Info</th>
           </tr>
         </thead>
         <tbody id="data-table-entries">

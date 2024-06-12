@@ -67,6 +67,16 @@ function handleLabelInputChange(e){
   saveProjectToFirebase()
 }
 
+function handleInfoInputChange(e){
+  const info = e.target.value;
+  const featureId = featuresSelected[0].id;
+  const feature = layers.find(({id}) => id === currentLayerId).features.find(({id})=> id === featureId);
+  feature.properties.info = info;
+  drawControls.get(featureId).properties.info = info;
+  // createOrUpdateLabel(feature)
+  saveProjectToFirebase()
+}
+
 function createOrUpdateLabel(feature) {
   let coordinates;
   const label = feature.properties.label;

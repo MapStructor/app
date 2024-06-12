@@ -34,6 +34,7 @@ function toggleFeatureEditor(isVisible, properties) {
   if (properties) {
     document.getElementById("feature-label-value").value =
       properties.label || "";
+    document.getElementById("feature-info-value").value = properties.info || ""
   }
 }
 const layerNameInput = document.getElementById("layer-name");
@@ -87,6 +88,7 @@ function populateDataTable(layer, isVisible){
     
     const record = `<tr class="cursor-pointer">
       <td>${feature.properties.label || ""}</td>
+      <td>${feature.properties.info}</td>
     </tr>`;
     recordsContainer.innerHTML += record
   })
