@@ -36,6 +36,11 @@ function toggleFeatureEditor(isVisible, properties) {
       properties.label || "";
     document.getElementById("feature-info-value").value = properties.info || ""
   }
+  if(isVisible){
+    const info = document.getElementById("feature-info-value").value
+  console.log(info)
+  document.getElementById("min-info-length").innerText = info.length
+  }
 }
 const layerNameInput = document.getElementById("layer-name");
 const layerTypeSelect = document.getElementById("layer-type");
