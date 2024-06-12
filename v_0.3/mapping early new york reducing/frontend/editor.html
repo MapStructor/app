@@ -132,7 +132,8 @@
 
       <div>
         <label class="font-bold">Info</label>
-        <textarea type="text" class="block border px-2 py-1" id="feature-info-value" onchange="handleInfoInputChange(event)"></textarea>
+        <textarea type="text" class="block border px-2 py-1" id="feature-info-value" onchange="handleInfoInputChange(event)" onkeydown="handleInfoCharacterChange(event)" maxlength="300"></textarea>
+        <div><span id="min-info-length">0</span>/<span id="max-info-length">300</span></div>
       </div>
     </div>
     <div id="data-table" class="absolute right-20 top-10 z-10 bg-white p-4 border">

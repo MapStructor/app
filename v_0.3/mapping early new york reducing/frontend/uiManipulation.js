@@ -88,7 +88,7 @@ function populateDataTable(layer, isVisible){
     
     const record = `<tr class="cursor-pointer">
       <td>${feature.properties.label || ""}</td>
-      <td>${feature.properties.info}</td>
+      <td>${feature.properties.info || ""}</td>
     </tr>`;
     recordsContainer.innerHTML += record
   })

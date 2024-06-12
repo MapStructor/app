@@ -77,6 +77,12 @@ function handleInfoInputChange(e){
   saveProjectToFirebase()
 }
 
+function handleInfoCharacterChange(e){
+  const info = document.getElementById("feature-info-value").value
+  console.log(info)
+  document.getElementById("min-info-length").innerText = info.length
+}
+
 function createOrUpdateLabel(feature) {
   let coordinates;
   const label = feature.properties.label;
