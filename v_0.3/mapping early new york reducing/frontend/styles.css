@@ -192,11 +192,18 @@ h3 {
 }
 
 .features-container{
-  background-color: aqua;
+  background-color: #ddd;
   max-height: 80px;
   overflow-y: auto;
 }
 
 .viewDataTableIcon{
   background-color: burlywood;
+  border-top-right-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+  cursor: pointer;
+}
+
+.viewDataTableIcon:active {
+  filter: brightness(60%);
 }
