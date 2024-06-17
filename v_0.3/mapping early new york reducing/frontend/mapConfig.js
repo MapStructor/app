@@ -15,7 +15,7 @@ const map = new mapboxgl.Map({
 
 map.addControl(new mapboxgl.NavigationControl());
 
-const drawControls = new MapboxDraw({
+let drawControls =  new MapboxDraw({
   displayControlsDefault: false,
   controls: {
     point: true,
@@ -23,28 +23,150 @@ const drawControls = new MapboxDraw({
     polygon: true,
     trash: true,
   },
+  styles: [
+    // Set the custom icon for point features
+    {
+      'id': 'gl-draw-point-inactive',
+      'type': 'circle',
+      'filter': ['all', ['==', '$type', 'Point'], ['!=', 'meta', 'feature']],
+      'layout': {},
+      'paint': {
+        'fill-color': '#fbb03b', // Customize the color
+        'fill-opacity': 0.1
+      }
+    },
+    {
+      'id': 'gl-draw-point-active',
+      'type': 'symbol',
+      'filter': ['all', ['==', '$type', 'Point'], ['==', 'meta', 'feature']],
+      'layout': {
+        'icon-image': 'teardrop-icon',
+        'icon-size': 0.04, // Adjust the icon size as needed
+        'icon-allow-overlap': true
+      },
+      'paint': {}
+    },
+    // Style for inactive lines
+    {
+      'id': 'gl-draw-line-inactive',
+      'type': 'line',
+      'filter': ['all', ['==', '$type', 'LineString'], ['!=', 'meta', 'feature']],
+      'layout': {
+        'line-cap': 'round',
+        'line-join': 'round'
+      },
+      'paint': {
+        'line-color': '#3b9ddd', // Customize the color
+        'line-width': 2
+      }
+    },
+    // Style for active lines
+    {
+      'id': 'gl-draw-line-active',
+      'type': 'line',
+      'filter': ['all', ['==', '$type', 'LineString'], ['==', 'meta', 'feature']],
+      'layout': {
+        'line-cap': 'round',
+        'line-join': 'round'
+      },
+      'paint': {
+        'line-color': '#fbb03b', // Customize the color
+        'line-width': 2
+      }
+    },
+    // Style for polygon outlines
+    {
+      'id': 'gl-draw-polygon-stroke-inactive',
+      'type': 'line',
+      'filter': ['all', ['==', '$type', 'Polygon'], ['!=', 'meta', 'feature']],
+      'layout': {
+        'line-cap': 'round',
+        'line-join': 'round'
+      },
+      'paint': {
+        'line-color': '#3b9ddd', // Customize the color
+        'line-width': 2
+      }
+    },
+    // Style for polygon fill
+    {
+      'id': 'gl-draw-polygon-fill-inactive',
+      'type': 'fill',
+      'filter': ['all', ['==', '$type', 'Polygon'], ['!=', 'meta', 'feature']],
+      'layout': {},
+      'paint': {
+        'fill-color': '#3b9ddd', // Customize the color
+        'fill-opacity': 0.1
+      }
+    },
+    // Style for active polygon outlines
+    {
+      'id': 'gl-draw-polygon-stroke-active',
+      'type': 'line',
+      'filter': ['all', ['==', '$type', 'Polygon'], ['==', 'meta', 'feature']],
+      'layout': {
+        'line-cap': 'round',
+        'line-join': 'round'
+      },
+      'paint': {
+        'line-color': '#fbb03b', // Customize the color
+        'line-width': 2
+      }
+    },
+    // Style for active polygon fill
+    {
+      'id': 'gl-draw-polygon-fill-active',
+      'type': 'fill',
+      'filter': ['all', ['==', '$type', 'Polygon'], ['==', 'meta', 'feature']],
+      'layout': {},
+      'paint': {
+        'fill-color': '#fbb03b', // Customize the color
+        'fill-opacity': 0.1
+      }
+    },
+    // Style for vertex points
+    {
+      'id': 'gl-draw-polygon-and-line-vertex-inactive',
+      'type': 'circle',
+      'filter': ['all', ['==', 'meta', 'vertex'], ['==', '$type', 'Point']],
+      'layout': {},
+      'paint': {
+        'circle-radius': 5,
+        'circle-color': '#fff'
+      }
+    },
+    // Style for active vertex points
+    {
+      'id': 'gl-draw-polygon-and-line-vertex-active',
+      'type': 'circle',
+      'filter': ['all', ['==', 'meta', 'vertex'], ['==', '$type', 'Point'], ['==', 'active', 'true']],
+      'layout': {},
+      'paint': {
+        'circle-radius': 5,
+        'circle-color': '#fbb03b'
+      }
+    }
+    // Other styles for line and polygon can go here
+  ]
 });
 
 let selectedDataTableLayer = ""
 
 document.getElementById("draw-controls").appendChild(drawControls.onAdd(map));
 
-map.on("style.load", () => {
-  map.setFog({});
+map.on("load", () => {
+  map.loadImage('./location.png', function(error, image) {
+    if (error) throw error;
+    map.addImage('teardrop-icon', image)
+  });
+  map.loadImage("./location-active.png", (error, image) => {
+    if(error) throw error;
+    map.addImage("teardrop-icon-active", image)
+  })
 });
 
 let userInteracting = false;
 const spinEnabled = true;
-
-function spinGlobe() {
-  if (spinEnabled && !userInteracting && map.getZoom() < 5) {
-    map.easeTo({
-      center: [map.getCenter().lng - 360 / 240, map.getCenter().lat],
-      duration: 1000,
-      easing: (n) => n,
-    });
-  }
-}
 
 map.on("mousedown", () => {
   userInteracting = true;
@@ -54,9 +176,6 @@ map.on("dragstart", () => {
   userInteracting = true;
 });
 
-map.on("moveend", () => {
-  spinGlobe();
-});
 
 map.on("draw.selectionchange", (e)=>{
   featuresSelected = e.features;
@@ -78,6 +197,4 @@ if(selectedFeature){
   }
   }
 })
-
-spinGlobe();
 
