@@ -16,15 +16,16 @@ body {
 }
 form {
   position: absolute;
-  left: 4rem;
-  top: 1rem;
+  left: 0;
+  /* top: 1rem; */
   background-color: white;
-  padding: .5rem;
+  padding: 1rem .5rem;
   z-index: 1000;
   border-color: #666;
-  border-width: 2px;
-  border-radius: .5rem;
-  max-height: 90%;
+  
+  /* border-width: 2px; */
+  /* border-radius: .5rem; */
+  max-height: 100%;
   overflow-y: auto;
 }
 
