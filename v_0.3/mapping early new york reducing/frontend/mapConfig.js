@@ -181,6 +181,7 @@ map.on("draw.selectionchange", (e)=>{
   featuresSelected = e.features;
   if(!featuresSelected.length){
     toggleFeatureEditor(false)
+    Array.from(document.getElementsByClassName("layer-feature")).forEach(elem => elem.classList.remove("selected-layer-feature"))
   }else{
     const featureId = e.features[0].id
     // check if the feature id is part of the current layer features

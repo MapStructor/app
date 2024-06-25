@@ -1,5 +1,6 @@
 map.on("draw.create", (e) => {
   handleDrawCreate(e);
+  populateIdsTrayUnderLayers();
 });
 
 map.on("draw.delete", (e) => {

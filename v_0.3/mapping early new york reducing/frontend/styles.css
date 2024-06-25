@@ -196,6 +196,7 @@ h3 {
   background-color: #ddd;
   max-height: 80px;
   overflow-y: auto;
+  margin-bottom: 3px;
 }
 
 .viewDataTableIcon{
@@ -207,4 +208,17 @@ h3 {
 
 .viewDataTableIcon:active {
   filter: brightness(60%);
+}
+
+.layer-feature{
+  cursor: pointer;
+}
+
+.layer-feature:hover{
+  background-color: #868383f1;
+}
+
+.selected-layer-feature{
+  border-width: 3px;
+  border-color: #FFD700;
 }

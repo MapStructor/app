@@ -104,14 +104,22 @@ function populateIdsTrayUnderLayers(){
     const featuresTray = document.getElementById(layer.id + "-features");
     featuresTray.innerHTML = ``
     layer.features.forEach(feature => {
+      const id = feature.id;
       const trELem = document.createElement("tr");
+      trELem.classList.add("layer-feature")
+      trELem.addEventListener("click", e => {
+        // remove other higlighted features
+        Array.from(document.getElementsByClassName("layer-feature")).forEach(elem => elem.classList.remove("selected-layer-feature"))
+        drawControls.changeMode("simple_select", {
+          featureIds: [id]
+        })
+        toggleFeatureEditor(true, feature.properties)
+        trELem.classList.add("selected-layer-feature")
+      })
       const nameCell = document.createElement("td");
       nameCell.innerText = feature.properties.label || "No Label";
       trELem.appendChild(nameCell)
-      
       featuresTray.appendChild(trELem)
     })
   })
 }
-
-setInterval(populateIdsTrayUnderLayers, 1_000)
