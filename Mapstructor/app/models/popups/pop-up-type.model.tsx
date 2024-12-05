@@ -1,0 +1,13 @@
+export type PopupType = "light-blue" 
+                        | "blue"  
+                        | "light-red" 
+                        | "red" 
+                        | "light-green" 
+                        | "green" 
+                        | "light-purple" 
+                        | "purple" 
+                        | "yellow" 
+                        | "orange" 
+                        | "white" 
+                        | "light-grey" 
+                        | "grey";

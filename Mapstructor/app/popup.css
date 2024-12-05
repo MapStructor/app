@@ -1,0 +1,279 @@
+/* Mapbox Hover PopUp content */
+.mapboxgl-popup-content {
+    padding: 0;
+  }
+  
+  .mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+  .mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip,
+  .mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
+    border-bottom-color: #f15b28;
+  }
+  .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+  .mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+  .mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip {
+    border-top-color: #f15b28;
+  }
+  .mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+    border-right-color: #f15b28;
+  }
+  .mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+    border-left-color: #f15b28;
+  }
+  /*Right bar Popup Styling*/
+  #rightInfoBar {
+    position: absolute;
+    display: block;
+    /* top: 80px; */
+    top: 83px;
+    right: 0;
+  
+    /* Standard */
+    max-height: calc(100% - 230px);
+    /* Opera */
+    max-height: -o-calc(100% - 230px);
+    /* Firefox */
+    max-height: -moz-calc(100% - 230px);
+    /* WebKit */
+    max-height: -webkit-calc(100% - 230px);
+    overflow: auto;
+    /* background-color: transparent !important; */
+    background-color: #fff !important;
+    z-index: 100;
+  }
+
+  #popupHeader {
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 14px;
+  }
+  
+  .rightInfoBarBorder {
+    border: solid #ffffff 3px;
+  }
+
+#yellowSliderPopup,
+#greenSliderPopup,
+#light-redSliderPopup,
+#blueSliderPopup,
+#orangeSliderPopup,
+#light-greenSliderPopup,
+#light-purpleSliderPopup,
+#redSliderPopup,
+#light-blueSliderPopup,
+#purpleSliderPopup,
+#whiteSliderPopup,
+#light-greySliderPopup,
+#greySliderPopup {
+  padding: 5px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  width: 270px; /* left: 258px; width: 300px; */
+  /* dont break out a link */
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  /* word-break: break-all; */
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.yellowHoverPopup,
+.greenHoverPopup,
+.light-redHoverPopup,
+.blueHoverPopup,
+.orangeHoverPopup,
+.light-greenHoverPopup,
+.light-purpleHoverPopup,
+.redHoverPopup,
+.light-blueHoverPopup,
+.purpleHoverPopup,
+.whiteHoverPopup,
+.light-greyHoverPopup,
+.greyHoverPopup {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#light-greenSliderPopup,
+.light-greenHoverPopup {
+  background-color: rgb(102, 205, 170, 0.3); /* #66CDAA MediumAquamarine MENY IMPORT */
+  border: solid #66cdaa 2px;
+}
+#greenSliderPopup,
+.greenHoverPopup {
+  background-color: rgb(50, 205, 50, 0.3); /* #32CD32 LimeGreen MENY IMPORT */
+  border: solid #32cd32 2px;
+}
+#light-redSliderPopup,
+.light-redHoverPopup {
+  background-color: rgb(255, 192, 203, 0.3); /* #FFC0CB Pink MENY IMPORT */
+  border: solid pink 2px;
+}
+#redSliderPopup,
+.redHoverPopup {
+  background-color: rgba(211, 7, 41, 0.2); /* Red ISU COLOR */
+  border: solid rgb(104, 0, 18) 2px;
+}
+#light-blueSliderPopup,
+.light-blueHoverPopup {
+  background-color: rgba(116, 158, 250, 0.3); /* Light Blue ISU COLOR */
+  border: solid rgb(65, 99, 250) 2px;
+}
+#blueSliderPopup,
+.blueHoverPopup {
+  background-color: rgb(11, 14, 229, 0.2); /* #0b0ee5 MENY IMPORT */
+  border: solid #0b0ee5 2px;
+}
+#orangeSliderPopup,
+.orangeHoverPopup {
+  background-color: #e5870b33; /* #e5870b MENY IMPORT */
+  border: solid #e5870b 2px;
+}
+#yellowSliderPopup,
+.yellowHoverPopup {
+  background-color: rgb(255, 255, 0, 0.5); /* #FFFF00 Yellow MENY IMPORT */
+  border: solid #ffff00 2px;
+}
+#light-purpleSliderPopup,
+.light-purpleHoverPopup {
+  background-color: rgb(123, 104, 238, 0.3); /* #7B68EE MediumSlateBlue MENY IMPORT */
+  border: solid #7b68ee 2px;
+}
+#purpleSliderPopup,
+.purpleHoverPopup {
+  background-color: rgba(100, 3, 255, 0.3); /* Purple ISU COLOR */
+  border: solid #210b3f 2px;
+}
+#whiteSliderPopup,
+.whiteHoverPopup {
+  background-color: rgba(255, 255, 255, 0.3); /* White ISU COLOR */
+  border: solid #000000 2px;
+}
+#light-greySliderPopup,
+.light-greyHoverPopup {
+  background-color: rgba(204, 202, 202, 0.3); /* White ISU COLOR */
+  border: solid #757474 2px;
+}
+#greySliderPopup,
+.greyHoverPopup {
+  background-color: rgba(85, 85, 85, 0.3); /* White ISU COLOR */
+  border: solid #1b1b1b 2px;
+}
+
+.field__label {
+  font-weight: bold;
+}
+
+.field__item::after {
+  content: "";
+  display: block;
+  clear: both; /* Optional: Clear floats if necessary */
+  height: 1rem;
+}
+
+.field__item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/*INFO SIDEBAR SECTION TITLES*/
+div[class*="field--label-above"]::before {
+  font-weight: bold;
+  display: block;
+  padding-top: 10px;
+}
+
+/*LOT EVENTS STYLING*/
+
+
+/*SECTION TITLES AND BORDERS*/
+div[class*="field--name-field-party-role-in-transaction- field--type-entity-reference field--label-above"]::before {
+  content: "OWNERSHIP:";
+  border-top: 1px solid #ce5c00;
+}
+
+div[class*="field--name-field-partyrole field--type-entity-reference field--label-above"]::before {
+  content: "FROM:";
+  border-top: 2px solid #ce5c00;
+}
+
+div[class*="field--name-field-taxlotevent field--type-entity-reference field--label-above"]::before {
+  content: "LOT EVENT:";
+}
+
+div[class*="field--name-field-daystart field--type-datetime field--label-above"]::before {
+  content: "DATE:";
+  border-top: 1px solid #ce5c00;
+}
+
+/*REMOVE LINKS*/
+div[class="field field--name-field-party-role-in-transaction- field--type-entity-reference field--label-above"] .field__item a,
+div[class="field field--name-field-entity-description-to- field--type-entity-reference field--label-above"] .field__item a,
+div[class="field field--name-field-entity-description-to-part field--type-entity-reference field--label-above"] .field__item a,
+div[class="field field--name-field-partyrole field--type-entity-reference field--label-above"] .field__item a,
+div[class="field field--name-field-entity-desc field--type-entity-reference field--label-above"] .field__item a,
+div[class="field field--name-field-party-role3 field--type-entity-reference field--label-above"] .field__item a {
+  pointer-events: none;
+  text-decoration: none;
+  color: #000;
+  font-weight: 300;
+}
+
+/*REMOVE FIELD NAMES*/
+div[class*="field--name-field-party-role-in-transaction- field--type-entity-reference field--label-above"].field--label-above .field__label,
+div[class*="field--name-field-to field--type-entity-reference field--label-above"].field--label-above .field__label,
+div[class*="field--name-field-entity-description-to- field--type-entity-reference field--label-above"].field--label-above .field__label,
+div[class*="field--name-field-taxlotevent field--type-entity-reference field--label-above"].field--label-above .field__label,
+div[class*="field--name-field-daystart field--type-datetime field--label-above"].field--label-above .field__label,
+div[class*="field--name-field-partyrole field--type-entity-reference field--label-above"].field--label-above .field__label,
+div[class*="field--name-field-from field--type-entity-reference field--label-above"].field--label-above .field__label,
+div[class*="field--name-field-entity-desc field--type-entity-reference field--label-above"].field--label-above .field__label,
+
+div[class*="field field--name-field-to-party-1 field--type-entity-reference field--label-above"].field--label-above .field__label,
+div[class*="field field--name-field-entity-description-to-part field--type-entity-reference field--label-above"].field--label-above .field__label,
+
+
+div[class*="field--name-field-party-role3 field--type-entity-reference field--label-above"].field--label-above .field__label {
+  display: none;
+}
+
+/*REMOVE SPACES BENEATH*/
+div[class*="field--name-field-party-role-in-transaction- field--type-entity-reference field--label-above"].field--label-above .field__item::after,
+div[class*="field--name-field-to field--type-entity-reference field--label-above"].field--label-above .field__item::after,
+div[class*="field--name-field-partyrole field--type-entity-reference field--label-above"].field--label-above .field__item::after,
+div[class*="field--name-field-from field--type-entity-reference field--label-above"].field--label-above .field__item::after,
+div[class*="field field--name-field-to-party-1 field--type-entity-reference field--label-above"].field--label-above .field__item::after,
+div[class*="field--name-field-party-role3 field--type-entity-reference field--label-above"].field--label-above .field__item::after {
+  height: 0;
+}
+
+/*LOTS STYLING*/
+
+
+/*SECTION TITLES AND BORDERS*/
+
+div[class*="field field--name-field-date-start-text- field--type-string field--label-above"]::before {
+  content: "Start:";
+}
+
+/*REMOVE LABELS*/
+
+div[class*="field field--name-field-date-start-text- field--type-string field--label-above"].field--label-above .field__label,
+div[class*="field field--name-field-old-title field--type-string field--label-above"].field--label-above .field__label,
+div[class*="field field--name-field-old-title field--type-string field--label-above"].field--label-above .field__item {
+  display: none;
+}
+
+article a {
+  text-decoration: underline;
+}
