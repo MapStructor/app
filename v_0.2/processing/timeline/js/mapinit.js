@@ -68,7 +68,7 @@ const WorldBounds = [
 /////////////////////////////
 
 mapboxgl.accessToken =
-	"pk.eyJ1Ijoibml0dHlqZWUiLCJhIjoid1RmLXpycyJ9.NFk875-Fe6hoRCkGciG8yQ";
+	"pk.eyJ1Ijoibml0dHlqZWUiLCJhIjoiY204N2huMjdzMDU0dDJrb2E1YzE2dXFsaCJ9.09OnhGpJzCKlPSDCSxxonA";
 
 
 

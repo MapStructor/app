@@ -3,7 +3,7 @@
 
 let featuresSelected = []
 
-mapboxgl.accessToken = "pk.eyJ1IjoibWFwbnkiLCJhIjoiY2xtMG93amk4MnBrZTNnczUzY2VvYjg0ciJ9.MDMHYBlVbG14TJD120t6NQ";
+mapboxgl.accessToken = "pk.eyJ1Ijoibml0dHlqZWUiLCJhIjoiY204N2huMjdzMDU0dDJrb2E1YzE2dXFsaCJ9.09OnhGpJzCKlPSDCSxxonA";
 
 const map = new mapboxgl.Map({
   container: "map",
