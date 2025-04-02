@@ -67,6 +67,7 @@ const WorldBounds = [
 //ACCESS TOKEN
 /////////////////////////////
 
+//OLD TOKEN - REPLACE WITH CURRENT TOKEN IN CONFIG FILE
 mapboxgl.accessToken =
 	"pk.eyJ1Ijoibml0dHlqZWUiLCJhIjoiY204N2huMjdzMDU0dDJrb2E1YzE2dXFsaCJ9.09OnhGpJzCKlPSDCSxxonA";
 
