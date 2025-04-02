@@ -32,6 +32,7 @@ Where I should look up meaning of code:
     <!--LOCAL CSS SOURCE-->
     <link href='index.css' rel='stylesheet' />
 
+    <script src="../../../config.js"></script>
 
 </head>
 
@@ -89,7 +90,7 @@ Where I should look up meaning of code:
     <script>
 
         //ACCESS TOKEN
-        mapboxgl.accessToken = 'pk.eyJ1Ijoibml0dHlqZWUiLCJhIjoiY204N2huMjdzMDU0dDJrb2E1YzE2dXFsaCJ9.09OnhGpJzCKlPSDCSxxonA';
+        mapboxgl.accessToken = MAPBOX_TOKEN;
 
         //ADD MAP
         var beforeMap = new mapboxgl.Map({
