@@ -2,7 +2,8 @@
 // Set the access token for Mapbox services.
 
 //ACCESS TOKEN
-mapboxgl.accessToken = MAPBOX_TOKEN;
+//Actually replace this with the Mapny token in config file
+mapboxgl.accessToken = 'MAPBOX_TOKEN';
 
 
 // #endregion
