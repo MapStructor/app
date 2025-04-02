@@ -2,8 +2,8 @@
 // Set the access token for Mapbox services.
 
 //ACCESS TOKEN
-mapboxgl.accessToken =
-  "pk.eyJ1Ijoibml0dHlqZWUiLCJhIjoiY204N2huMjdzMDU0dDJrb2E1YzE2dXFsaCJ9.09OnhGpJzCKlPSDCSxxonA";
+mapboxgl.accessToken = MAPBOX_TOKEN;
+
 
 // #endregion
 
