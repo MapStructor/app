@@ -1,0 +1,158 @@
+/* Timeline styles */
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f3f3f3; 
+  border-top: 1px solid #cccccc; 
+  border-bottom: 2px solid darkorange; 
+  width: 100%;
+  position: relative;
+  height: 40px;
+}
+
+/* Footer styling */
+#footer {
+  padding: 20px 0;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Year labels */
+.year {
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  border: none; 
+}
+
+/* Individual date styling */
+.year span {
+  display: block;
+  padding: 2px 5px;
+  color: black;
+  background-color: #d1ecff; 
+  border: none; 
+  font-weight: bold;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* Timeline ruler */
+.timeline-ruler {
+  display: none; 
+}
+
+/* Horizontal Slider container */
+.slider-container-horizontal {
+  position: relative;
+  height: 50px; 
+  width: 100%;
+  background-color: transparent;
+  margin: 0 auto;
+  top: -21px; /*Slider Height*/
+  transform: translateY(-50%);
+}
+
+/* Horizontal Slider track */
+.slider-track-horizontal {
+  height: 0px; 
+  width: 100%;
+  background-color: #ccc; 
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Horizontal Slider handle */
+.slider-handle-horizontal {
+  position: absolute;
+  top: 50%;
+  width: 25px; 
+  height: 50px; 
+  background-color: #007aff; 
+  border: 2px solid black; 
+  border-radius: 10px; 
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: left 0.2s ease, background-color 0.2s ease; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+}
+
+/* Hover and active states */
+.slider-handle-horizontal:hover {
+  background-color: #005bb5; 
+}
+
+.slider-container-horizontal:active .slider-handle-horizontal {
+  background-color: #004999; 
+}
+
+/* Date panel styling */
+#datepanel {
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  border: 4px solid #000000;
+  border-radius: 8px;
+  background-color: #3989c1;
+  padding: 10px 20px;
+  font-size: 21px;
+  color: #ffffff;
+  z-index: 500;
+  word-spacing: 5px;
+  min-width: 210px;
+  text-align: right;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Date text inside the panel */
+#date {
+  font-size: 34px;
+  background: none;
+  border: 0;
+  text-align: center;
+  font-weight: bold;
+  color: #ffffff;
+  padding-right: 10px;
+}
+
+/* Initial state (gray) */
+.slider-handle-initial {
+  background-color: gray; 
+  border-radius: 8px; 
+  width: 25px;
+  height: 50px;
+  transition: background-color 0.3s ease; 
+}
+
+
+.slider-handle-initial:hover {
+  background-color: #007aff; /* Blue on hover */
+}
+
+/* Active state (gold) */
+.slider-handle-active {
+  background-color: darkorange; 
+  border-radius: 8px;
+  width: 25px;
+  height: 50px;
+}
+
+@media (max-width: 768px) {
+  #datepanel {
+    bottom: 60px;
+    right: 10px;
+    font-size: 18px;
+    padding: 8px 20px;
+  }
+
+  #date {
+    font-size: 30px;
+    width: 130px;
+  }
+}

@@ -1,0 +1,99 @@
+.map-style {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .compare-swiper {
+    width: 2px;
+    height: calc(100% - 74px); 
+    background-color: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 10;
+    cursor: ew-resize;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+  }
+  
+  .compare-circle {
+    background-color: #007aff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    transform: translateY(-50%);
+    margin: -30px 1px 0;
+    z-index: 20;
+    box-shadow: inset 0 0 0 2px #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #ffffff;
+    cursor: ew-resize;
+  }
+
+  .map-controls {
+    position: absolute;
+    bottom: 90px; /* Adjust this to align with the bottom of the date panel */
+    right: 300px; /* Adjust based on where you want the buttons */
+    z-index: 999;
+    display: flex;
+    gap: 0; /* No gap between the buttons */
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 5px; /* Rounded corners for the entire rectangle */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .button-container {
+    display: flex;
+  }
+  
+  .zoom-btn {
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold; 
+    color: #333333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+  .north-btn {
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    color: #333333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+  .zoom-btn:hover, .north-btn:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .zoom-btn:active, .north-btn:active {
+    background-color: #e0e0e0;
+  }
+  
+  .zoom-btn + .zoom-btn, .zoom-btn + .north-btn {
+    border-left: 1px solid #bebbbb; /* Line between buttons */
+  }

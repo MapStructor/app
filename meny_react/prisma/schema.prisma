@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Command for refreashing the db: 
+//        npx prisma generate; npx prisma db push
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Map {
+  id           Int  @id @unique @default(autoincrement())
+  name         String @unique
+  checked      Boolean
+  infoId       String
+  zoomFunction String
+}
+
+model LayerSection {
+  name   String             @id
+  layers LayerSectionData[]
+}
+
+model LayerSectionData {
+  name          String       @id
+  section       LayerSection @relation(fields: [sectionName], references: [name])
+  sectionName   String
+  iconColor     String
+  label         String
+  zoomTo        String
+  groupName     LayerGroup?  @relation(fields: [topLayerClass], references: [name])
+  topLayerClass String
+  infoId        String?
+  layers        Layer[]
+}
+
+model LayerGroup {
+  name        String             @id
+  childLayers LayerSectionData[]
+}
+
+model Layer {
+  id               String            @id
+  layerName        String
+  type             String
+  LayerSectionData LayerSectionData? @relation(fields: [sectionName], references: [name])
+  sectionName      String?
+  sourceType       String?
+  sourceUrl        String
+  visibility       Boolean?
+  paint            String?
+}
